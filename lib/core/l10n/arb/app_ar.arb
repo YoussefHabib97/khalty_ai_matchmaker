@@ -1,0 +1,10 @@
+{
+  "@@locale": "ar",
+
+  "appTitle": "خالتي",
+  "languageLabel": "اللغة",
+  "themeLabel": "المظهر",
+  "languageEnglish": "English",
+  "languageArabic": "العربية",
+  "welcomeGreeting": "{gender, select, male{أهلًا بك يا ابني} female{أهلًا بكِ يا بنتي} other{أهلًا وسهلًا}}"
+}

@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:khalty_ai_matchmaker/app/di/app_dependencies.dart';
 import 'package:khalty_ai_matchmaker/app/navigation/app_router.dart';
 import 'package:khalty_ai_matchmaker/core/constants/constants.dart';
+import 'package:khalty_ai_matchmaker/core/l10n/cubit/locale_cubit.dart';
+import 'package:khalty_ai_matchmaker/core/l10n/generated/app_localizations.dart';
+import 'package:khalty_ai_matchmaker/core/l10n/l10n_extensions.dart';
 import 'package:khalty_ai_matchmaker/core/theme/app_theme.dart';
 import 'package:khalty_ai_matchmaker/core/theme/cubit/theme_cubit.dart';
 import 'package:khalty_ai_matchmaker/core/utils/shared_preferences.dart';
@@ -37,12 +40,26 @@ class _ApplicationRootState extends State<ApplicationRoot> {
         splitScreenMode: true,
         builder: (context, child) => PopScope(
           canPop: true,
-          child: BlocProvider(
-            create: (context) => AppThemeCubit(),
-            child: BlocBuilder<AppThemeCubit, AppThemeState>(
-              builder: (context, state) {
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => AppThemeCubit()),
+              BlocProvider(create: (context) => LocaleCubit()),
+            ],
+            child: Builder(
+              builder: (context) {
+                final locale = context.watch<LocaleCubit>().state;
+                final state = context.watch<AppThemeCubit>().state;
                 return MaterialApp.router(
                   routerConfig: _router,
+                  locale: locale,
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  // material_ui's delegates, not the generated list (which
+                  // uses the deprecated flutter_localizations Material ones).
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    ...GlobalMaterialLocalizations.delegates,
+                  ],
+                  onGenerateTitle: (context) => context.l10n.appTitle,
                   theme: AppTheme.light,
                   darkTheme: AppTheme.dark,
                   themeMode:
@@ -56,7 +73,6 @@ class _ApplicationRootState extends State<ApplicationRoot> {
                       ? ThemeMode.light
                       : ThemeMode.dark,
                   debugShowCheckedModeBanner: false,
-                  title: 'Khalty',
                 );
               },
             ),

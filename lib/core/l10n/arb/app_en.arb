@@ -1,0 +1,38 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Khalty",
+  "@appTitle": {
+    "description": "App name shown in the app bar and task switcher."
+  },
+
+  "languageLabel": "Language",
+  "@languageLabel": {
+    "description": "Label for the language selector."
+  },
+
+  "themeLabel": "Theme",
+  "@themeLabel": {
+    "description": "Label for the light/dark theme selector."
+  },
+
+  "languageEnglish": "English",
+  "@languageEnglish": {
+    "description": "Name of the English language, always written in English."
+  },
+
+  "languageArabic": "العربية",
+  "@languageArabic": {
+    "description": "Name of the Arabic language, always written in Arabic."
+  },
+
+  "welcomeGreeting": "{gender, select, male{Welcome, my son} female{Welcome, my daughter} other{Welcome}}",
+  "@welcomeGreeting": {
+    "description": "Khalty's greeting. 'gender' is the user's gender (male/female); 'other' is used before the user has chosen.",
+    "placeholders": {
+      "gender": {
+        "type": "String"
+      }
+    }
+  }
+}
