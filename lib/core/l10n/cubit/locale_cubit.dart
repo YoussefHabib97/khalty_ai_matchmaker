@@ -8,11 +8,15 @@ import 'package:khalty_ai_matchmaker/core/utils/shared_preferences.dart';
 /// Holds the app language. The saved choice wins; on first run the device
 /// language is used when supported (Arabic), otherwise English.
 class LocaleCubit extends Cubit<Locale> {
-  LocaleCubit({Locale? deviceLocale})
-    : super(_initial(deviceLocale ?? PlatformDispatcher.instance.locale));
+  LocaleCubit(this._prefs, {Locale? deviceLocale})
+    : super(
+        _initial(_prefs, deviceLocale ?? PlatformDispatcher.instance.locale),
+      );
 
-  static Locale _initial(Locale device) {
-    final saved = SharedPrefs.getData(key: kAppLocaleKey);
+  final SharedPrefs _prefs;
+
+  static Locale _initial(SharedPrefs prefs, Locale device) {
+    final saved = prefs.getData(key: kAppLocaleKey);
     if (saved is String && _isSupported(saved)) return Locale(saved);
     if (_isSupported(device.languageCode)) return Locale(device.languageCode);
     return const Locale('en');
@@ -24,7 +28,7 @@ class LocaleCubit extends Cubit<Locale> {
 
   Future<void> setLocale(Locale locale) async {
     if (!_isSupported(locale.languageCode)) return;
-    await SharedPrefs.setData(key: kAppLocaleKey, value: locale.languageCode);
+    await _prefs.setData(key: kAppLocaleKey, value: locale.languageCode);
     emit(Locale(locale.languageCode));
   }
 }

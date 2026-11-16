@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:khalty_ai_matchmaker/app/app.dart';
-import 'package:khalty_ai_matchmaker/app/di/app_dependencies.dart';
+import 'package:khalty_ai_matchmaker/app/di/service_locator.dart';
 import 'package:khalty_ai_matchmaker/core/constants/constants.dart';
 import 'package:khalty_ai_matchmaker/core/shared/widgets/language_toggle.dart';
 import 'package:khalty_ai_matchmaker/core/shared/widgets/theme_switcher_widget.dart';
@@ -14,8 +14,10 @@ Future<void> _pumpApp(WidgetTester tester, Map<String, Object> prefs) async {
   tester.view.devicePixelRatio = 3;
   addTearDown(tester.view.reset);
 
-  final dependencies = await AppDependencies.create();
-  await tester.pumpWidget(ApplicationRoot(dependencies: dependencies));
+  await setupServiceLocator();
+  addTearDown(getIt.reset);
+
+  await tester.pumpWidget(const ApplicationRoot());
   await tester.pumpAndSettle();
 }
 

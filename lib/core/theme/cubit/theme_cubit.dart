@@ -1,35 +1,38 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khalty_ai_matchmaker/core/constants/constants.dart';
 import 'package:khalty_ai_matchmaker/core/utils/shared_preferences.dart';
+import 'package:material_ui/material_ui.dart';
 
 part 'theme_state.dart';
 
 class AppThemeCubit extends Cubit<AppThemeState> {
-  AppThemeCubit() : super(AppThemeInitialState());
+  AppThemeCubit(this._prefs) : super(AppThemeInitialState());
 
-  Set<ThemeState> getThemeState() {
-    switch (SharedPrefs.instance.getString(kAppThemeKey)) {
-      case kAppThemeLight:
-        return {ThemeState.light};
+  final SharedPrefs _prefs;
 
-      case kAppThemeDark:
-        return {ThemeState.dark};
+  /// The mode `MaterialApp` should use, read from the saved choice.
+  ThemeMode get themeMode => switch (_prefs.getData(key: kAppThemeKey)) {
+    kAppThemeLight => ThemeMode.light,
+    kAppThemeDark => ThemeMode.dark,
+    _ => ThemeMode.system,
+  };
 
-      default:
-        return {ThemeState.deviceDefault};
-    }
-  }
+  Set<ThemeState> getThemeState() => switch (themeMode) {
+    ThemeMode.light => {ThemeState.light},
+    ThemeMode.dark => {ThemeState.dark},
+    ThemeMode.system => {ThemeState.deviceDefault},
+  };
 
-  void setTheme(ThemeState state) {
+  Future<void> setTheme(ThemeState state) async {
     switch (state) {
       case ThemeState.light:
-        SharedPrefs.setData(key: kAppThemeKey, value: kAppThemeLight);
+        await _prefs.setData(key: kAppThemeKey, value: kAppThemeLight);
         emit(LightThemeState());
       case ThemeState.dark:
-        SharedPrefs.setData(key: kAppThemeKey, value: kAppThemeDark);
+        await _prefs.setData(key: kAppThemeKey, value: kAppThemeDark);
         emit(DarkThemeState());
-      default:
-        SharedPrefs.setData(key: kAppThemeKey, value: kAppThemeDeviceDefault);
+      case ThemeState.deviceDefault:
+        await _prefs.setData(key: kAppThemeKey, value: kAppThemeDeviceDefault);
         emit(DeviceDefaultThemeState());
     }
   }
