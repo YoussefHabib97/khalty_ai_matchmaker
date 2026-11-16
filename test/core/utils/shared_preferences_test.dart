@@ -6,12 +6,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../helpers/prefs.dart';
 
 void main() {
-  test('first launch is a first run and seeds the device-default theme', () async {
-    final prefs = await mockPrefs();
-    expect(prefs.isAppFirstRun, isTrue);
-    expect(prefs.getData(key: kAppThemeKey), kAppThemeDeviceDefault);
-    expect(prefs.getData(key: SharedPrefs.kIsAppFirstRunKey), isFalse);
-  });
+  test(
+    'first launch is a first run and seeds the device-default theme',
+    () async {
+      final prefs = await mockPrefs();
+      expect(prefs.isAppFirstRun, isTrue);
+      expect(prefs.getData(key: kAppThemeKey), kAppThemeDeviceDefault);
+      expect(prefs.getData(key: SharedPrefs.kIsAppFirstRunKey), isFalse);
+    },
+  );
 
   test('later launches are not first runs and keep the chosen theme', () async {
     final first = await mockPrefs();
