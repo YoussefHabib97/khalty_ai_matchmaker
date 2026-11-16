@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:khalty_ai_matchmaker/constants.dart';
-import 'package:khalty_ai_matchmaker/core/helpers/shared_preferences.dart';
+import 'package:khalty_ai_matchmaker/core/constants/constants.dart';
+import 'package:khalty_ai_matchmaker/core/utils/shared_preferences.dart';
 
 part 'theme_state.dart';
 

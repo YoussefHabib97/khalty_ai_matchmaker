@@ -1,4 +1,4 @@
-import 'package:khalty_ai_matchmaker/constants.dart';
+import 'package:khalty_ai_matchmaker/core/constants/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
