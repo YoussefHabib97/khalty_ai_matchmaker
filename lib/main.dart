@@ -7,5 +7,5 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await setupServiceLocator();
-  runApp(const ApplicationRoot());
+  runApp(ApplicationRoot(router: getIt(), session: getIt()));
 }

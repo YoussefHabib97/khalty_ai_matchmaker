@@ -11,6 +11,10 @@ import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/fiel
 class Consent {
   const Consent({required this.version, required this.acceptedAt});
 
+  /// Version of the consent text shown at sign-up today. Bump it when the
+  /// wording changes so users who accepted an older version can be asked again.
+  static const currentVersion = 1;
+
   /// Version of the consent text the user accepted.
   final int version;
   final DateTime acceptedAt;

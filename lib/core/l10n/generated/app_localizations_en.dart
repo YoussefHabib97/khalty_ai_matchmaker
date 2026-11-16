@@ -33,4 +33,34 @@ class AppLocalizationsEn extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String get tabKhalty => 'Khalty';
+
+  @override
+  String get tabMatches => 'Matches';
+
+  @override
+  String get tabChats => 'Chats';
+
+  @override
+  String get tabMe => 'Me';
+
+  @override
+  String get signUpTitle => 'Sign up';
+
+  @override
+  String get verifyCodeTitle => 'Verify your number';
+
+  @override
+  String get intakeTitle => 'Getting to know you';
+
+  @override
+  String get selfIntroTitle => 'In your own words';
+
+  @override
+  String get reviewTitle => 'What I understood';
+
+  @override
+  String get placeholderComingSoon => 'This screen is coming soon.';
 }

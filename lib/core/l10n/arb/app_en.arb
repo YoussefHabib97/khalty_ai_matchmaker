@@ -34,5 +34,28 @@
         "type": "String"
       }
     }
-  }
+  },
+
+  "tabKhalty": "Khalty",
+  "@tabKhalty": { "description": "Bottom navigation: Khalty's chat and status tab." },
+  "tabMatches": "Matches",
+  "@tabMatches": { "description": "Bottom navigation: suggested matches tab." },
+  "tabChats": "Chats",
+  "@tabChats": { "description": "Bottom navigation: introduction chats tab." },
+  "tabMe": "Me",
+  "@tabMe": { "description": "Bottom navigation: the user's own profile and settings tab." },
+
+  "signUpTitle": "Sign up",
+  "@signUpTitle": { "description": "Title of the sign-up screen (gender, phone, consent)." },
+  "verifyCodeTitle": "Verify your number",
+  "@verifyCodeTitle": { "description": "Title of the screen where the SMS code is entered." },
+  "intakeTitle": "Getting to know you",
+  "@intakeTitle": { "description": "Title of the questionnaire screens." },
+  "selfIntroTitle": "In your own words",
+  "@selfIntroTitle": { "description": "Title of the self-introduction screen." },
+  "reviewTitle": "What I understood",
+  "@reviewTitle": { "description": "Title of the screen with Khalty's summary of the user." },
+
+  "placeholderComingSoon": "This screen is coming soon.",
+  "@placeholderComingSoon": { "description": "Temporary text on screens that are not built yet." }
 }

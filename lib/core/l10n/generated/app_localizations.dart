@@ -133,6 +133,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{gender, select, male{Welcome, my son} female{Welcome, my daughter} other{Welcome}}'**
   String welcomeGreeting(String gender);
+
+  /// Bottom navigation: Khalty's chat and status tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Khalty'**
+  String get tabKhalty;
+
+  /// Bottom navigation: suggested matches tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Matches'**
+  String get tabMatches;
+
+  /// Bottom navigation: introduction chats tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Chats'**
+  String get tabChats;
+
+  /// Bottom navigation: the user's own profile and settings tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Me'**
+  String get tabMe;
+
+  /// Title of the sign-up screen (gender, phone, consent).
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get signUpTitle;
+
+  /// Title of the screen where the SMS code is entered.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your number'**
+  String get verifyCodeTitle;
+
+  /// Title of the questionnaire screens.
+  ///
+  /// In en, this message translates to:
+  /// **'Getting to know you'**
+  String get intakeTitle;
+
+  /// Title of the self-introduction screen.
+  ///
+  /// In en, this message translates to:
+  /// **'In your own words'**
+  String get selfIntroTitle;
+
+  /// Title of the screen with Khalty's summary of the user.
+  ///
+  /// In en, this message translates to:
+  /// **'What I understood'**
+  String get reviewTitle;
+
+  /// Temporary text on screens that are not built yet.
+  ///
+  /// In en, this message translates to:
+  /// **'This screen is coming soon.'**
+  String get placeholderComingSoon;
 }
 
 class _AppLocalizationsDelegate

@@ -33,4 +33,34 @@ class AppLocalizationsAr extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String get tabKhalty => 'خالتي';
+
+  @override
+  String get tabMatches => 'الترشيحات';
+
+  @override
+  String get tabChats => 'المحادثات';
+
+  @override
+  String get tabMe => 'حسابي';
+
+  @override
+  String get signUpTitle => 'التسجيل';
+
+  @override
+  String get verifyCodeTitle => 'تأكيد رقمك';
+
+  @override
+  String get intakeTitle => 'لنتعارف';
+
+  @override
+  String get selfIntroTitle => 'بكلماتك';
+
+  @override
+  String get reviewTitle => 'ما فهمته عنك';
+
+  @override
+  String get placeholderComingSoon => 'هذه الشاشة قادمة قريبًا.';
 }

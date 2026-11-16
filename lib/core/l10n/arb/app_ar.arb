@@ -6,5 +6,18 @@
   "themeLabel": "المظهر",
   "languageEnglish": "English",
   "languageArabic": "العربية",
-  "welcomeGreeting": "{gender, select, male{أهلًا بك يا ابني} female{أهلًا بكِ يا بنتي} other{أهلًا وسهلًا}}"
+  "welcomeGreeting": "{gender, select, male{أهلًا بك يا ابني} female{أهلًا بكِ يا بنتي} other{أهلًا وسهلًا}}",
+
+  "tabKhalty": "خالتي",
+  "tabMatches": "الترشيحات",
+  "tabChats": "المحادثات",
+  "tabMe": "حسابي",
+
+  "signUpTitle": "التسجيل",
+  "verifyCodeTitle": "تأكيد رقمك",
+  "intakeTitle": "لنتعارف",
+  "selfIntroTitle": "بكلماتك",
+  "reviewTitle": "ما فهمته عنك",
+
+  "placeholderComingSoon": "هذه الشاشة قادمة قريبًا."
 }

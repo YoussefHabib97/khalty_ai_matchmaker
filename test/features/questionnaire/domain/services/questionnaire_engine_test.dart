@@ -106,7 +106,7 @@ void main() {
     });
 
     test('changing an answer brings a question back', () {
-      final done = fillAll(
+      final done = QuestionnaireAutofill.answerAll(
         man,
         overrides: {'marital_status': const ChoiceAnswer('never_married')},
       );
@@ -133,13 +133,17 @@ void main() {
       var a = Answers();
       for (var i = 0; i < 5; i++) {
         final next = man.nextField(a)!;
-        a = man.apply(a, next.key, defaultAnswer(man, next, a));
+        a = man.apply(
+          a,
+          next.key,
+          QuestionnaireAutofill.defaultAnswer(man, next, a),
+        );
       }
       expect(man.nextField(a), man.fields[5]);
     });
 
     test('an answer whose option no longer exists is asked again', () {
-      final complete = fillAll(man);
+      final complete = QuestionnaireAutofill.answerAll(man);
       final stale = complete.set('education', const ChoiceAnswer('old_id'));
       expect(man.nextField(stale)?.key, 'education');
     });
@@ -154,7 +158,7 @@ void main() {
     });
 
     test('Back from the end and from the first question', () {
-      final done = fillAll(man);
+      final done = QuestionnaireAutofill.answerAll(man);
       expect(man.previousField(null, done), man.fields.last);
       expect(man.previousField('name', done), isNull);
       expect(() => man.previousField('hijab', done), throwsArgumentError);
@@ -291,7 +295,7 @@ void main() {
       test('reaches 100% for a ${engine.gender.name}, and the count only goes '
           'down', () {
         var lastRemaining = engine.progress(Answers()).remaining;
-        final done = fillAll(
+        final done = QuestionnaireAutofill.answerAll(
           engine,
           onStep: (a) {
             final remaining = engine.progress(a).remaining;
@@ -336,7 +340,7 @@ void main() {
 
   group('AI payload', () {
     test('uses English labels and leaves out what does not apply', () {
-      final done = fillAll(
+      final done = QuestionnaireAutofill.answerAll(
         man,
         overrides: {
           'religious_commitment': const ChoiceAnswer('pray_sometimes'),
