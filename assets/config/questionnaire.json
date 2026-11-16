@@ -1,0 +1,1709 @@
+{
+  "_readme": [
+    "Khalty's questionnaire. The app reads this file at startup and checks it; a mistake shows an error naming the exact place.",
+    "Texts: every text has \"en\" and \"ar\". A language can be one text, or {\"male\": ..., \"female\": ...} chosen by the USER's gender.",
+    "Placeholders in {curly braces} are filled in by the app: {name}, {detected} (country from the phone), {residence} (country they live in).",
+    "Option \"id\"s are saved in users' answers: never change or reuse an id once it is live. Labels can be reworded at any time.",
+    "\"if\" asks a question only when an earlier answer matches (by option id); otherwise \"else_value\" / \"else_from\" is used, or it is skipped.",
+    "\"visibility\": \"card\" = matches may see it; \"khalty\" = private, never shown on the card.",
+    "\"needs_review\": [\"ar\"] = the Arabic still needs review by a native speaker."
+  ],
+  "schema_version": 2,
+  "chapters": [
+    {
+      "id": 1,
+      "title": {
+        "en": "About you",
+        "ar": "عنك"
+      }
+    },
+    {
+      "id": 2,
+      "title": {
+        "en": "Faith",
+        "ar": "الدين"
+      },
+      "intro": {
+        "en": "Now a few questions about faith 🌙 There are no wrong answers.",
+        "ar": "والآن أسئلة قليلة عن الدين 🌙 لا توجد إجابة خاطئة."
+      }
+    },
+    {
+      "id": 3,
+      "title": {
+        "en": "Your future",
+        "ar": "مستقبلك"
+      },
+      "intro": {
+        "en": "Let's talk about your future 🏡",
+        "ar": "لنتحدث عن مستقبلك 🏡"
+      }
+    },
+    {
+      "id": 4,
+      "title": {
+        "en": "Your future spouse",
+        "ar": "شريك حياتك"
+      },
+      "intro": {
+        "en": "Now tell me about the spouse you hope for 💍",
+        "ar": "والآن حدّثني عن شريك الحياة الذي تتمناه 💍"
+      }
+    },
+    {
+      "id": 5,
+      "title": {
+        "en": "Deal-breakers",
+        "ar": "ما لا تقبله"
+      },
+      "intro": {
+        "en": "Last part: is anything a firm no for you?",
+        "ar": "الجزء الأخير: هل هناك شيء مرفوض تمامًا؟"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "key": "name",
+      "chapter": 1,
+      "input": "text",
+      "visibility": "card",
+      "question": {
+        "en": "What is your name, dear? The name you would like me to call you.",
+        "ar": {
+          "male": "ما اسمك يا ابني؟ الاسم الذي تحب أن أناديك به.",
+          "female": "ما اسمك يا بنتي؟ الاسم الذي تحبين أن أناديك به."
+        }
+      },
+      "why": {
+        "en": "So I can talk to you by name. Your name stays hidden from others until you both agree to be introduced.",
+        "ar": "حتى أناديك باسمك. يبقى اسمك مخفيًا عن الآخرين حتى توافقا على التعارف."
+      }
+    },
+    {
+      "key": "age",
+      "chapter": 1,
+      "input": "number",
+      "visibility": "card",
+      "question": {
+        "en": "How old are you, {name}? Please type your age in years.",
+        "ar": {
+          "male": "كم عمرك يا {name}؟ اكتب عمرك بالأرقام.",
+          "female": "كم عمرك يا {name}؟ اكتبي عمرك بالأرقام."
+        }
+      },
+      "why": {
+        "en": "Age is one of the first things families ask about, and it helps me respect the age range each person wants.",
+        "ar": "العمر من أول ما تسأل عنه العائلات، ويساعدني على احترام الفئة العمرية التي يريدها كل طرف."
+      },
+      "invalid": {
+        "en": "Please type your age as a number between 18 and 80, for example 29.",
+        "ar": "من فضلك اكتب العمر رقمًا بين 18 و80، مثل 29."
+      },
+      "min": 18,
+      "max": 80
+    },
+    {
+      "key": "country",
+      "chapter": 1,
+      "input": "country",
+      "visibility": "card",
+      "question": {
+        "en": "Are you living in {detected}?",
+        "ar": {
+          "male": "هل تعيش في {detected}؟",
+          "female": "هل تعيشين في {detected}؟"
+        }
+      },
+      "question_pick": {
+        "en": "Which country do you live in?",
+        "ar": {
+          "male": "في أي دولة تعيش؟",
+          "female": "في أي دولة تعيشين؟"
+        }
+      },
+      "why": {
+        "en": "Where you live matters for meeting, families and whether someone would need to move.",
+        "ar": "مكان إقامتك مهم للقاء والعائلات، ولمعرفة إن كان أحد الطرفين سيحتاج للانتقال."
+      }
+    },
+    {
+      "key": "city",
+      "chapter": 1,
+      "input": "text",
+      "visibility": "card",
+      "question": {
+        "en": "Which city?",
+        "ar": "وفي أي مدينة؟"
+      },
+      "why": {
+        "en": "Distance matters. I show only your city, never your address.",
+        "ar": "المسافة مهمة. أعرض مدينتك فقط، ولا أعرض عنوانك أبدًا."
+      }
+    },
+    {
+      "key": "nationality",
+      "chapter": 1,
+      "input": "country",
+      "visibility": "card",
+      "question": {
+        "en": "Is your nationality {residence}?",
+        "ar": "هل جنسيتك {residence}؟"
+      },
+      "question_pick": {
+        "en": "What is your nationality?",
+        "ar": "ما جنسيتك؟"
+      },
+      "why": {
+        "en": "Many families care about nationality, and it affects residence and paperwork after marriage.",
+        "ar": "تهتم عائلات كثيرة بالجنسية، وهي تؤثر على الإقامة والأوراق بعد الزواج."
+      }
+    },
+    {
+      "key": "second_nationality",
+      "chapter": 1,
+      "input": "country_optional",
+      "visibility": "card",
+      "question": {
+        "en": "Do you have a second nationality?",
+        "ar": {
+          "male": "هل لديك جنسية ثانية؟",
+          "female": "هل لديكِ جنسية ثانية؟"
+        }
+      },
+      "question_pick": {
+        "en": "Which one?",
+        "ar": "ما هي؟"
+      },
+      "why": {
+        "en": "A second nationality can make moving and travelling easier for both of you.",
+        "ar": "الجنسية الثانية قد تسهّل الانتقال والسفر لكما."
+      }
+    },
+    {
+      "key": "languages",
+      "chapter": 1,
+      "input": "multi",
+      "visibility": "card",
+      "question": {
+        "en": "Which languages do you speak?",
+        "ar": {
+          "male": "ما اللغات التي تتحدثها؟",
+          "female": "ما اللغات التي تتحدثينها؟"
+        }
+      },
+      "why": {
+        "en": "Sharing a language makes daily life, and getting to know each other's families, easier.",
+        "ar": "اللغة المشتركة تسهّل الحياة اليومية والتعارف بين العائلتين."
+      },
+      "options": [
+        {
+          "id": "arabic",
+          "label": {
+            "en": "Arabic",
+            "ar": "العربية"
+          }
+        },
+        {
+          "id": "english",
+          "label": {
+            "en": "English",
+            "ar": "الإنجليزية"
+          }
+        },
+        {
+          "id": "french",
+          "label": {
+            "en": "French",
+            "ar": "الفرنسية"
+          }
+        },
+        {
+          "id": "urdu",
+          "label": {
+            "en": "Urdu",
+            "ar": "الأردية"
+          }
+        },
+        {
+          "id": "turkish",
+          "label": {
+            "en": "Turkish",
+            "ar": "التركية"
+          }
+        },
+        {
+          "id": "persian",
+          "label": {
+            "en": "Persian",
+            "ar": "الفارسية"
+          }
+        },
+        {
+          "id": "malay_indonesian",
+          "label": {
+            "en": "Malay / Indonesian",
+            "ar": "الملايوية / الإندونيسية"
+          }
+        },
+        {
+          "id": "bengali",
+          "label": {
+            "en": "Bengali",
+            "ar": "البنغالية"
+          }
+        },
+        {
+          "id": "somali",
+          "label": {
+            "en": "Somali",
+            "ar": "الصومالية"
+          }
+        },
+        {
+          "id": "kurdish",
+          "label": {
+            "en": "Kurdish",
+            "ar": "الكردية"
+          }
+        },
+        {
+          "id": "hindi",
+          "label": {
+            "en": "Hindi",
+            "ar": "الهندية"
+          }
+        },
+        {
+          "id": "german",
+          "label": {
+            "en": "German",
+            "ar": "الألمانية"
+          }
+        }
+      ],
+      "allow_text": true,
+      "needs_review": [
+        "ar"
+      ]
+    },
+    {
+      "key": "height_cm",
+      "chapter": 1,
+      "input": "number",
+      "visibility": "card",
+      "optional": true,
+      "question": {
+        "en": "How tall are you, in centimetres?",
+        "ar": {
+          "male": "كم طولك بالسنتيمتر؟",
+          "female": "كم طولكِ بالسنتيمتر؟"
+        }
+      },
+      "why": {
+        "en": "Some people have a preference. You can always skip this.",
+        "ar": {
+          "male": "لبعض الناس تفضيل في الطول، ويمكنك دائمًا تخطي هذا السؤال.",
+          "female": "لبعض الناس تفضيل في الطول، ويمكنكِ دائمًا تخطي هذا السؤال."
+        }
+      },
+      "invalid": {
+        "en": "Please type your height in centimetres, between 130 and 220.",
+        "ar": "من فضلك اكتب الطول بالسنتيمتر بين 130 و220."
+      },
+      "min": 130,
+      "max": 220,
+      "needs_review": [
+        "ar"
+      ]
+    },
+    {
+      "key": "marital_status",
+      "chapter": 1,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": "What is your marital status?",
+        "ar": "ما حالتك الاجتماعية؟"
+      },
+      "why": {
+        "en": "It is one of the first things the other family will want to know. There is no judgement here.",
+        "ar": "من أول ما تريد العائلة الأخرى معرفته. لا حكم هنا على أحد."
+      },
+      "options": [
+        {
+          "id": "never_married",
+          "label": {
+            "en": "Never married",
+            "ar": "لم يسبق لي الزواج"
+          }
+        },
+        {
+          "id": "divorced",
+          "label": {
+            "en": "Divorced",
+            "ar": {
+              "male": "مطلّق",
+              "female": "مطلّقة"
+            }
+          }
+        },
+        {
+          "id": "widowed",
+          "label": {
+            "en": "Widowed",
+            "ar": {
+              "male": "أرمل",
+              "female": "أرملة"
+            }
+          }
+        },
+        {
+          "id": "married_seeking_additional",
+          "gender": "male",
+          "label": {
+            "en": "Married (seeking an additional wife)",
+            "ar": "متزوج (أبحث عن زوجة ثانية)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "children_now",
+      "chapter": 1,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": "Do you have children?",
+        "ar": {
+          "male": "هل لديك أطفال؟",
+          "female": "هل لديكِ أطفال؟"
+        }
+      },
+      "why": {
+        "en": "Some people are happy to raise a spouse's children and some are not. Knowing early avoids disappointment.",
+        "ar": "بعض الناس يرحّبون بتربية أبناء الزوج أو الزوجة وبعضهم لا. معرفة ذلك مبكرًا تمنع خيبة الأمل."
+      },
+      "options": [
+        {
+          "id": "no_children",
+          "label": {
+            "en": "No children",
+            "ar": "لا يوجد أطفال"
+          }
+        },
+        {
+          "id": "yes_living_with_me",
+          "label": {
+            "en": "Yes, living with me",
+            "ar": "نعم، يعيشون معي"
+          }
+        },
+        {
+          "id": "yes_not_living_with_me",
+          "label": {
+            "en": "Yes, not living with me",
+            "ar": "نعم، لا يعيشون معي"
+          }
+        }
+      ],
+      "if": {
+        "field": "marital_status",
+        "not_in": [
+          "never_married"
+        ]
+      },
+      "else_value": "no_children"
+    },
+    {
+      "key": "education",
+      "chapter": 1,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": "What is your highest education?",
+        "ar": {
+          "male": "ما أعلى مؤهل دراسي لديك؟",
+          "female": "ما أعلى مؤهل دراسي لديكِ؟"
+        }
+      },
+      "why": {
+        "en": "Many people prefer a spouse with a similar education. It is only one factor among many.",
+        "ar": "يفضّل كثيرون شريكًا بمستوى تعليم قريب. وهو عامل واحد من عوامل كثيرة."
+      },
+      "options": [
+        {
+          "id": "high_school",
+          "label": {
+            "en": "High school",
+            "ar": "ثانوية"
+          }
+        },
+        {
+          "id": "diploma",
+          "label": {
+            "en": "Diploma",
+            "ar": "دبلوم"
+          }
+        },
+        {
+          "id": "bachelors",
+          "label": {
+            "en": "Bachelor's",
+            "ar": "بكالوريوس"
+          }
+        },
+        {
+          "id": "masters",
+          "label": {
+            "en": "Master's",
+            "ar": "ماجستير"
+          }
+        },
+        {
+          "id": "phd",
+          "label": {
+            "en": "PhD",
+            "ar": "دكتوراه"
+          }
+        }
+      ]
+    },
+    {
+      "key": "employment",
+      "chapter": 1,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": "Are you working at the moment?",
+        "ar": {
+          "male": "هل تعمل حاليًا؟",
+          "female": "هل تعملين حاليًا؟"
+        }
+      },
+      "why": {
+        "en": "Work shapes daily life and time together. There is no right or wrong answer.",
+        "ar": "العمل يشكّل الحياة اليومية والوقت معًا. لا توجد إجابة صحيحة أو خاطئة."
+      },
+      "options": [
+        {
+          "id": "working",
+          "label": {
+            "en": "Working",
+            "ar": "أعمل"
+          }
+        },
+        {
+          "id": "own_business",
+          "label": {
+            "en": "Own business",
+            "ar": "لدي عمل خاص"
+          }
+        },
+        {
+          "id": "studying",
+          "label": {
+            "en": "Studying",
+            "ar": "أدرس"
+          }
+        },
+        {
+          "id": "not_working",
+          "gender": "female",
+          "label": {
+            "en": "Not working",
+            "ar": "لا أعمل"
+          }
+        },
+        {
+          "id": "looking_for_work",
+          "gender": "male",
+          "label": {
+            "en": "Looking for work",
+            "ar": "أبحث عن عمل"
+          }
+        }
+      ]
+    },
+    {
+      "key": "work",
+      "chapter": 1,
+      "input": "text",
+      "visibility": "card",
+      "question": {
+        "en": "What do you do for work?",
+        "ar": {
+          "male": "ما عملك؟",
+          "female": "ما عملكِ؟"
+        }
+      },
+      "why": {
+        "en": "Work shapes daily life, time together and where you can live.",
+        "ar": "العمل يشكّل الحياة اليومية والوقت معًا ومكان السكن."
+      },
+      "if": {
+        "field": "employment",
+        "in": [
+          "working",
+          "own_business"
+        ]
+      },
+      "else_from": "employment"
+    },
+    {
+      "key": "religious_commitment",
+      "chapter": 2,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": "How would you describe your religious commitment?",
+        "ar": {
+          "male": "كيف تصف التزامك الديني؟",
+          "female": "كيف تصفين التزامك الديني؟"
+        }
+      },
+      "why": {
+        "en": "Sharing the same level of faith is one of the strongest signs of a happy marriage.",
+        "ar": "التقارب في مستوى الالتزام من أقوى علامات الزواج السعيد."
+      },
+      "options": [
+        {
+          "id": "very_committed",
+          "label": {
+            "en": "Very committed",
+            "ar": {
+              "male": "ملتزم جدًا",
+              "female": "ملتزمة جدًا"
+            }
+          }
+        },
+        {
+          "id": "committed",
+          "label": {
+            "en": "Committed",
+            "ar": {
+              "male": "ملتزم",
+              "female": "ملتزمة"
+            }
+          }
+        },
+        {
+          "id": "moderate",
+          "label": {
+            "en": "Moderate",
+            "ar": {
+              "male": "معتدل",
+              "female": "معتدلة"
+            }
+          }
+        },
+        {
+          "id": "pray_sometimes",
+          "label": {
+            "en": "I pray sometimes",
+            "ar": "أصلي أحيانًا"
+          }
+        },
+        {
+          "id": "not_practising",
+          "label": {
+            "en": "I don't really practise",
+            "ar": {
+              "male": "لست ملتزمًا فعليًا",
+              "female": "لست ملتزمة فعليًا"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "prayer",
+      "chapter": 2,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": "How do you usually pray?",
+        "ar": {
+          "male": "كيف تصلي عادةً؟",
+          "female": "كيف تصلين عادةً؟"
+        }
+      },
+      "why": {
+        "en": "Prayer shapes the rhythm of the home, so it helps me match people who pray in a similar way.",
+        "ar": "الصلاة تنظّم إيقاع البيت، لذلك أوفّق بين من يصلون بطريقة متقاربة."
+      },
+      "options": [
+        {
+          "id": "five_on_time",
+          "gender": "female",
+          "label": {
+            "en": "All five, on time",
+            "ar": "الخمس في وقتها"
+          }
+        },
+        {
+          "id": "five_sometimes_late",
+          "gender": "female",
+          "label": {
+            "en": "All five, sometimes late",
+            "ar": "الخمس، أحيانًا متأخرة"
+          }
+        },
+        {
+          "id": "most_prayers",
+          "gender": "female",
+          "label": {
+            "en": "Most prayers",
+            "ar": "معظم الصلوات"
+          }
+        },
+        {
+          "id": "always_masjid",
+          "gender": "male",
+          "label": {
+            "en": "Always at the masjid",
+            "ar": "دائمًا في المسجد"
+          }
+        },
+        {
+          "id": "mostly_masjid",
+          "gender": "male",
+          "label": {
+            "en": "Mostly at the masjid",
+            "ar": "غالبًا في المسجد"
+          }
+        },
+        {
+          "id": "on_time_mostly_home",
+          "gender": "male",
+          "label": {
+            "en": "On time, mostly at home",
+            "ar": "في وقتها، غالبًا في البيت"
+          }
+        },
+        {
+          "id": "most_prayers_sometimes_late",
+          "gender": "male",
+          "label": {
+            "en": "Most prayers, sometimes late",
+            "ar": "معظم الصلوات، أحيانًا متأخرًا"
+          }
+        }
+      ],
+      "if": {
+        "field": "religious_commitment",
+        "in": [
+          "very_committed",
+          "committed",
+          "moderate"
+        ]
+      }
+    },
+    {
+      "key": "hijab",
+      "chapter": 2,
+      "input": "choice",
+      "gender": "female",
+      "visibility": "card",
+      "question": {
+        "en": "What do you wear?",
+        "ar": "ماذا ترتدين؟"
+      },
+      "why": {
+        "en": "Many men have a clear preference here. Answering honestly saves you from mismatches.",
+        "ar": "لكثير من الرجال تفضيل واضح هنا. الإجابة الصادقة تحميكِ من ترشيحات غير مناسبة."
+      },
+      "options": [
+        {
+          "id": "niqab",
+          "label": {
+            "en": "Niqab",
+            "ar": "نقاب"
+          }
+        },
+        {
+          "id": "hijab",
+          "label": {
+            "en": "Hijab",
+            "ar": "حجاب"
+          }
+        },
+        {
+          "id": "hijab_sometimes",
+          "label": {
+            "en": "Hijab sometimes",
+            "ar": "حجاب أحيانًا"
+          }
+        },
+        {
+          "id": "no_hijab",
+          "label": {
+            "en": "No hijab",
+            "ar": "بدون حجاب"
+          }
+        }
+      ],
+      "if": {
+        "field": "religious_commitment",
+        "not_in": [
+          "not_practising"
+        ]
+      }
+    },
+    {
+      "key": "beard",
+      "chapter": 2,
+      "input": "choice",
+      "gender": "male",
+      "visibility": "card",
+      "question": {
+        "en": "And your beard?",
+        "ar": "وماذا عن لحيتك؟"
+      },
+      "why": {
+        "en": "Some women care about this as a sign of practice. It is just one detail.",
+        "ar": "تهتم بعض النساء بهذا كعلامة التزام. وهو تفصيل واحد فقط."
+      },
+      "options": [
+        {
+          "id": "full_beard",
+          "label": {
+            "en": "Full beard",
+            "ar": "لحية كاملة"
+          }
+        },
+        {
+          "id": "trimmed_beard",
+          "label": {
+            "en": "Trimmed beard",
+            "ar": "لحية مهذّبة"
+          }
+        },
+        {
+          "id": "no_beard",
+          "label": {
+            "en": "No beard",
+            "ar": "بدون لحية"
+          }
+        }
+      ],
+      "if": {
+        "field": "religious_commitment",
+        "in": [
+          "very_committed",
+          "committed"
+        ]
+      }
+    },
+    {
+      "key": "music_films",
+      "chapter": 2,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": "What is your view on music and films at home?",
+        "ar": {
+          "male": "ما رأيك في الموسيقى والأفلام في البيت؟",
+          "female": "ما رأيكِ في الموسيقى والأفلام في البيت؟"
+        }
+      },
+      "why": {
+        "en": "For practising couples this often becomes a daily topic, so it is good to agree early.",
+        "ar": "عند الملتزمين يصبح هذا موضوعًا يوميًا، فالأفضل الاتفاق مبكرًا."
+      },
+      "options": [
+        {
+          "id": "avoid_both",
+          "label": {
+            "en": "Avoid both",
+            "ar": "أتجنبهما"
+          }
+        },
+        {
+          "id": "nasheeds_only",
+          "label": {
+            "en": "Nasheeds only",
+            "ar": "الأناشيد فقط"
+          }
+        },
+        {
+          "id": "some_in_moderation",
+          "label": {
+            "en": "Some, in moderation",
+            "ar": "القليل باعتدال"
+          }
+        },
+        {
+          "id": "no_issue",
+          "label": {
+            "en": "No issue",
+            "ar": "لا مانع"
+          }
+        }
+      ],
+      "if": {
+        "field": "religious_commitment",
+        "in": [
+          "very_committed",
+          "committed"
+        ]
+      }
+    },
+    {
+      "key": "smoking",
+      "chapter": 2,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": "Do you smoke?",
+        "ar": {
+          "male": "هل تدخّن؟",
+          "female": "هل تدخّنين؟"
+        }
+      },
+      "why": {
+        "en": "Many people see smoking as a deal-breaker, so honesty here avoids disappointment later.",
+        "ar": "كثيرون يعتبرون التدخين مرفوضًا تمامًا، فالصراحة هنا تمنع خيبة الأمل لاحقًا."
+      },
+      "options": [
+        {
+          "id": "no",
+          "label": {
+            "en": "No",
+            "ar": "لا"
+          }
+        },
+        {
+          "id": "quit",
+          "label": {
+            "en": "I quit",
+            "ar": "أقلعت عنه"
+          }
+        },
+        {
+          "id": "occasionally",
+          "label": {
+            "en": "Occasionally",
+            "ar": "أحيانًا"
+          }
+        },
+        {
+          "id": "yes",
+          "label": {
+            "en": "Yes (including shisha)",
+            "ar": "نعم (بما فيها الشيشة)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "sect",
+      "chapter": 2,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": "Which tradition do you follow?",
+        "ar": {
+          "male": "ما المذهب الذي تتبعه؟",
+          "female": "ما المذهب الذي تتبعينه؟"
+        }
+      },
+      "why": {
+        "en": "Some families care about this. Share it only if you want to.",
+        "ar": {
+          "male": "بعض العائلات تهتم بهذا الأمر. شاركه فقط إن أردت.",
+          "female": "بعض العائلات تهتم بهذا الأمر. شاركيه فقط إن أردتِ."
+        }
+      },
+      "options": [
+        {
+          "id": "sunni",
+          "label": {
+            "en": "Sunni",
+            "ar": {
+              "male": "سنّي",
+              "female": "سنّية"
+            }
+          }
+        },
+        {
+          "id": "shia",
+          "label": {
+            "en": "Shia",
+            "ar": {
+              "male": "شيعي",
+              "female": "شيعية"
+            }
+          }
+        },
+        {
+          "id": "just_muslim",
+          "label": {
+            "en": "Just Muslim",
+            "ar": {
+              "male": "مسلم فحسب",
+              "female": "مسلمة فحسب"
+            }
+          }
+        },
+        {
+          "id": "prefer_not_to_say",
+          "label": {
+            "en": "Prefer not to say",
+            "ar": "أفضّل عدم الإجابة"
+          }
+        }
+      ],
+      "needs_review": [
+        "ar"
+      ]
+    },
+    {
+      "key": "marriage_timeline",
+      "chapter": 3,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": "When would you like to get married?",
+        "ar": {
+          "male": "متى تودّ أن تتزوج؟",
+          "female": "متى تودّين أن تتزوجي؟"
+        }
+      },
+      "why": {
+        "en": "It helps me match people who are ready at the same time.",
+        "ar": "يساعدني ذلك على التوفيق بين من هم مستعدون في الوقت نفسه."
+      },
+      "options": [
+        {
+          "id": "within_6_months",
+          "label": {
+            "en": "Within 6 months",
+            "ar": "خلال 6 أشهر"
+          }
+        },
+        {
+          "id": "in_6_to_12_months",
+          "label": {
+            "en": "In 6–12 months",
+            "ar": "خلال 6 إلى 12 شهرًا"
+          }
+        },
+        {
+          "id": "in_1_to_2_years",
+          "label": {
+            "en": "In 1–2 years",
+            "ar": "خلال سنة إلى سنتين"
+          }
+        },
+        {
+          "id": "when_right_person",
+          "label": {
+            "en": "When the right person comes",
+            "ar": "عندما يأتي الشخص المناسب"
+          }
+        }
+      ],
+      "needs_review": [
+        "ar"
+      ]
+    },
+    {
+      "key": "family_involvement",
+      "chapter": 3,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": "How involved is your family in your search?",
+        "ar": "ما مدى مشاركة عائلتك في بحثك؟"
+      },
+      "why": {
+        "en": "Families like to know how things will go, and it helps me plan introductions.",
+        "ar": "العائلات تحب أن تعرف كيف ستسير الأمور، وهذا يساعدني على ترتيب التعارف."
+      },
+      "options": [
+        {
+          "id": "just_me",
+          "label": {
+            "en": "Just me for now",
+            "ar": "أنا فقط حاليًا"
+          }
+        },
+        {
+          "id": "family_knows",
+          "label": {
+            "en": "My family knows",
+            "ar": "عائلتي على علم"
+          }
+        },
+        {
+          "id": "family_involved_early",
+          "label": {
+            "en": {
+              "male": "My family will be involved early",
+              "female": "My family or wali will be involved early"
+            },
+            "ar": {
+              "male": "ستشارك عائلتي من البداية",
+              "female": "ستشارك عائلتي أو وليّي من البداية"
+            }
+          }
+        }
+      ],
+      "needs_review": [
+        "ar"
+      ]
+    },
+    {
+      "key": "wants_children",
+      "chapter": 3,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": "Would you like (more) children?",
+        "ar": {
+          "male": "هل تريد أطفالًا (أو المزيد)؟",
+          "female": "هل تريدين أطفالًا (أو المزيد)؟"
+        }
+      },
+      "why": {
+        "en": "Timing for children is one of the most important things to agree on.",
+        "ar": "توقيت الإنجاب من أهم ما يجب الاتفاق عليه."
+      },
+      "options": [
+        {
+          "id": "soon",
+          "label": {
+            "en": "Soon",
+            "ar": "قريبًا"
+          }
+        },
+        {
+          "id": "later",
+          "label": {
+            "en": "Later",
+            "ar": "لاحقًا"
+          }
+        },
+        {
+          "id": "not_sure",
+          "label": {
+            "en": "Not sure",
+            "ar": {
+              "male": "لست متأكدًا",
+              "female": "لست متأكدة"
+            }
+          }
+        },
+        {
+          "id": "no",
+          "label": {
+            "en": "No",
+            "ar": "لا"
+          }
+        }
+      ]
+    },
+    {
+      "key": "relocation",
+      "chapter": 3,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": {
+          "male": "After marriage, would your wife move to you, or are you open to moving too?",
+          "female": "Would you be willing to move to your husband's city or country?"
+        },
+        "ar": {
+          "male": "بعد الزواج، هل تنتقل زوجتك إليك، أم أنت منفتح على الانتقال أيضًا؟",
+          "female": "هل أنتِ مستعدة للانتقال إلى مدينة زوجك أو بلده؟"
+        }
+      },
+      "why": {
+        "en": "Knowing who would move lets me suggest people from further away only when it can work.",
+        "ar": "معرفة من سينتقل تسمح لي باقتراح أشخاص من أماكن بعيدة فقط عندما يكون ذلك ممكنًا."
+      },
+      "options": [
+        {
+          "id": "yes_anywhere",
+          "gender": "female",
+          "label": {
+            "en": "Yes, anywhere",
+            "ar": "نعم، إلى أي مكان"
+          }
+        },
+        {
+          "id": "within_my_region",
+          "gender": "female",
+          "label": {
+            "en": "Within my region only",
+            "ar": "داخل منطقتي فقط"
+          }
+        },
+        {
+          "id": "within_my_country",
+          "gender": "female",
+          "label": {
+            "en": "Within my country only",
+            "ar": "داخل بلدي فقط"
+          }
+        },
+        {
+          "id": "no",
+          "gender": "female",
+          "label": {
+            "en": "No",
+            "ar": "لا"
+          }
+        },
+        {
+          "id": "wife_moves_to_me",
+          "gender": "male",
+          "label": {
+            "en": "My wife would move to me",
+            "ar": "تنتقل زوجتي إليّ"
+          }
+        },
+        {
+          "id": "open_to_moving",
+          "gender": "male",
+          "label": {
+            "en": "I'm open to moving too",
+            "ar": "منفتح على الانتقال أيضًا"
+          }
+        },
+        {
+          "id": "only_within_my_country",
+          "gender": "male",
+          "label": {
+            "en": "Only within my country",
+            "ar": "داخل بلدي فقط"
+          }
+        }
+      ]
+    },
+    {
+      "key": "work_after_marriage",
+      "chapter": 3,
+      "input": "choice",
+      "visibility": "card",
+      "question": {
+        "en": {
+          "male": "What is your view on your wife working after marriage?",
+          "female": "Would you like to work after marriage?"
+        },
+        "ar": {
+          "male": "ما رأيك في عمل زوجتك بعد الزواج؟",
+          "female": "هل تريدين العمل بعد الزواج؟"
+        }
+      },
+      "why": {
+        "en": "This is a common source of disagreement, so I match people with compatible views.",
+        "ar": "هذا سبب شائع للخلاف، لذلك أوفّق بين الآراء المتقاربة."
+      },
+      "options": [
+        {
+          "id": "yes_full_time",
+          "gender": "female",
+          "label": {
+            "en": "Yes, full-time",
+            "ar": "نعم، دوام كامل"
+          }
+        },
+        {
+          "id": "part_time",
+          "gender": "female",
+          "label": {
+            "en": "Part-time",
+            "ar": "دوام جزئي"
+          }
+        },
+        {
+          "id": "prefer_stay_home",
+          "gender": "female",
+          "label": {
+            "en": "I prefer to stay home",
+            "ar": "أفضّل البقاء في البيت"
+          }
+        },
+        {
+          "id": "not_sure_yet",
+          "gender": "female",
+          "label": {
+            "en": "Not sure yet",
+            "ar": "لم أقرر بعد"
+          }
+        },
+        {
+          "id": "prefer_she_stays_home",
+          "gender": "male",
+          "label": {
+            "en": "I prefer she stays home",
+            "ar": "أفضّل أن تبقى في البيت"
+          }
+        },
+        {
+          "id": "part_time_fine",
+          "gender": "male",
+          "label": {
+            "en": "Part-time is fine",
+            "ar": "الدوام الجزئي مناسب"
+          }
+        },
+        {
+          "id": "her_choice",
+          "gender": "male",
+          "label": {
+            "en": "Her choice",
+            "ar": "القرار لها"
+          }
+        }
+      ]
+    },
+    {
+      "key": "open_to_second_wife",
+      "chapter": 3,
+      "input": "choice",
+      "gender": "female",
+      "visibility": "khalty",
+      "question": {
+        "en": "Would you consider being a second wife?",
+        "ar": "هل تقبلين أن تكوني زوجة ثانية؟"
+      },
+      "why": {
+        "en": "Some men are looking for a second wife. I will only suggest them if you are open to it. This stays private.",
+        "ar": "بعض الرجال يبحثون عن زوجة ثانية، ولن أقترح أحدًا منهم إلا إذا كنتِ منفتحة على ذلك. يبقى هذا خاصًا بكِ."
+      },
+      "options": [
+        {
+          "id": "no",
+          "label": {
+            "en": "No",
+            "ar": "لا"
+          }
+        },
+        {
+          "id": "would_consider",
+          "label": {
+            "en": "Would consider",
+            "ar": "قد أفكر في ذلك"
+          }
+        },
+        {
+          "id": "yes",
+          "label": {
+            "en": "Yes",
+            "ar": "نعم"
+          }
+        }
+      ],
+      "needs_review": [
+        "ar"
+      ]
+    },
+    {
+      "key": "partner_age",
+      "chapter": 4,
+      "input": "range",
+      "visibility": "khalty",
+      "question": {
+        "en": "What age range would you accept for your spouse?",
+        "ar": {
+          "male": "ما الفئة العمرية التي تقبلها لزوجتك؟",
+          "female": "ما الفئة العمرية التي تقبلينها لزوجك؟"
+        }
+      },
+      "why": {
+        "en": "I only suggest people inside this range.",
+        "ar": "لن أقترح إلا من هم داخل هذه الفئة."
+      },
+      "min": 18,
+      "max": 80,
+      "suggest": {
+        "male": [
+          -8,
+          1
+        ],
+        "female": [
+          -1,
+          8
+        ]
+      }
+    },
+    {
+      "key": "partner_location",
+      "chapter": 4,
+      "input": "choice",
+      "visibility": "khalty",
+      "question": {
+        "en": "Where could your spouse be living?",
+        "ar": {
+          "male": "أين يمكن أن تكون زوجتك مقيمة؟",
+          "female": "أين يمكن أن يكون زوجك مقيمًا؟"
+        }
+      },
+      "why": {
+        "en": "This decides how widely I search for you.",
+        "ar": "هذا يحدد مدى اتساع بحثي لك."
+      },
+      "options": [
+        {
+          "id": "only_my_country",
+          "label": {
+            "en": "Only my country",
+            "ar": "في بلدي فقط"
+          }
+        },
+        {
+          "id": "my_region",
+          "label": {
+            "en": "My region",
+            "ar": "في منطقتي"
+          }
+        },
+        {
+          "id": "any_country",
+          "label": {
+            "en": "Any country",
+            "ar": "أي بلد"
+          }
+        }
+      ]
+    },
+    {
+      "key": "partner_practice",
+      "chapter": 4,
+      "input": "choice",
+      "visibility": "khalty",
+      "question": {
+        "en": "What level of religious commitment do you want in a spouse?",
+        "ar": {
+          "male": "ما مستوى الالتزام الذي تريده في زوجتك؟",
+          "female": "ما مستوى الالتزام الذي تريدينه في زوجك؟"
+        }
+      },
+      "why": {
+        "en": "I will look for someone close to what you want here.",
+        "ar": "سأبحث عمّن يقترب مما تريد هنا."
+      },
+      "options": [
+        {
+          "id": "very_committed",
+          "label": {
+            "en": "Very committed",
+            "ar": {
+              "male": "ملتزمة جدًا",
+              "female": "ملتزم جدًا"
+            }
+          }
+        },
+        {
+          "id": "committed",
+          "label": {
+            "en": "Committed",
+            "ar": {
+              "male": "ملتزمة",
+              "female": "ملتزم"
+            }
+          }
+        },
+        {
+          "id": "moderate",
+          "label": {
+            "en": "Moderate",
+            "ar": {
+              "male": "معتدلة",
+              "female": "معتدل"
+            }
+          }
+        },
+        {
+          "id": "doesnt_matter",
+          "label": {
+            "en": "Doesn't matter much",
+            "ar": "لا يهم كثيرًا"
+          }
+        }
+      ]
+    },
+    {
+      "key": "partner_hijab",
+      "chapter": 4,
+      "input": "choice",
+      "gender": "male",
+      "visibility": "khalty",
+      "question": {
+        "en": "What would you like your wife to wear?",
+        "ar": "ماذا تحب أن ترتدي زوجتك؟"
+      },
+      "why": {
+        "en": "So I only suggest women who match your expectation.",
+        "ar": "حتى لا أقترح إلا من يوافقن توقعك."
+      },
+      "options": [
+        {
+          "id": "niqab",
+          "label": {
+            "en": "Niqab",
+            "ar": "نقاب"
+          }
+        },
+        {
+          "id": "hijab",
+          "label": {
+            "en": "Hijab",
+            "ar": "حجاب"
+          }
+        },
+        {
+          "id": "her_choice",
+          "label": {
+            "en": "Her choice",
+            "ar": "القرار لها"
+          }
+        }
+      ]
+    },
+    {
+      "key": "must_haves",
+      "chapter": 4,
+      "input": "multi",
+      "visibility": "khalty",
+      "question": {
+        "en": "Pick up to 3 qualities you really want in a spouse.",
+        "ar": {
+          "male": "اختر حتى 3 صفات تريدها حقًا في زوجتك.",
+          "female": "اختاري حتى 3 صفات تريدينها حقًا في زوجك."
+        }
+      },
+      "why": {
+        "en": "These are the qualities I weigh most when I choose for you.",
+        "ar": "هذه الصفات هي أكثر ما أزنه عندما أختار لك."
+      },
+      "options": [
+        {
+          "id": "religious",
+          "label": {
+            "en": "Religious",
+            "ar": {
+              "male": "متديّنة",
+              "female": "متديّن"
+            }
+          }
+        },
+        {
+          "id": "responsible_provider",
+          "gender": "female",
+          "label": {
+            "en": "Responsible provider",
+            "ar": "مسؤول ومنفق"
+          }
+        },
+        {
+          "id": "obedient",
+          "gender": "male",
+          "label": {
+            "en": "Obedient",
+            "ar": "مطيعة"
+          }
+        },
+        {
+          "id": "kind",
+          "label": {
+            "en": "Kind",
+            "ar": {
+              "male": "طيبة",
+              "female": "طيب"
+            }
+          }
+        },
+        {
+          "id": "family_oriented",
+          "label": {
+            "en": "Family-oriented",
+            "ar": {
+              "male": "عائلية",
+              "female": "عائلي"
+            }
+          }
+        },
+        {
+          "id": "educated",
+          "label": {
+            "en": "Educated",
+            "ar": {
+              "male": "متعلمة",
+              "female": "متعلم"
+            }
+          }
+        },
+        {
+          "id": "ambitious",
+          "gender": "female",
+          "label": {
+            "en": "Ambitious",
+            "ar": "طموح"
+          }
+        },
+        {
+          "id": "good_humour",
+          "gender": "female",
+          "label": {
+            "en": "Good sense of humour",
+            "ar": "خفيف الظل"
+          }
+        },
+        {
+          "id": "beautiful",
+          "gender": "male",
+          "label": {
+            "en": "Beautiful",
+            "ar": "جميلة"
+          }
+        },
+        {
+          "id": "good_homemaker",
+          "gender": "male",
+          "label": {
+            "en": "Good homemaker",
+            "ar": "ربة منزل ماهرة"
+          }
+        }
+      ],
+      "max_pick": 3
+    },
+    {
+      "key": "has_deal_breakers",
+      "chapter": 5,
+      "input": "choice",
+      "visibility": "khalty",
+      "question": {
+        "en": "Is there anything that is a firm no for you?",
+        "ar": {
+          "male": "هل هناك شيء مرفوض تمامًا بالنسبة لك؟",
+          "female": "هل هناك شيء مرفوض تمامًا بالنسبة لكِ؟"
+        }
+      },
+      "why": {
+        "en": "A firm no is better said now than discovered later.",
+        "ar": "الرفض القاطع الأفضل أن يُقال الآن لا أن يُكتشف لاحقًا."
+      },
+      "options": [
+        {
+          "id": "yes",
+          "label": {
+            "en": "Yes",
+            "ar": "نعم"
+          }
+        },
+        {
+          "id": "no",
+          "label": {
+            "en": "No",
+            "ar": "لا"
+          }
+        }
+      ]
+    },
+    {
+      "key": "deal_breakers",
+      "chapter": 5,
+      "input": "multi",
+      "visibility": "khalty",
+      "question": {
+        "en": "Which ones? Pick all that apply, or type your own.",
+        "ar": {
+          "male": "ما هي؟ اختر كل ما ينطبق، أو اكتبه بنفسك.",
+          "female": "ما هي؟ اختاري كل ما ينطبق، أو اكتبيه بنفسك."
+        }
+      },
+      "why": {
+        "en": "I will never suggest anyone who has one of these.",
+        "ar": "لن أقترح أبدًا أحدًا لديه أحد هذه الأمور."
+      },
+      "options": [
+        {
+          "id": "smoking",
+          "label": {
+            "en": "Smoking",
+            "ar": "التدخين"
+          }
+        },
+        {
+          "id": "previously_married",
+          "label": {
+            "en": "Previously married",
+            "ar": "زواج سابق"
+          }
+        },
+        {
+          "id": "has_children",
+          "label": {
+            "en": "Has children",
+            "ar": "لديه أطفال"
+          }
+        },
+        {
+          "id": "lives_far_away",
+          "label": {
+            "en": "Lives far away",
+            "ar": "يسكن بعيدًا"
+          }
+        },
+        {
+          "id": "bad_temper",
+          "label": {
+            "en": "Bad temper",
+            "ar": "سوء الطبع"
+          }
+        }
+      ],
+      "allow_text": true,
+      "if": {
+        "field": "has_deal_breakers",
+        "in": [
+          "yes"
+        ]
+      }
+    }
+  ],
+  "script": {
+    "greeting": {
+      "en": "Assalamu alaikum, and welcome! 🌸 I'm Khalty, your matchmaker. I'll ask you some short questions, one at a time. Most need just a tap.",
+      "ar": "السلام عليكم، وأهلًا وسهلًا! 🌸 أنا خالتي، خاطبتك. سأسألك أسئلة قصيرة، سؤالًا في كل مرة، وأغلبها بلمسة واحدة."
+    },
+    "acks": {
+      "en": [
+        "Thank you, {name} 🌸",
+        "Lovely.",
+        "Noted 🌸",
+        "MashaAllah.",
+        "Got it, {name}.",
+        "Beautiful, thank you."
+      ],
+      "ar": [
+        "شكرًا يا {name} 🌸",
+        "جميل.",
+        "تمام 🌸",
+        "ما شاء الله.",
+        "حاضر يا {name}.",
+        "بارك الله فيك."
+      ]
+    },
+    "name_ack": {
+      "en": "Nice to meet you, {name}! 🌸",
+      "ar": "تشرفت بمعرفتك يا {name}! 🌸"
+    },
+    "self_intro": {
+      "en": "Last step, {name}, about 1 minute ✨ Tell me about yourself in your own words: who you are, your life, and what you'd like your future spouse to know. You can record or type.",
+      "ar": {
+        "male": "آخر خطوة يا {name}، دقيقة واحدة تقريبًا ✨ حدّثني عن نفسك بكلماتك: من أنت، وحياتك، وما تحب أن تعرفه زوجتك المستقبلية. يمكنك التسجيل أو الكتابة.",
+        "female": "آخر خطوة يا {name}، دقيقة واحدة تقريبًا ✨ حدّثيني عن نفسك بكلماتك: من أنتِ، وحياتك، وما تحبين أن يعرفه زوجك المستقبلي. يمكنكِ التسجيل أو الكتابة."
+      }
+    },
+    "analysing": {
+      "en": "Thank you, {name} 🌸 Let me put everything together…",
+      "ar": "شكرًا يا {name} 🌸 دعني أجمع كل شيء…"
+    }
+  }
+}

@@ -57,6 +57,9 @@ flutter:
   uses-material-design: true
   generate: true
 
+  assets:
+    - assets/config/
+
   fonts:
     - family: SpaceGrotesk
       fonts:

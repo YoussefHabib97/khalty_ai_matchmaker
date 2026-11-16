@@ -6,6 +6,7 @@ import 'package:khalty_ai_matchmaker/features/profile/data/models/profile_photo.
 import 'package:khalty_ai_matchmaker/features/profile/data/models/self_intro.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/data/models/answer_value.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/data/models/answers.dart';
+import 'package:khalty_ai_matchmaker/features/questionnaire/data/models/field_keys.dart';
 
 /// What the user agreed to at sign-up, and when.
 class Consent {
@@ -177,12 +178,12 @@ class UserProfile {
   /// The user's edited bio, or Khalty's suggested one.
   String? get effectiveAboutMe => aboutMe ?? analysis?.aboutMe;
 
-  String? get name => switch (answers['name']) {
+  String? get name => switch (answers[FieldKeys.name]) {
     TextAnswer(:final text) => text,
     _ => null,
   };
 
-  int? get age => switch (answers['age']) {
+  int? get age => switch (answers[FieldKeys.age]) {
     NumberAnswer(:final value) => value,
     _ => null,
   };

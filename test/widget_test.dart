@@ -14,7 +14,8 @@ Future<void> _pumpApp(WidgetTester tester, Map<String, Object> prefs) async {
   tester.view.devicePixelRatio = 3;
   addTearDown(tester.view.reset);
 
-  await setupServiceLocator();
+  // Real async work (asset loading) must run outside the fake test clock.
+  await tester.runAsync(setupServiceLocator);
   addTearDown(getIt.reset);
 
   await tester.pumpWidget(const ApplicationRoot());
