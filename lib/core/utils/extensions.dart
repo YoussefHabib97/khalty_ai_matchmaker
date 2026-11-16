@@ -1,14 +1,8 @@
+import 'package:khalty_ai_matchmaker/core/utils/text_validators.dart';
 import 'package:material_ui/material_ui.dart';
 
 extension StringExtension on String {
-  bool get isValidName {
-    final nameRegExp = RegExp(
-      r"^[a-zA-Z\p{L} ,.'-]*$",
-      caseSensitive: false,
-      unicode: true,
-    );
-    return nameRegExp.hasMatch(this);
-  }
+  bool get isValidName => isValidPersonName(this);
 
   String capitalizeEach() {
     if (trim().isEmpty) {
