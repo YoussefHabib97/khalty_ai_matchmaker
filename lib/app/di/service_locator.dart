@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:khalty_ai_matchmaker/app/debug/debug_stage_actions.dart';
 import 'package:khalty_ai_matchmaker/app/navigation/app_router.dart';
 import 'package:khalty_ai_matchmaker/app/session/session_cubit.dart';
+import 'package:khalty_ai_matchmaker/core/utils/device_country.dart';
 import 'package:khalty_ai_matchmaker/core/utils/shared_preferences.dart';
+import 'package:khalty_ai_matchmaker/features/auth/presentation/manager/sign_up_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/auth/data/repos/fake_auth_repository.dart';
 import 'package:khalty_ai_matchmaker/features/auth/domain/repos/auth_repository.dart';
 import 'package:khalty_ai_matchmaker/features/onboarding/domain/services/onboarding_stage_resolver.dart';
@@ -84,6 +86,7 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<GoRouter>(
     () => createAppRouter(
       getIt(),
+      signUpCubit: () => getIt<SignUpCubit>(),
       debug: kDebugMode ? getIt<DebugStageActions>() : null,
     ),
     dispose: (router) => router.dispose(),
@@ -92,4 +95,12 @@ Future<void> setupServiceLocator() async {
   // Screen ViewModels (cubits)
   getIt.registerFactory<AppThemeCubit>(() => AppThemeCubit(getIt()));
   getIt.registerFactory<LocaleCubit>(() => LocaleCubit(getIt()));
+  getIt.registerFactory<SignUpCubit>(
+    () => SignUpCubit(
+      auth: getIt(),
+      profiles: getIt(),
+      initialCountry: deviceCountry(),
+      debugCodeHint: kDebugMode ? FakeAuthRepository.code : null,
+    ),
+  );
 }

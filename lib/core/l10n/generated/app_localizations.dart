@@ -193,6 +193,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This screen is coming soon.'**
   String get placeholderComingSoon;
+
+  /// Welcome screen heading (from the old app).
+  ///
+  /// In en, this message translates to:
+  /// **'Meet Khalty'**
+  String get welcomeMeet;
+
+  /// Welcome screen tagline (from the old app).
+  ///
+  /// In en, this message translates to:
+  /// **'Your personal matchmaker 💍'**
+  String get welcomeTagline;
+
+  /// Welcome screen title (from the old app).
+  ///
+  /// In en, this message translates to:
+  /// **'Find your forever, one match at a time'**
+  String get welcomeTitle;
+
+  /// Welcome screen description (old app text, without 'or talk' since voice comes later).
+  ///
+  /// In en, this message translates to:
+  /// **'Chat with Khalty. She learns what matters to you and introduces one thoughtful match at a time.'**
+  String get welcomeBody;
+
+  /// Welcome screen button that opens sign-up.
+  ///
+  /// In en, this message translates to:
+  /// **'Get started ♥'**
+  String get getStarted;
+
+  /// Sign-up: label above the man/woman choice. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'I am…'**
+  String get genderQuestion;
+
+  /// Sign-up gender choice.
+  ///
+  /// In en, this message translates to:
+  /// **'A man'**
+  String get genderMan;
+
+  /// Sign-up gender choice.
+  ///
+  /// In en, this message translates to:
+  /// **'A woman'**
+  String get genderWoman;
+
+  /// Sign-up: phone number field label. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile number'**
+  String get phoneLabel;
+
+  /// Sign-up consent checkbox (from the old app). Changing the meaning requires bumping Consent.currentVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree that Khalty is present in my conversations to keep them safe and may give me private tips, and that my data is stored securely and never shared without my consent.'**
+  String get consentText;
+
+  /// Sign-up button that sends the SMS code. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Send code'**
+  String get sendCode;
+
+  /// Sign-up error (from the old app).
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose man or woman'**
+  String get errorPickGender;
+
+  /// Sign-up error. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid mobile number.'**
+  String get errorPhoneInvalid;
+
+  /// Sign-up error (from the old app).
+  ///
+  /// In en, this message translates to:
+  /// **'Please tick the agreement to continue.'**
+  String get errorAgreeFirst;
+
+  /// Sign-up error when the SMS or network fails (from the old app).
+  ///
+  /// In en, this message translates to:
+  /// **'Could not send the code. Check the number and try again.'**
+  String get errorSendFailed;
+
+  /// Code screen error (from the old app).
+  ///
+  /// In en, this message translates to:
+  /// **'The code is not correct. Please try again.'**
+  String get errorCodeWrong;
+
+  /// Code screen error. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'This code has expired. Please ask for a new one.'**
+  String get errorCodeExpired;
+
+  /// Code screen error. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please wait a little and try again.'**
+  String get errorTooManyAttempts;
+
+  /// Code screen explanation (from the old app).
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a 6-digit code by SMS to {phone}.'**
+  String codeSentTo(String phone);
+
+  /// Code screen: code field label. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'6-digit code'**
+  String get codeLabel;
+
+  /// Code screen button (from the old app).
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verifyButton;
+
+  /// Code screen: link to send a new code. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code'**
+  String get resendCode;
+
+  /// Code screen: countdown before a new code can be sent, e.g. 0:42. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code in {time}'**
+  String resendIn(String time);
+
+  /// Code screen: go back and edit the phone number. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Change number'**
+  String get changeNumber;
+
+  /// Debug builds only: the fake SMS code.
+  ///
+  /// In en, this message translates to:
+  /// **'Test code: {code}'**
+  String testCodeHint(String code);
+
+  /// Country picker title. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a country'**
+  String get chooseCountry;
+
+  /// Country picker search field hint. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Search countries'**
+  String get countrySearchHint;
+
+  /// Country picker: frequently used countries section. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Common'**
+  String get countriesCommon;
+
+  /// Country picker: all countries section. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'All countries'**
+  String get countriesAll;
+
+  /// Country picker: nothing matches the search. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'No countries found'**
+  String get countriesNoResults;
 }
 
 class _AppLocalizationsDelegate

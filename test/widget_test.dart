@@ -2,6 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:khalty_ai_matchmaker/app/app.dart';
 import 'package:khalty_ai_matchmaker/app/di/service_locator.dart';
 import 'package:khalty_ai_matchmaker/app/navigation/main_shell.dart';
+import 'package:khalty_ai_matchmaker/features/auth/presentation/views/sign_up_view.dart';
+import 'package:khalty_ai_matchmaker/features/auth/presentation/views/verify_code_view.dart';
+import 'package:khalty_ai_matchmaker/features/auth/presentation/widgets/phone_number_field.dart';
 import 'package:khalty_ai_matchmaker/features/intake/presentation/views/intake_view.dart';
 import 'package:khalty_ai_matchmaker/features/intake/presentation/views/self_intro_view.dart';
 import 'package:khalty_ai_matchmaker/features/khalty_chat/presentation/views/khalty_tab_view.dart';
@@ -10,7 +13,6 @@ import 'package:khalty_ai_matchmaker/features/onboarding/presentation/views/welc
 import 'package:khalty_ai_matchmaker/features/profile/presentation/views/me_view.dart';
 import 'package:khalty_ai_matchmaker/features/settings/data/repos/local_settings_repository.dart';
 import 'package:khalty_ai_matchmaker/features/settings/presentation/widgets/language_selector.dart';
-import 'package:khalty_ai_matchmaker/features/settings/presentation/widgets/theme_switcher_widget.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,15 +46,14 @@ void main() {
       await _pumpApp(tester, {});
 
       expect(find.byType(WelcomeView), findsOneWidget);
-      expect(find.byType(ThemeSwitcherWidget), findsOneWidget);
-      expect(find.text('Khalty'), findsOneWidget);
+      expect(find.text('Meet Khalty'), findsOneWidget);
       expect(_direction(tester), TextDirection.ltr);
     });
 
     testWidgets('saved Arabic starts the app right-to-left', (tester) async {
       await _pumpApp(tester, {LocalSettingsRepository.localeKey: 'ar'});
 
-      expect(find.text('خالتي'), findsOneWidget);
+      expect(find.text('تعرّف على خالتي'), findsOneWidget);
       expect(_direction(tester), TextDirection.rtl);
     });
 
@@ -68,7 +69,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(_direction(tester), TextDirection.rtl);
-      expect(find.text('أهلًا وسهلًا'), findsOneWidget);
+      expect(find.text('تعرّف على خالتي'), findsOneWidget);
       final prefs = await SharedPreferences.getInstance();
       expect(prefs.getString(LocalSettingsRepository.localeKey), 'ar');
     });
@@ -103,6 +104,74 @@ void main() {
       await tester.tap(find.text('Sign in (woman)'));
       await tester.pump(const Duration(seconds: 1));
       await tester.pump(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(IntakeView), findsOneWidget);
+    });
+  });
+
+  group('sign-up', () {
+    Future<void> openSignUp(WidgetTester tester) async {
+      await _pumpApp(tester, {});
+      await tester.tap(find.text('Get started ♥'));
+      await tester.pumpAndSettle();
+      expect(find.byType(SignUpView), findsOneWidget);
+    }
+
+    Finder phoneField() => find.descendant(
+      of: find.byType(PhoneNumberField),
+      matching: find.byType(TextField),
+    );
+
+    testWidgets('the country picker changes the dialling code', (tester) async {
+      await openSignUp(tester);
+      await tester.tap(find.byKey(const Key('countryButton')));
+      await tester.pumpAndSettle();
+
+      await tester.enterText(
+        find.descendant(
+          of: find.byType(BottomSheet),
+          matching: find.byType(TextField),
+        ),
+        'مصر',
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Egypt'));
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining('+20'), findsOneWidget);
+    });
+
+    testWidgets('errors show until the form is complete', (tester) async {
+      await openSignUp(tester);
+      await tester.tap(find.text('Send code'));
+      await tester.pump();
+      expect(find.text('Please choose man or woman'), findsOneWidget);
+    });
+
+    testWidgets('full flow: sign up, enter the code, reach the questionnaire', (
+      tester,
+    ) async {
+      await openSignUp(tester);
+
+      await tester.tap(find.text('A woman'));
+      await tester.enterText(phoneField(), '0501234567');
+      await tester.tap(find.byType(Checkbox));
+      await tester.pump();
+      await tester.tap(find.text('Send code'));
+      await tester.pump(const Duration(seconds: 1)); // simulated SMS delay
+      await tester.pumpAndSettle();
+      expect(find.byType(VerifyCodeView), findsOneWidget);
+      expect(find.text('Test code: 123456'), findsOneWidget);
+
+      await tester.enterText(
+        find.descendant(
+          of: find.byType(VerifyCodeView),
+          matching: find.byType(TextField),
+        ),
+        '123456',
+      );
+      await tester.pump(const Duration(seconds: 1)); // simulated verify delay
       await tester.pumpAndSettle();
 
       expect(find.byType(IntakeView), findsOneWidget);

@@ -5,6 +5,7 @@ import 'package:khalty_ai_matchmaker/app/di/service_locator.dart';
 import 'package:khalty_ai_matchmaker/app/session/session_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/auth/data/repos/fake_auth_repository.dart';
 import 'package:khalty_ai_matchmaker/features/auth/domain/repos/auth_repository.dart';
+import 'package:khalty_ai_matchmaker/features/auth/presentation/manager/sign_up_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/onboarding/domain/services/onboarding_stage_resolver.dart';
 import 'package:khalty_ai_matchmaker/features/profile/data/repos/local_profile_repository.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/repos/profile_repository.dart';
@@ -34,6 +35,10 @@ void main() {
     expect(getIt<QuestionnaireConfig>().fields, isNotEmpty);
     expect(getIt<AppThemeCubit>(), isNotNull);
     expect(getIt<LocaleCubit>(), isNotNull);
+    expect(
+      identical(getIt<SignUpCubit>(), getIt<SignUpCubit>()),
+      isFalse,
+    );
   });
 
   test('repositories are registered by interface', () {

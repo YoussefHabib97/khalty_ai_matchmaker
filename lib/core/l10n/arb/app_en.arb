@@ -57,5 +57,79 @@
   "@reviewTitle": { "description": "Title of the screen with Khalty's summary of the user." },
 
   "placeholderComingSoon": "This screen is coming soon.",
-  "@placeholderComingSoon": { "description": "Temporary text on screens that are not built yet." }
+  "@placeholderComingSoon": { "description": "Temporary text on screens that are not built yet." },
+
+  "welcomeMeet": "Meet Khalty",
+  "@welcomeMeet": { "description": "Welcome screen heading (from the old app)." },
+  "welcomeTagline": "Your personal matchmaker 💍",
+  "@welcomeTagline": { "description": "Welcome screen tagline (from the old app)." },
+  "welcomeTitle": "Find your forever, one match at a time",
+  "@welcomeTitle": { "description": "Welcome screen title (from the old app)." },
+  "welcomeBody": "Chat with Khalty. She learns what matters to you and introduces one thoughtful match at a time.",
+  "@welcomeBody": { "description": "Welcome screen description (old app text, without 'or talk' since voice comes later)." },
+  "getStarted": "Get started ♥",
+  "@getStarted": { "description": "Welcome screen button that opens sign-up." },
+
+  "genderQuestion": "I am…",
+  "@genderQuestion": { "description": "Sign-up: label above the man/woman choice. Arabic needs review." },
+  "genderMan": "A man",
+  "@genderMan": { "description": "Sign-up gender choice." },
+  "genderWoman": "A woman",
+  "@genderWoman": { "description": "Sign-up gender choice." },
+  "phoneLabel": "Mobile number",
+  "@phoneLabel": { "description": "Sign-up: phone number field label. Arabic needs review." },
+  "consentText": "I agree that Khalty is present in my conversations to keep them safe and may give me private tips, and that my data is stored securely and never shared without my consent.",
+  "@consentText": { "description": "Sign-up consent checkbox (from the old app). Changing the meaning requires bumping Consent.currentVersion." },
+  "sendCode": "Send code",
+  "@sendCode": { "description": "Sign-up button that sends the SMS code. Arabic needs review." },
+
+  "errorPickGender": "Please choose man or woman",
+  "@errorPickGender": { "description": "Sign-up error (from the old app)." },
+  "errorPhoneInvalid": "Please enter a valid mobile number.",
+  "@errorPhoneInvalid": { "description": "Sign-up error. Arabic needs review." },
+  "errorAgreeFirst": "Please tick the agreement to continue.",
+  "@errorAgreeFirst": { "description": "Sign-up error (from the old app)." },
+  "errorSendFailed": "Could not send the code. Check the number and try again.",
+  "@errorSendFailed": { "description": "Sign-up error when the SMS or network fails (from the old app)." },
+  "errorCodeWrong": "The code is not correct. Please try again.",
+  "@errorCodeWrong": { "description": "Code screen error (from the old app)." },
+  "errorCodeExpired": "This code has expired. Please ask for a new one.",
+  "@errorCodeExpired": { "description": "Code screen error. Arabic needs review." },
+  "errorTooManyAttempts": "Too many attempts. Please wait a little and try again.",
+  "@errorTooManyAttempts": { "description": "Code screen error. Arabic needs review." },
+
+  "codeSentTo": "We sent a 6-digit code by SMS to {phone}.",
+  "@codeSentTo": {
+    "description": "Code screen explanation (from the old app).",
+    "placeholders": { "phone": { "type": "String" } }
+  },
+  "codeLabel": "6-digit code",
+  "@codeLabel": { "description": "Code screen: code field label. Arabic needs review." },
+  "verifyButton": "Verify",
+  "@verifyButton": { "description": "Code screen button (from the old app)." },
+  "resendCode": "Resend code",
+  "@resendCode": { "description": "Code screen: link to send a new code. Arabic needs review." },
+  "resendIn": "Resend code in {time}",
+  "@resendIn": {
+    "description": "Code screen: countdown before a new code can be sent, e.g. 0:42. Arabic needs review.",
+    "placeholders": { "time": { "type": "String" } }
+  },
+  "changeNumber": "Change number",
+  "@changeNumber": { "description": "Code screen: go back and edit the phone number. Arabic needs review." },
+  "testCodeHint": "Test code: {code}",
+  "@testCodeHint": {
+    "description": "Debug builds only: the fake SMS code.",
+    "placeholders": { "code": { "type": "String" } }
+  },
+
+  "chooseCountry": "Choose a country",
+  "@chooseCountry": { "description": "Country picker title. Arabic needs review." },
+  "countrySearchHint": "Search countries",
+  "@countrySearchHint": { "description": "Country picker search field hint. Arabic needs review." },
+  "countriesCommon": "Common",
+  "@countriesCommon": { "description": "Country picker: frequently used countries section. Arabic needs review." },
+  "countriesAll": "All countries",
+  "@countriesAll": { "description": "Country picker: all countries section. Arabic needs review." },
+  "countriesNoResults": "No countries found",
+  "@countriesNoResults": { "description": "Country picker: nothing matches the search. Arabic needs review." }
 }

@@ -63,4 +63,105 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get placeholderComingSoon => 'This screen is coming soon.';
+
+  @override
+  String get welcomeMeet => 'Meet Khalty';
+
+  @override
+  String get welcomeTagline => 'Your personal matchmaker 💍';
+
+  @override
+  String get welcomeTitle => 'Find your forever, one match at a time';
+
+  @override
+  String get welcomeBody =>
+      'Chat with Khalty. She learns what matters to you and introduces one thoughtful match at a time.';
+
+  @override
+  String get getStarted => 'Get started ♥';
+
+  @override
+  String get genderQuestion => 'I am…';
+
+  @override
+  String get genderMan => 'A man';
+
+  @override
+  String get genderWoman => 'A woman';
+
+  @override
+  String get phoneLabel => 'Mobile number';
+
+  @override
+  String get consentText =>
+      'I agree that Khalty is present in my conversations to keep them safe and may give me private tips, and that my data is stored securely and never shared without my consent.';
+
+  @override
+  String get sendCode => 'Send code';
+
+  @override
+  String get errorPickGender => 'Please choose man or woman';
+
+  @override
+  String get errorPhoneInvalid => 'Please enter a valid mobile number.';
+
+  @override
+  String get errorAgreeFirst => 'Please tick the agreement to continue.';
+
+  @override
+  String get errorSendFailed =>
+      'Could not send the code. Check the number and try again.';
+
+  @override
+  String get errorCodeWrong => 'The code is not correct. Please try again.';
+
+  @override
+  String get errorCodeExpired =>
+      'This code has expired. Please ask for a new one.';
+
+  @override
+  String get errorTooManyAttempts =>
+      'Too many attempts. Please wait a little and try again.';
+
+  @override
+  String codeSentTo(String phone) {
+    return 'We sent a 6-digit code by SMS to $phone.';
+  }
+
+  @override
+  String get codeLabel => '6-digit code';
+
+  @override
+  String get verifyButton => 'Verify';
+
+  @override
+  String get resendCode => 'Resend code';
+
+  @override
+  String resendIn(String time) {
+    return 'Resend code in $time';
+  }
+
+  @override
+  String get changeNumber => 'Change number';
+
+  @override
+  String testCodeHint(String code) {
+    return 'Test code: $code';
+  }
+
+  @override
+  String get chooseCountry => 'Choose a country';
+
+  @override
+  String get countrySearchHint => 'Search countries';
+
+  @override
+  String get countriesCommon => 'Common';
+
+  @override
+  String get countriesAll => 'All countries';
+
+  @override
+  String get countriesNoResults => 'No countries found';
 }

@@ -19,5 +19,40 @@
   "selfIntroTitle": "بكلماتك",
   "reviewTitle": "ما فهمته عنك",
 
-  "placeholderComingSoon": "هذه الشاشة قادمة قريبًا."
+  "placeholderComingSoon": "هذه الشاشة قادمة قريبًا.",
+
+  "welcomeMeet": "تعرّف على خالتي",
+  "welcomeTagline": "خطّابتك الشخصية 💍",
+  "welcomeTitle": "اعثر على شريك حياتك، ترشيح واحد في كل مرة",
+  "welcomeBody": "دردش مع خالتي. تتعرّف على ما يهمّك وتقدّم لك ترشيحًا مدروسًا واحدًا في كل مرة.",
+  "getStarted": "ابدأ الآن ♥",
+
+  "genderQuestion": "أنا…",
+  "genderMan": "رجل",
+  "genderWoman": "امرأة",
+  "phoneLabel": "رقم الجوال",
+  "consentText": "أوافق على أن خالتي حاضرة في محادثاتي لتحافظ على سلامتها وقد تقدّم لي نصائح خاصة، وأن بياناتي محفوظة بأمان ولا تُشارك دون موافقتي.",
+  "sendCode": "أرسل الرمز",
+
+  "errorPickGender": "اختر رجل أو امرأة",
+  "errorPhoneInvalid": "من فضلك أدخل رقم جوال صحيحًا.",
+  "errorAgreeFirst": "من فضلك وافق على الشروط للمتابعة.",
+  "errorSendFailed": "تعذّر إرسال الرمز. تحقق من الرقم وحاول مرة أخرى.",
+  "errorCodeWrong": "الرمز غير صحيح. حاول مرة أخرى.",
+  "errorCodeExpired": "انتهت صلاحية الرمز. اطلب رمزًا جديدًا.",
+  "errorTooManyAttempts": "محاولات كثيرة. انتظر قليلًا ثم حاول مرة أخرى.",
+
+  "codeSentTo": "أرسلنا رمزًا من 6 أرقام برسالة نصية إلى {phone}.",
+  "codeLabel": "الرمز المكوّن من 6 أرقام",
+  "verifyButton": "تحقق",
+  "resendCode": "أعد إرسال الرمز",
+  "resendIn": "إعادة الإرسال بعد {time}",
+  "changeNumber": "تغيير الرقم",
+  "testCodeHint": "رمز التجربة: {code}",
+
+  "chooseCountry": "اختر الدولة",
+  "countrySearchHint": "ابحث عن دولة",
+  "countriesCommon": "الأكثر استخدامًا",
+  "countriesAll": "كل الدول",
+  "countriesNoResults": "لا توجد دول مطابقة"
 }
