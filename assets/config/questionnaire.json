@@ -1640,14 +1640,20 @@
           "id": "has_children",
           "label": {
             "en": "Has children",
-            "ar": "لديه أطفال"
+            "ar": {
+              "male": "لديها أطفال",
+              "female": "لديه أطفال"
+            }
           }
         },
         {
           "id": "lives_far_away",
           "label": {
             "en": "Lives far away",
-            "ar": "يسكن بعيدًا"
+            "ar": {
+              "male": "تسكن بعيدًا",
+              "female": "يسكن بعيدًا"
+            }
           }
         },
         {
