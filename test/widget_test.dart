@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:khalty_ai_matchmaker/app/app.dart';
 import 'package:khalty_ai_matchmaker/app/di/service_locator.dart';
 import 'package:khalty_ai_matchmaker/core/constants/constants.dart';
-import 'package:khalty_ai_matchmaker/core/shared/widgets/language_toggle.dart';
+import 'package:khalty_ai_matchmaker/core/shared/widgets/language_selector.dart';
 import 'package:khalty_ai_matchmaker/core/shared/widgets/theme_switcher_widget.dart';
 import 'package:khalty_ai_matchmaker/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:material_ui/material_ui.dart';
@@ -48,12 +48,10 @@ void main() {
   ) async {
     await _pumpApp(tester, {kAppLocaleKey: 'en'});
 
-    await tester.tap(
-      find.descendant(
-        of: find.byType(LanguageToggle),
-        matching: find.text('العربية'),
-      ),
-    );
+    // Open the dropdown, then pick Arabic from the menu.
+    await tester.tap(find.byType(LanguageSelector));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('العربية').last);
     await tester.pumpAndSettle();
 
     expect(_direction(tester), TextDirection.rtl);
