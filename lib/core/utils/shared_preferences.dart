@@ -1,8 +1,7 @@
-import 'package:khalty_ai_matchmaker/core/constants/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Thin wrapper around [SharedPreferences]. Registered as a singleton in the
-/// service locator and injected wherever local key/value storage is needed.
+/// Thin, feature-agnostic wrapper around [SharedPreferences] (a data source).
+/// Only data-layer repositories use it; nothing above them should.
 class SharedPrefs {
   SharedPrefs(this._prefs) {
     _checkIsAppFirstRun();
@@ -48,9 +47,6 @@ class SharedPrefs {
   /// is treated as a first run once.)
   void _checkIsAppFirstRun() {
     isAppFirstRun = _prefs.get(kIsAppFirstRunKey) != false;
-    if (isAppFirstRun) {
-      setData(key: kIsAppFirstRunKey, value: false);
-      setData(key: kAppThemeKey, value: kAppThemeDeviceDefault);
-    }
+    if (isAppFirstRun) setData(key: kIsAppFirstRunKey, value: false);
   }
 }

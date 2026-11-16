@@ -1,7 +1,7 @@
 import 'package:khalty_ai_matchmaker/core/l10n/l10n_extensions.dart';
 import 'package:khalty_ai_matchmaker/core/shared/layout/app_default_padding.dart';
-import 'package:khalty_ai_matchmaker/core/shared/widgets/language_selector.dart';
-import 'package:khalty_ai_matchmaker/core/shared/widgets/theme_switcher_widget.dart';
+import 'package:khalty_ai_matchmaker/features/settings/presentation/widgets/language_selector.dart';
+import 'package:khalty_ai_matchmaker/features/settings/presentation/widgets/theme_switcher_widget.dart';
 import 'package:khalty_ai_matchmaker/core/utils/extensions.dart';
 import 'package:material_ui/material_ui.dart';
 

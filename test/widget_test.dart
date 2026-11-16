@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:khalty_ai_matchmaker/app/app.dart';
 import 'package:khalty_ai_matchmaker/app/di/service_locator.dart';
-import 'package:khalty_ai_matchmaker/core/constants/constants.dart';
-import 'package:khalty_ai_matchmaker/core/shared/widgets/language_selector.dart';
-import 'package:khalty_ai_matchmaker/core/shared/widgets/theme_switcher_widget.dart';
+import 'package:khalty_ai_matchmaker/features/settings/data/repos/local_settings_repository.dart';
+import 'package:khalty_ai_matchmaker/features/settings/presentation/widgets/language_selector.dart';
+import 'package:khalty_ai_matchmaker/features/settings/presentation/widgets/theme_switcher_widget.dart';
 import 'package:khalty_ai_matchmaker/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,7 +29,7 @@ void main() {
   testWidgets('App starts on the onboarding view in English, LTR', (
     tester,
   ) async {
-    await _pumpApp(tester, {kAppLocaleKey: 'en'});
+    await _pumpApp(tester, {LocalSettingsRepository.localeKey: 'en'});
 
     expect(find.byType(OnboardingView), findsOneWidget);
     expect(find.byType(ThemeSwitcherWidget), findsOneWidget);
@@ -38,7 +38,7 @@ void main() {
   });
 
   testWidgets('Saved Arabic starts the app right-to-left', (tester) async {
-    await _pumpApp(tester, {kAppLocaleKey: 'ar'});
+    await _pumpApp(tester, {LocalSettingsRepository.localeKey: 'ar'});
 
     expect(find.text('خالتي'), findsOneWidget);
     expect(_direction(tester), TextDirection.rtl);
@@ -47,7 +47,7 @@ void main() {
   testWidgets('Switching to Arabic flips the layout and is saved', (
     tester,
   ) async {
-    await _pumpApp(tester, {kAppLocaleKey: 'en'});
+    await _pumpApp(tester, {LocalSettingsRepository.localeKey: 'en'});
 
     // Open the dropdown, then pick Arabic from the menu.
     await tester.tap(find.byType(LanguageSelector));
@@ -58,6 +58,6 @@ void main() {
     expect(_direction(tester), TextDirection.rtl);
     expect(find.text('أهلًا وسهلًا'), findsOneWidget);
     final prefs = await SharedPreferences.getInstance();
-    expect(prefs.getString(kAppLocaleKey), 'ar');
+    expect(prefs.getString(LocalSettingsRepository.localeKey), 'ar');
   });
 }

@@ -3,11 +3,11 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:go_router/go_router.dart';
 import 'package:khalty_ai_matchmaker/app/di/service_locator.dart';
 import 'package:khalty_ai_matchmaker/app/navigation/app_router.dart';
-import 'package:khalty_ai_matchmaker/core/l10n/cubit/locale_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/settings/presentation/manager/locale_cubit.dart';
 import 'package:khalty_ai_matchmaker/core/l10n/generated/app_localizations.dart';
 import 'package:khalty_ai_matchmaker/core/l10n/l10n_extensions.dart';
 import 'package:khalty_ai_matchmaker/core/theme/app_theme.dart';
-import 'package:khalty_ai_matchmaker/core/theme/cubit/theme_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/settings/presentation/manager/theme_cubit.dart';
 import 'package:material_ui/material_ui.dart';
 
 /// Requires `setupServiceLocator()` to have completed.

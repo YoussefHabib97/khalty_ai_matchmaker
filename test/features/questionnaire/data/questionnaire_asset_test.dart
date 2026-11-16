@@ -2,10 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:khalty_ai_matchmaker/features/questionnaire/data/models/questionnaire_config_parser.dart';
 import 'package:khalty_ai_matchmaker/core/constants/enums.dart';
-import 'package:khalty_ai_matchmaker/features/questionnaire/data/models/field_keys.dart';
-import 'package:khalty_ai_matchmaker/features/questionnaire/data/models/questionnaire_config.dart';
-import 'package:khalty_ai_matchmaker/features/questionnaire/data/repos/questionnaire_repository.dart';
+import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/field_keys.dart';
+import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/questionnaire_config.dart';
+import 'package:khalty_ai_matchmaker/features/questionnaire/data/repos/asset_questionnaire_repository.dart';
 
 /// Checks on the REAL bundled questionnaire, so a mistake in the file fails
 /// the tests long before it reaches a phone.
@@ -14,7 +15,7 @@ void main() {
 
   setUpAll(() {
     final raw = File(AssetQuestionnaireRepository.assetPath).readAsStringSync();
-    config = QuestionnaireConfig.fromJson(jsonDecode(raw));
+    config = const QuestionnaireConfigParser().parse(jsonDecode(raw));
   });
 
   test('loads with 5 chapters and 33 questions', () {
