@@ -43,15 +43,14 @@ class SharedPrefs {
 
   Future<bool> clearPrefs() => _prefs.clear();
 
+  /// `true` only on the very first launch; the flag is then stored as `false`.
+  /// (A stored `true` comes from older builds that never cleared the flag and
+  /// is treated as a first run once.)
   void _checkIsAppFirstRun() {
-    final stored = _prefs.get(kIsAppFirstRunKey);
-    if (stored == null || stored == true) {
-      isAppFirstRun = true;
-      setData(key: kIsAppFirstRunKey, value: isAppFirstRun);
+    isAppFirstRun = _prefs.get(kIsAppFirstRunKey) != false;
+    if (isAppFirstRun) {
+      setData(key: kIsAppFirstRunKey, value: false);
       setData(key: kAppThemeKey, value: kAppThemeDeviceDefault);
-    } else {
-      isAppFirstRun = false;
-      setData(key: kIsAppFirstRunKey, value: isAppFirstRun);
     }
   }
 }
