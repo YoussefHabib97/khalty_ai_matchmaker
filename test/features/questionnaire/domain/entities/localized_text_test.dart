@@ -44,4 +44,17 @@ void main() {
     expect(acks.forLanguage(AppLanguage.en), ['Thanks', 'Lovely']);
     expect(acks.forLanguage(AppLanguage.ar), ['شكرًا']);
   });
+
+  test('a list cycles by index and fills placeholders', () {
+    final acks = LocalizedTextList(
+      en: ['Thanks, {name}', 'Lovely'],
+      ar: ['شكرًا'],
+    );
+    expect(
+      acks.resolve(AppLanguage.en, 0, vars: {'name': 'Sara'}),
+      'Thanks, Sara',
+    );
+    expect(acks.resolve(AppLanguage.en, 3), 'Lovely');
+    expect(acks.resolve(AppLanguage.ar, 5), 'شكرًا');
+  });
 }

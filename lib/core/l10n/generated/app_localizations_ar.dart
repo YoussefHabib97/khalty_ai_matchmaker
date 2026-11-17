@@ -163,4 +163,62 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get countriesNoResults => 'لا توجد دول مطابقة';
+
+  @override
+  String get changeLanguage => 'تغيير اللغة';
+
+  @override
+  String get intakeBegin => 'لنبدأ';
+
+  @override
+  String get intakeContinue => 'متابعة';
+
+  @override
+  String get intakeSkip => 'أفضّل عدم الإجابة';
+
+  @override
+  String get intakeWhyThisQuestion => 'لماذا هذا السؤال؟';
+
+  @override
+  String intakeChapterOf(int current, int total) {
+    return 'الجزء $current من $total';
+  }
+
+  @override
+  String intakeQuestionsLeft(int count) {
+    return 'المتبقي: $count';
+  }
+
+  @override
+  String get intakeComingSoon =>
+      'هذا النوع من الإجابات قادم في التحديث القادم.';
+
+  @override
+  String get intakeUseSample => 'استخدام إجابة تجريبية';
+
+  @override
+  String get answerRequired => 'الإجابة مطلوبة للمتابعة.';
+
+  @override
+  String answerTooLong(int max) {
+    return 'يجب ألا تزيد الإجابة على $max حرفًا.';
+  }
+
+  @override
+  String get answerLettersOnly => 'يُقبل الاسم بالحروف فقط.';
+
+  @override
+  String answerNumberBetween(int min, int max) {
+    return 'يجب أن يكون الرقم بين $min و$max.';
+  }
+
+  @override
+  String get answerNumberRequired => 'يجب أن تكون الإجابة رقمًا.';
+
+  @override
+  String get answerInvalid =>
+      'تعذّر قبول هذه الإجابة، يُرجى المحاولة مرة أخرى.';
+
+  @override
+  String get answerSaveFailed => 'تعذّر حفظ الإجابة، يُرجى المحاولة مرة أخرى.';
 }

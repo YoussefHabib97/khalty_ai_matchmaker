@@ -164,4 +164,63 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get countriesNoResults => 'No countries found';
+
+  @override
+  String get changeLanguage => 'Change language';
+
+  @override
+  String get intakeBegin => 'Let\'s begin';
+
+  @override
+  String get intakeContinue => 'Continue';
+
+  @override
+  String get intakeSkip => 'Skip';
+
+  @override
+  String get intakeWhyThisQuestion => 'Why this question?';
+
+  @override
+  String intakeChapterOf(int current, int total) {
+    return 'Chapter $current of $total';
+  }
+
+  @override
+  String intakeQuestionsLeft(int count) {
+    return '$count left';
+  }
+
+  @override
+  String get intakeComingSoon =>
+      'This kind of answer is coming in the next update.';
+
+  @override
+  String get intakeUseSample => 'Use a sample answer';
+
+  @override
+  String get answerRequired => 'Please answer to continue.';
+
+  @override
+  String answerTooLong(int max) {
+    return 'Please keep it to $max characters or fewer.';
+  }
+
+  @override
+  String get answerLettersOnly => 'Please use letters only.';
+
+  @override
+  String answerNumberBetween(int min, int max) {
+    return 'Please enter a number between $min and $max.';
+  }
+
+  @override
+  String get answerNumberRequired => 'Please type a number.';
+
+  @override
+  String get answerInvalid =>
+      'This answer can\'t be accepted. Please try again.';
+
+  @override
+  String get answerSaveFailed =>
+      'Couldn\'t save your answer. Please try again.';
 }

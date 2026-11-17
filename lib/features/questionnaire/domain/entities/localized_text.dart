@@ -33,10 +33,13 @@ class LocalizedText {
     Map<String, String> vars = const {},
   }) {
     final raw = (language == AppLanguage.ar ? ar : en).forGender(gender);
-    if (vars.isEmpty) return raw;
-    return raw.replaceAllMapped(_placeholder, (m) => vars[m[1]] ?? m[0]!);
+    return _fill(raw, vars);
   }
 }
+
+String _fill(String raw, Map<String, String> vars) => vars.isEmpty
+    ? raw
+    : raw.replaceAllMapped(_placeholder, (m) => vars[m[1]] ?? m[0]!);
 
 /// Alternative texts per language (e.g. Khalty's short acknowledgements,
 /// one picked at random).
@@ -50,4 +53,16 @@ class LocalizedTextList {
 
   List<String> forLanguage(AppLanguage language) =>
       language == AppLanguage.ar ? ar : en;
+
+  /// Text number [index] (wrapping around) for [language], with placeholders
+  /// replaced from [vars]. Cycling by index never repeats a text twice in a
+  /// row.
+  String resolve(
+    AppLanguage language,
+    int index, {
+    Map<String, String> vars = const {},
+  }) {
+    final texts = forLanguage(language);
+    return _fill(texts[index % texts.length], vars);
+  }
 }

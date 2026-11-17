@@ -54,13 +54,18 @@ UserProfile profileAt(OnboardingStage stage, {Gender gender = Gender.female}) {
 
 /// Stored values (for `SharedPreferences.setMockInitialValues`) of a signed-in
 /// [testUser] whose profile has reached [stage].
-Map<String, Object> storedSessionAt(OnboardingStage stage) => {
-  FakeAuthRepository.sessionKey: jsonEncode({
-    'uid': testUser.uid,
-    'phone': testUser.phoneE164,
-  }),
-  if (stage != OnboardingStage.needsSignUp)
-    LocalProfileRepository.key: jsonEncode(
-      UserProfileMapper.toJson(profileAt(stage)),
-    ),
+Map<String, Object> storedSessionAt(OnboardingStage stage) =>
+    stage == OnboardingStage.needsSignUp
+    ? {FakeAuthRepository.sessionKey: _storedUser}
+    : storedSession(profileAt(stage));
+
+/// Stored values of a signed-in [testUser] with [profile] (same uid).
+Map<String, Object> storedSession(UserProfile profile) => {
+  FakeAuthRepository.sessionKey: _storedUser,
+  LocalProfileRepository.key: jsonEncode(UserProfileMapper.toJson(profile)),
 };
+
+final _storedUser = jsonEncode({
+  'uid': testUser.uid,
+  'phone': testUser.phoneE164,
+});

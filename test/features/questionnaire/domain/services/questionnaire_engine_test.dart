@@ -163,6 +163,22 @@ void main() {
       expect(man.previousField('name', done), isNull);
       expect(() => man.previousField('hijab', done), throwsArgumentError);
     });
+
+    test('forward after Back skips questions that do not apply', () {
+      final a = answers({
+        'marital_status': const ChoiceAnswer('never_married'),
+      });
+      expect(man.fieldAfter('marital_status', a)?.key, 'education');
+      final b = answers({'marital_status': const ChoiceAnswer('divorced')});
+      expect(man.fieldAfter('marital_status', b)?.key, 'children_now');
+    });
+
+    test('forward also passes answered questions, and ends after the last', () {
+      final done = QuestionnaireAutofill.answerAll(woman);
+      expect(woman.fieldAfter('name', done)?.key, 'age');
+      expect(woman.fieldAfter(woman.fields.last.key, done), isNull);
+      expect(() => woman.fieldAfter('beard', done), throwsArgumentError);
+    });
   });
 
   group('validation', () {

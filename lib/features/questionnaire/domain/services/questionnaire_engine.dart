@@ -94,12 +94,17 @@ class QuestionnaireEngine {
   /// For Back: the last applicable question before [beforeKey], or before
   /// the end when [beforeKey] is null. Null at the first question.
   FieldDef? previousField(String? beforeKey, Answers answers) {
-    var end = fields.length;
-    if (beforeKey != null) {
-      end = fields.indexWhere((f) => f.key == beforeKey);
-      if (end < 0) throw ArgumentError('"$beforeKey" is not asked to $gender');
-    }
+    final end = beforeKey == null ? fields.length : _indexOf(beforeKey);
     for (var i = end - 1; i >= 0; i--) {
+      if (applies(fields[i], answers)) return fields[i];
+    }
+    return null;
+  }
+
+  /// For moving forward after Back: the first applicable question after
+  /// [afterKey], answered or not. Null after the last question.
+  FieldDef? fieldAfter(String afterKey, Answers answers) {
+    for (var i = _indexOf(afterKey) + 1; i < fields.length; i++) {
       if (applies(fields[i], answers)) return fields[i];
     }
     return null;
@@ -239,6 +244,12 @@ class QuestionnaireEngine {
 
   FieldDef _field(String key) =>
       config.field(key) ?? (throw ArgumentError('Unknown field "$key"'));
+
+  int _indexOf(String key) {
+    final index = fields.indexWhere((f) => f.key == key);
+    if (index < 0) throw ArgumentError('"$key" is not asked to $gender');
+    return index;
+  }
 
   _Status _status(FieldDef field, Answers answers) {
     if (!field.isAskedTo(gender)) return _Status.doesNotApply;

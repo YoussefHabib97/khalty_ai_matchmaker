@@ -54,5 +54,24 @@
   "countrySearchHint": "ابحث عن دولة",
   "countriesCommon": "الأكثر استخدامًا",
   "countriesAll": "كل الدول",
-  "countriesNoResults": "لا توجد دول مطابقة"
+  "countriesNoResults": "لا توجد دول مطابقة",
+
+  "changeLanguage": "تغيير اللغة",
+
+  "intakeBegin": "لنبدأ",
+  "intakeContinue": "متابعة",
+  "intakeSkip": "أفضّل عدم الإجابة",
+  "intakeWhyThisQuestion": "لماذا هذا السؤال؟",
+  "intakeChapterOf": "الجزء {current} من {total}",
+  "intakeQuestionsLeft": "المتبقي: {count}",
+  "intakeComingSoon": "هذا النوع من الإجابات قادم في التحديث القادم.",
+  "intakeUseSample": "استخدام إجابة تجريبية",
+
+  "answerRequired": "الإجابة مطلوبة للمتابعة.",
+  "answerTooLong": "يجب ألا تزيد الإجابة على {max} حرفًا.",
+  "answerLettersOnly": "يُقبل الاسم بالحروف فقط.",
+  "answerNumberBetween": "يجب أن يكون الرقم بين {min} و{max}.",
+  "answerNumberRequired": "يجب أن تكون الإجابة رقمًا.",
+  "answerInvalid": "تعذّر قبول هذه الإجابة، يُرجى المحاولة مرة أخرى.",
+  "answerSaveFailed": "تعذّر حفظ الإجابة، يُرجى المحاولة مرة أخرى."
 }

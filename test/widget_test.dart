@@ -1,6 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:khalty_ai_matchmaker/app/app.dart';
-import 'package:khalty_ai_matchmaker/app/di/service_locator.dart';
 import 'package:khalty_ai_matchmaker/app/navigation/main_shell.dart';
 import 'package:khalty_ai_matchmaker/features/auth/presentation/views/sign_up_view.dart';
 import 'package:khalty_ai_matchmaker/features/auth/presentation/views/verify_code_view.dart';
@@ -16,24 +14,8 @@ import 'package:khalty_ai_matchmaker/features/settings/presentation/widgets/lang
 import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'helpers/app.dart';
 import 'helpers/session.dart';
-
-Future<void> _pumpApp(WidgetTester tester, Map<String, Object> prefs) async {
-  SharedPreferences.setMockInitialValues({
-    LocalSettingsRepository.localeKey: 'en',
-    ...prefs,
-  });
-  tester.view.physicalSize = const Size(375, 812) * 3;
-  tester.view.devicePixelRatio = 3;
-  addTearDown(tester.view.reset);
-
-  // Real async work (asset loading) must run outside the fake test clock.
-  await tester.runAsync(setupServiceLocator);
-  addTearDown(getIt.reset);
-
-  await tester.pumpWidget(ApplicationRoot(router: getIt(), session: getIt()));
-  await tester.pumpAndSettle();
-}
 
 TextDirection _direction(WidgetTester tester) =>
     Directionality.of(tester.element(find.byType(WelcomeView)));
@@ -43,7 +25,7 @@ void main() {
     testWidgets('a signed-out user starts on Welcome, in English, LTR', (
       tester,
     ) async {
-      await _pumpApp(tester, {});
+      await pumpApp(tester, {});
 
       expect(find.byType(WelcomeView), findsOneWidget);
       expect(find.text('Meet Khalty'), findsOneWidget);
@@ -51,7 +33,7 @@ void main() {
     });
 
     testWidgets('saved Arabic starts the app right-to-left', (tester) async {
-      await _pumpApp(tester, {LocalSettingsRepository.localeKey: 'ar'});
+      await pumpApp(tester, {LocalSettingsRepository.localeKey: 'ar'});
 
       expect(find.text('تعرّف على خالتي'), findsOneWidget);
       expect(_direction(tester), TextDirection.rtl);
@@ -60,7 +42,7 @@ void main() {
     testWidgets('switching to Arabic flips the layout and is saved', (
       tester,
     ) async {
-      await _pumpApp(tester, {});
+      await pumpApp(tester, {});
 
       // Open the dropdown, then pick Arabic from the menu.
       await tester.tap(find.byType(LanguageSelector));
@@ -77,14 +59,14 @@ void main() {
 
   group('navigation', () {
     testWidgets('each stored stage opens on its own screen', (tester) async {
-      await _pumpApp(tester, storedSessionAt(OnboardingStage.needsSelfIntro));
+      await pumpApp(tester, storedSessionAt(OnboardingStage.needsSelfIntro));
       expect(find.byType(SelfIntroView), findsOneWidget);
     });
 
     testWidgets('a finished user gets the tabs and can switch between them', (
       tester,
     ) async {
-      await _pumpApp(tester, storedSessionAt(OnboardingStage.complete));
+      await pumpApp(tester, storedSessionAt(OnboardingStage.complete));
 
       expect(find.byType(MainShell), findsOneWidget);
       expect(find.byType(KhaltyTabView), findsOneWidget);
@@ -97,7 +79,7 @@ void main() {
     testWidgets('signing in moves from Welcome to the questionnaire', (
       tester,
     ) async {
-      await _pumpApp(tester, {});
+      await pumpApp(tester, {});
       expect(find.byType(WelcomeView), findsOneWidget);
 
       // Debug panel: fake SMS sign-in (simulated network delays).
@@ -112,7 +94,7 @@ void main() {
 
   group('sign-up', () {
     Future<void> openSignUp(WidgetTester tester) async {
-      await _pumpApp(tester, {});
+      await pumpApp(tester, {});
       await tester.tap(find.text('Get started ♥'));
       await tester.pumpAndSettle();
       expect(find.byType(SignUpView), findsOneWidget);

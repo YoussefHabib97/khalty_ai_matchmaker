@@ -373,6 +373,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No countries found'**
   String get countriesNoResults;
+
+  /// Tooltip of the language icon button in app bars. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Change language'**
+  String get changeLanguage;
+
+  /// Questionnaire: button under Khalty's greeting. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s begin'**
+  String get intakeBegin;
+
+  /// Questionnaire: next question / after a chapter intro. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get intakeContinue;
+
+  /// Questionnaire: skip an optional question. Arabic uses a gender-neutral 'I'd rather not answer'. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get intakeSkip;
+
+  /// Questionnaire: link that explains why Khalty asks. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Why this question?'**
+  String get intakeWhyThisQuestion;
+
+  /// Questionnaire: which chapter the user is in. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Chapter {current} of {total}'**
+  String intakeChapterOf(int current, int total);
+
+  /// Questionnaire progress: questions still to answer. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} left'**
+  String intakeQuestionsLeft(int count);
+
+  /// TEMPORARY until step 9: shown on questions whose input is not built yet.
+  ///
+  /// In en, this message translates to:
+  /// **'This kind of answer is coming in the next update.'**
+  String get intakeComingSoon;
+
+  /// TEMPORARY until step 9: answers the question with a sample answer.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a sample answer'**
+  String get intakeUseSample;
+
+  /// Answer error: nothing typed. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Please answer to continue.'**
+  String get answerRequired;
+
+  /// Answer error: typed text too long. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Please keep it to {max} characters or fewer.'**
+  String answerTooLong(int max);
+
+  /// Answer error: a name with digits or symbols. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Please use letters only.'**
+  String get answerLettersOnly;
+
+  /// Answer error: number out of range. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a number between {min} and {max}.'**
+  String answerNumberBetween(int min, int max);
+
+  /// Answer error: not a number. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Please type a number.'**
+  String get answerNumberRequired;
+
+  /// Answer error: any other problem. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'This answer can\'t be accepted. Please try again.'**
+  String get answerInvalid;
+
+  /// Questionnaire: saving the answer failed. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save your answer. Please try again.'**
+  String get answerSaveFailed;
 }
 
 class _AppLocalizationsDelegate

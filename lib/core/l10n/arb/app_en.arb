@@ -131,5 +131,52 @@
   "countriesAll": "All countries",
   "@countriesAll": { "description": "Country picker: all countries section. Arabic needs review." },
   "countriesNoResults": "No countries found",
-  "@countriesNoResults": { "description": "Country picker: nothing matches the search. Arabic needs review." }
+  "@countriesNoResults": { "description": "Country picker: nothing matches the search. Arabic needs review." },
+
+  "changeLanguage": "Change language",
+  "@changeLanguage": { "description": "Tooltip of the language icon button in app bars. Arabic needs review." },
+
+  "intakeBegin": "Let's begin",
+  "@intakeBegin": { "description": "Questionnaire: button under Khalty's greeting. Arabic needs review." },
+  "intakeContinue": "Continue",
+  "@intakeContinue": { "description": "Questionnaire: next question / after a chapter intro. Arabic needs review." },
+  "intakeSkip": "Skip",
+  "@intakeSkip": { "description": "Questionnaire: skip an optional question. Arabic uses a gender-neutral 'I'd rather not answer'. Arabic needs review." },
+  "intakeWhyThisQuestion": "Why this question?",
+  "@intakeWhyThisQuestion": { "description": "Questionnaire: link that explains why Khalty asks. Arabic needs review." },
+  "intakeChapterOf": "Chapter {current} of {total}",
+  "@intakeChapterOf": {
+    "description": "Questionnaire: which chapter the user is in. Arabic needs review.",
+    "placeholders": { "current": { "type": "int" }, "total": { "type": "int" } }
+  },
+  "intakeQuestionsLeft": "{count} left",
+  "@intakeQuestionsLeft": {
+    "description": "Questionnaire progress: questions still to answer. Arabic needs review.",
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "intakeComingSoon": "This kind of answer is coming in the next update.",
+  "@intakeComingSoon": { "description": "TEMPORARY until step 9: shown on questions whose input is not built yet." },
+  "intakeUseSample": "Use a sample answer",
+  "@intakeUseSample": { "description": "TEMPORARY until step 9: answers the question with a sample answer." },
+
+  "answerRequired": "Please answer to continue.",
+  "@answerRequired": { "description": "Answer error: nothing typed. Arabic needs review." },
+  "answerTooLong": "Please keep it to {max} characters or fewer.",
+  "@answerTooLong": {
+    "description": "Answer error: typed text too long. Arabic needs review.",
+    "placeholders": { "max": { "type": "int" } }
+  },
+  "answerLettersOnly": "Please use letters only.",
+  "@answerLettersOnly": { "description": "Answer error: a name with digits or symbols. Arabic needs review." },
+  "answerNumberBetween": "Please enter a number between {min} and {max}.",
+  "@answerNumberBetween": {
+    "description": "Answer error: number out of range. Arabic needs review.",
+    "placeholders": { "min": { "type": "int" }, "max": { "type": "int" } }
+  },
+  "answerNumberRequired": "Please type a number.",
+  "@answerNumberRequired": { "description": "Answer error: not a number. Arabic needs review." },
+  "answerInvalid": "This answer can't be accepted. Please try again.",
+  "@answerInvalid": { "description": "Answer error: any other problem. Arabic needs review." },
+  "answerSaveFailed": "Couldn't save your answer. Please try again.",
+  "@answerSaveFailed": { "description": "Questionnaire: saving the answer failed. Arabic needs review." }
 }

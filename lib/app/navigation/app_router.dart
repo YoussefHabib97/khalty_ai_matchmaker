@@ -11,6 +11,7 @@ import 'package:khalty_ai_matchmaker/features/auth/presentation/manager/sign_up_
 import 'package:khalty_ai_matchmaker/features/auth/presentation/views/sign_up_view.dart';
 import 'package:khalty_ai_matchmaker/features/auth/presentation/views/verify_code_view.dart';
 import 'package:khalty_ai_matchmaker/features/chats/presentation/views/chats_tab_view.dart';
+import 'package:khalty_ai_matchmaker/features/intake/presentation/manager/intake_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/intake/presentation/views/intake_view.dart';
 import 'package:khalty_ai_matchmaker/features/intake/presentation/views/review_view.dart';
 import 'package:khalty_ai_matchmaker/features/intake/presentation/views/self_intro_view.dart';
@@ -28,6 +29,7 @@ import 'package:material_ui/material_ui.dart';
 GoRouter createAppRouter(
   SessionCubit session, {
   required SignUpCubit Function() signUpCubit,
+  required IntakeCubit Function() intakeCubit,
   DebugStageActions? debug,
 }) {
   Widget page(Widget child) =>
@@ -75,7 +77,13 @@ GoRouter createAppRouter(
           ),
         ],
       ),
-      route(AppRoutes.intake, (_) => const IntakeView()),
+      route(
+        AppRoutes.intake,
+        (_) => BlocProvider(
+          create: (_) => intakeCubit(),
+          child: const IntakeView(),
+        ),
+      ),
       route(AppRoutes.selfIntro, (_) => const SelfIntroView()),
       route(AppRoutes.review, (_) => const ReviewView()),
       StatefulShellRoute.indexedStack(

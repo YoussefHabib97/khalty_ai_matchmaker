@@ -9,6 +9,7 @@ import 'package:khalty_ai_matchmaker/core/utils/shared_preferences.dart';
 import 'package:khalty_ai_matchmaker/features/auth/presentation/manager/sign_up_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/auth/data/repos/fake_auth_repository.dart';
 import 'package:khalty_ai_matchmaker/features/auth/domain/repos/auth_repository.dart';
+import 'package:khalty_ai_matchmaker/features/intake/presentation/manager/intake_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/onboarding/domain/services/onboarding_stage_resolver.dart';
 import 'package:khalty_ai_matchmaker/features/profile/data/repos/local_profile_repository.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/repos/profile_repository.dart';
@@ -87,6 +88,7 @@ Future<void> setupServiceLocator() async {
     () => createAppRouter(
       getIt(),
       signUpCubit: () => getIt<SignUpCubit>(),
+      intakeCubit: () => getIt<IntakeCubit>(),
       debug: kDebugMode ? getIt<DebugStageActions>() : null,
     ),
     dispose: (router) => router.dispose(),
@@ -101,6 +103,12 @@ Future<void> setupServiceLocator() async {
       profiles: getIt(),
       initialCountry: deviceCountry(),
       debugCodeHint: kDebugMode ? FakeAuthRepository.code : null,
+    ),
+  );
+  getIt.registerFactory<IntakeCubit>(
+    () => IntakeCubit(
+      profiles: getIt(),
+      engineFor: getIt<OnboardingStageResolver>().engineFor,
     ),
   );
 }
