@@ -18,6 +18,7 @@ void main() {
     AppRoutes.me,
     AppRoutes.settings,
     AppRoutes.editProfile,
+    AppRoutes.preview,
     '/',
     '/unknown',
   ];
@@ -38,6 +39,7 @@ void main() {
       AppRoutes.me,
       AppRoutes.settings,
       AppRoutes.editProfile,
+      AppRoutes.preview,
     },
   };
 

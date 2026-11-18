@@ -77,6 +77,7 @@ class FieldDef {
     required this.chapter,
     required this.input,
     required this.visibility,
+    this.label,
     required this.question,
     required this.why,
     this.questionPick,
@@ -99,6 +100,10 @@ class FieldDef {
   final int chapter;
   final InputType input;
   final FieldVisibility visibility;
+
+  /// Short name of the answer on the profile card ("Prayer"). Set exactly
+  /// for [FieldVisibility.card] questions.
+  final LocalizedText? label;
   final LocalizedText question;
   final LocalizedText why;
 

@@ -3,8 +3,7 @@ import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/answ
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/questionnaire_config.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/services/questionnaire_engine.dart';
 
-/// Fills in the questionnaire with simple valid answers. For tests and the
-/// debug stage panel only — never for real users.
+/// Fills in the questionnaire with simple valid answers. For tests only.
 abstract final class QuestionnaireAutofill {
   /// A simple valid answer for [field]: first option, minimum number (age
   /// 30), the suggested range, Saudi Arabia, "no second nationality", etc.

@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
-import 'package:khalty_ai_matchmaker/app/debug/debug_stage_actions.dart';
 import 'package:khalty_ai_matchmaker/app/di/service_locator.dart';
 import 'package:khalty_ai_matchmaker/app/session/session_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/auth/data/repos/fake_auth_repository.dart';
@@ -18,6 +17,7 @@ import 'package:khalty_ai_matchmaker/features/profile/data/repos/local_photo_rep
 import 'package:khalty_ai_matchmaker/features/profile/domain/repos/photo_repository.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/edit_profile_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/me_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/profile_preview_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/settings/presentation/manager/account_cubit.dart';
 import 'package:khalty_ai_matchmaker/core/utils/shared_preferences.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/data/repos/asset_questionnaire_repository.dart';
@@ -57,6 +57,10 @@ void main() {
       identical(getIt<EditProfileCubit>(), getIt<EditProfileCubit>()),
       isFalse,
     );
+    expect(
+      identical(getIt<ProfilePreviewCubit>(), getIt<ProfilePreviewCubit>()),
+      isFalse,
+    );
     expect(identical(getIt<AccountCubit>(), getIt<AccountCubit>()), isFalse);
   });
 
@@ -72,11 +76,10 @@ void main() {
     expect(getIt<PhotoRepository>(), isA<LocalPhotoRepository>());
   });
 
-  test('the session, router and debug actions are app-wide singletons', () {
+  test('the session and router are app-wide singletons', () {
     expect(identical(getIt<SessionCubit>(), getIt<SessionCubit>()), isTrue);
     expect(identical(getIt<GoRouter>(), getIt<GoRouter>()), isTrue);
     expect(getIt<OnboardingStageResolver>(), isNotNull);
-    expect(getIt<DebugStageActions>(), isNotNull); // tests run in debug mode
   });
 
   test('services are singletons, cubits are new instances', () {

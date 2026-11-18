@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:khalty_ai_matchmaker/app/debug/debug_stage_actions.dart';
 import 'package:khalty_ai_matchmaker/app/navigation/app_router.dart';
 import 'package:khalty_ai_matchmaker/app/session/session_cubit.dart';
 import 'package:khalty_ai_matchmaker/core/utils/device_country.dart';
@@ -21,6 +20,7 @@ import 'package:khalty_ai_matchmaker/features/profile/data/repos/local_photo_rep
 import 'package:khalty_ai_matchmaker/features/profile/domain/repos/photo_repository.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/edit_profile_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/me_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/profile_preview_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/settings/presentation/manager/account_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/data/repos/asset_questionnaire_repository.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/questionnaire_config.dart';
@@ -87,15 +87,6 @@ Future<void> setupServiceLocator() async {
     () => SessionCubit(auth: getIt(), profiles: getIt(), resolver: getIt()),
     dispose: (session) => session.close(),
   );
-  if (kDebugMode) {
-    getIt.registerLazySingleton<DebugStageActions>(
-      () => DebugStageActions(
-        auth: getIt(),
-        profiles: getIt(),
-        resolver: getIt(),
-      ),
-    );
-  }
   getIt.registerLazySingleton<GoRouter>(
     () => createAppRouter(
       getIt(),
@@ -105,8 +96,8 @@ Future<void> setupServiceLocator() async {
       reviewCubit: () => getIt<ReviewCubit>(),
       meCubit: () => getIt<MeCubit>(),
       editProfileCubit: () => getIt<EditProfileCubit>(),
+      previewCubit: () => getIt<ProfilePreviewCubit>(),
       accountCubit: () => getIt<AccountCubit>(),
-      debug: kDebugMode ? getIt<DebugStageActions>() : null,
     ),
     dispose: (router) => router.dispose(),
   );
@@ -149,6 +140,13 @@ Future<void> setupServiceLocator() async {
       profiles: getIt(),
       photos: getIt(),
       ai: getIt(),
+      engineFor: getIt<OnboardingStageResolver>().engineFor,
+    ),
+  );
+  getIt.registerFactory<ProfilePreviewCubit>(
+    () => ProfilePreviewCubit(
+      profiles: getIt(),
+      photos: getIt(),
       engineFor: getIt<OnboardingStageResolver>().engineFor,
     ),
   );

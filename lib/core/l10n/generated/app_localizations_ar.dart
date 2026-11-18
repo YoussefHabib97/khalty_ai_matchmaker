@@ -459,4 +459,27 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get updatingSummary => 'خالتي تحدّث ملخصك…';
+
+  @override
+  String heightCm(int cm) {
+    return '$cm سم';
+  }
+
+  @override
+  String get previewIntro => 'هكذا تقدّمك خالتي لمن تقترحه عليك.';
+
+  @override
+  String get previewShowIn => 'عرض البطاقة باللغة';
+
+  @override
+  String get previewPhotoAfterAccept =>
+      'تبقى صورتك مخفية حتى تقبلي، ثم تُشارَك صورتك الرئيسية.';
+
+  @override
+  String get previewPhotoPrivate =>
+      'تبقى صورك خاصة: لا يرى المرشحون إلا الصورة الرمزية.';
+
+  @override
+  String get previewPrivate =>
+      'لا يظهر على بطاقتك أبدًا: تفضيلاتك في شريك الحياة، وما لا تقبله، وتعريفك بنفسك، وانطباعات خالتي.';
 }

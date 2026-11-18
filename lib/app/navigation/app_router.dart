@@ -1,7 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:khalty_ai_matchmaker/app/debug/debug_stage_actions.dart';
-import 'package:khalty_ai_matchmaker/app/debug/debug_stage_panel.dart';
 import 'package:khalty_ai_matchmaker/app/navigation/app_routes.dart';
 import 'package:khalty_ai_matchmaker/app/navigation/main_shell.dart';
 import 'package:khalty_ai_matchmaker/app/navigation/redirect.dart';
@@ -22,8 +20,10 @@ import 'package:khalty_ai_matchmaker/features/matches/presentation/views/matches
 import 'package:khalty_ai_matchmaker/features/onboarding/presentation/views/welcome_view.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/edit_profile_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/me_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/profile_preview_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/views/edit_profile_view.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/views/me_view.dart';
+import 'package:khalty_ai_matchmaker/features/profile/presentation/views/profile_preview_view.dart';
 import 'package:khalty_ai_matchmaker/features/settings/presentation/manager/account_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/settings/presentation/views/settings_view.dart';
 import 'package:material_ui/material_ui.dart';
@@ -31,8 +31,7 @@ import 'package:material_ui/material_ui.dart';
 /// Builds the app's router. Created once by the service locator. Each
 /// onboarding stage may only visit its own screens: the redirect re-runs
 /// whenever [session] changes. Screens don't know routes: navigation is
-/// passed to them as callbacks here. With [debug], every screen gets the
-/// debug stage panel underneath (debug builds only).
+/// passed to them as callbacks here.
 GoRouter createAppRouter(
   SessionCubit session, {
   required SignUpCubit Function() signUpCubit,
@@ -41,14 +40,11 @@ GoRouter createAppRouter(
   required ReviewCubit Function() reviewCubit,
   required MeCubit Function() meCubit,
   required EditProfileCubit Function() editProfileCubit,
+  required ProfilePreviewCubit Function() previewCubit,
   required AccountCubit Function() accountCubit,
-  DebugStageActions? debug,
 }) {
   // Screens pushed over the bottom navigation use the root navigator.
   final rootNavigator = GlobalKey<NavigatorState>();
-
-  Widget page(Widget child) =>
-      debug == null ? child : DebugStagePanel(actions: debug, child: child);
 
   Widget editProfile(BuildContext context) => BlocProvider(
     create: (_) => editProfileCubit(),
@@ -61,7 +57,7 @@ GoRouter createAppRouter(
     List<RouteBase> routes = const [],
   }) => GoRoute(
     path: path,
-    builder: (context, state) => page(screen(context)),
+    builder: (context, state) => screen(context),
     routes: routes,
   );
 
@@ -123,8 +119,7 @@ GoRouter createAppRouter(
         routes: [route('edit', editProfile)],
       ),
       StatefulShellRoute.indexedStack(
-        builder: (context, state, shell) =>
-            page(MainShell(navigationShell: shell)),
+        builder: (context, state, shell) => MainShell(navigationShell: shell),
         branches: [
           for (final (path, screen) in [
             (AppRoutes.khalty, const KhaltyTabView()),
@@ -145,22 +140,29 @@ GoRouter createAppRouter(
                   child: MeView(
                     onOpenSettings: () => context.push(AppRoutes.settings),
                     onEditProfile: () => context.push(AppRoutes.editProfile),
+                    onPreview: () => context.push(AppRoutes.preview),
                   ),
                 ),
                 routes: [
                   GoRoute(
                     path: 'edit',
                     parentNavigatorKey: rootNavigator,
-                    builder: (context, state) => page(editProfile(context)),
+                    builder: (context, state) => editProfile(context),
+                  ),
+                  GoRoute(
+                    path: 'preview',
+                    parentNavigatorKey: rootNavigator,
+                    builder: (context, state) => BlocProvider(
+                      create: (_) => previewCubit(),
+                      child: const ProfilePreviewView(),
+                    ),
                   ),
                   GoRoute(
                     path: 'settings',
                     parentNavigatorKey: rootNavigator,
-                    builder: (context, state) => page(
-                      BlocProvider(
-                        create: (_) => accountCubit(),
-                        child: const SettingsView(),
-                      ),
+                    builder: (context, state) => BlocProvider(
+                      create: (_) => accountCubit(),
+                      child: const SettingsView(),
                     ),
                   ),
                 ],

@@ -20,6 +20,7 @@ Map<String, dynamic> validConfig() => jsonDecode(
         'chapter': 1,
         'input': 'text',
         'visibility': 'card',
+        'label': t('Label'),
         'question': t('Your name?'),
         'why': t('So I can call you by name, {name}.'),
       },
@@ -28,6 +29,7 @@ Map<String, dynamic> validConfig() => jsonDecode(
         'chapter': 1,
         'input': 'number',
         'visibility': 'card',
+        'label': t('Label'),
         'min': 18,
         'max': 80,
         'question': t('Age?'),
@@ -38,6 +40,7 @@ Map<String, dynamic> validConfig() => jsonDecode(
         'chapter': 1,
         'input': 'choice',
         'visibility': 'card',
+        'label': t('Label'),
         'question': t('Status?', {'male': 'm', 'female': 'f'}),
         'why': t('Why'),
         'options': [
@@ -51,6 +54,7 @@ Map<String, dynamic> validConfig() => jsonDecode(
         'chapter': 1,
         'input': 'choice',
         'visibility': 'card',
+        'label': t('Label'),
         'question': t('Children?'),
         'why': t('Why'),
         'options': [
@@ -68,6 +72,7 @@ Map<String, dynamic> validConfig() => jsonDecode(
         'chapter': 1,
         'input': 'country',
         'visibility': 'card',
+        'label': t('Label'),
         'question': t('Living in {detected}?'),
         'question_pick': t('Which country?'),
         'why': t('Why'),
@@ -231,6 +236,18 @@ void main() {
       final json = validConfig();
       field(json, 'age')['visibility'] = 'public';
       expectError(json, '("age").visibility', 'card, khalty');
+    });
+
+    test('a card question without a label', () {
+      final json = validConfig();
+      field(json, 'age').remove('label');
+      expectError(json, '("age").label', 'expected {"en"');
+    });
+
+    test('a label on a private question', () {
+      final json = validConfig();
+      field(json, 'partner_age')['label'] = t('Partner age');
+      expectError(json, '("partner_age").label', 'private');
     });
 
     test('a country question without question_pick', () {

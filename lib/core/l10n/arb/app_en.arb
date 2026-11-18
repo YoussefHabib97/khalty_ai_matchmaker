@@ -341,5 +341,17 @@
   "nowApplies": "This question now applies to you.",
   "@nowApplies": {"description": "Edit profile: a changed answer made another question apply. Arabic needs review."},
   "updatingSummary": "Khalty is updating your summary…",
-  "@updatingSummary": {"description": "Edit profile: refreshing the brief on leaving. Arabic needs review."}
+  "@updatingSummary": {"description": "Edit profile: refreshing the brief on leaving. Arabic needs review."},
+  "heightCm": "{cm} cm",
+  "@heightCm": {"description": "Profile: a height answer with its unit. Arabic needs review.", "placeholders": {"cm": {"type": "int"}}},
+  "previewIntro": "This is how Khalty introduces you to a suggested match.",
+  "@previewIntro": {"description": "Card preview: the line above the card. Arabic needs review."},
+  "previewShowIn": "Show the card in",
+  "@previewShowIn": {"description": "Card preview: label of the language switch. Arabic needs review."},
+  "previewPhotoAfterAccept": "Your photo stays hidden until you accept; then your main photo is shared.",
+  "@previewPhotoAfterAccept": {"description": "Card preview (women who share): when the photo is shown. Arabic needs review."},
+  "previewPhotoPrivate": "Your photos stay private: matches see only the silhouette.",
+  "@previewPhotoPrivate": {"description": "Card preview (women who don't share). Arabic needs review."},
+  "previewPrivate": "Never on your card: your partner preferences, deal-breakers, your self-introduction and Khalty's impressions.",
+  "@previewPrivate": {"description": "Card preview: what is never shown. Arabic needs review."}
 }

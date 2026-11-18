@@ -2,6 +2,7 @@ import 'package:khalty_ai_matchmaker/core/constants/countries.dart';
 import 'package:khalty_ai_matchmaker/core/constants/enums.dart';
 import 'package:khalty_ai_matchmaker/core/l10n/generated/app_localizations.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/answer_value.dart';
+import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/field_keys.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/questionnaire_config.dart';
 
 /// An answer as the user reads it: option labels in the app language and
@@ -19,6 +20,8 @@ String? answerText(
       field.option(id)?.label.resolve(language, gender) ?? id;
   return switch (value) {
     TextAnswer(:final text) => text,
+    NumberAnswer(value: final n) when field.key == FieldKeys.heightCm =>
+      l10n.heightCm(n),
     NumberAnswer(value: final n) => '$n',
     ChoiceAnswer(:final optionId) => label(optionId),
     MultiAnswer(:final optionIds, :final custom) => [

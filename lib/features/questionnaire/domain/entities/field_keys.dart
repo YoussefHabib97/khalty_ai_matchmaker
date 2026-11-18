@@ -5,6 +5,7 @@ abstract final class FieldKeys {
   static const age = 'age';
   static const country = 'country';
   static const city = 'city';
+  static const heightCm = 'height_cm';
   static const nationality = 'nationality';
   static const hijab = 'hijab';
   static const beard = 'beard';
@@ -15,6 +16,7 @@ abstract final class FieldKeys {
     age,
     country,
     city,
+    heightCm,
     nationality,
     hijab,
     beard,

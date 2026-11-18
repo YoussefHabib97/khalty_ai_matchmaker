@@ -76,19 +76,11 @@ void main() {
       expect(find.byType(MeView), findsOneWidget);
     });
 
-    testWidgets('signing in moves from Welcome to the questionnaire', (
-      tester,
-    ) async {
+    testWidgets('no debug shortcuts are left on any screen', (tester) async {
       await pumpApp(tester, {});
       expect(find.byType(WelcomeView), findsOneWidget);
-
-      // Debug panel: fake SMS sign-in (simulated network delays).
-      await tester.tap(find.text('Sign in (woman)'));
-      await tester.pump(const Duration(seconds: 1));
-      await tester.pump(const Duration(seconds: 1));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(IntakeView), findsOneWidget);
+      expect(find.textContaining('DEBUG'), findsNothing);
+      expect(find.text('Sign in (woman)'), findsNothing);
     });
   });
 

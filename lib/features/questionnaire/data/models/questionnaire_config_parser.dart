@@ -16,7 +16,8 @@ const _inputNames = {
 };
 
 const _fieldProperties = {
-  'key', 'chapter', 'input', 'visibility', 'question', 'question_pick', //
+  'key', 'chapter', 'input', 'visibility', 'label', 'question', //
+  'question_pick',
   'why', 'invalid', 'options', 'gender', 'if', 'else_value', 'else_from',
   'optional', 'min', 'max', 'suggest', 'max_pick', 'allow_text',
   'needs_review',
@@ -117,6 +118,15 @@ class QuestionnaireConfigParser {
       '$at.visibility',
       (e) => e.name,
     );
+    // Card answers need a short label; private ones never show one.
+    final LocalizedText? label;
+    if (visibility == FieldVisibility.card) {
+      label = _text(f['label'], '$at.label');
+    } else if (f.containsKey('label')) {
+      throw ConfigException('$at.label', 'private questions have no label');
+    } else {
+      label = null;
+    }
     final gender = f['gender'] == null
         ? null
         : _enum<Gender>(
@@ -261,6 +271,7 @@ class QuestionnaireConfigParser {
       chapter: chapter,
       input: input,
       visibility: visibility,
+      label: label,
       question: _text(f['question'], '$at.question'),
       why: _text(f['why'], '$at.why'),
       questionPick: questionPick,

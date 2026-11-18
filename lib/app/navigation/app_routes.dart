@@ -23,4 +23,5 @@ abstract final class AppRoutes {
   /// Pushed over the tabs from Me.
   static const settings = '/home/me/settings';
   static const editProfile = '/home/me/edit';
+  static const preview = '/home/me/preview';
 }

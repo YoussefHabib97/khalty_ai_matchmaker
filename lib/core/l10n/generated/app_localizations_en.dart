@@ -465,4 +465,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get updatingSummary => 'Khalty is updating your summary…';
+
+  @override
+  String heightCm(int cm) {
+    return '$cm cm';
+  }
+
+  @override
+  String get previewIntro =>
+      'This is how Khalty introduces you to a suggested match.';
+
+  @override
+  String get previewShowIn => 'Show the card in';
+
+  @override
+  String get previewPhotoAfterAccept =>
+      'Your photo stays hidden until you accept; then your main photo is shared.';
+
+  @override
+  String get previewPhotoPrivate =>
+      'Your photos stay private: matches see only the silhouette.';
+
+  @override
+  String get previewPrivate =>
+      'Never on your card: your partner preferences, deal-breakers, your self-introduction and Khalty\'s impressions.';
 }

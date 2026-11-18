@@ -907,6 +907,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Khalty is updating your summary…'**
   String get updatingSummary;
+
+  /// Profile: a height answer with its unit. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'{cm} cm'**
+  String heightCm(int cm);
+
+  /// Card preview: the line above the card. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'This is how Khalty introduces you to a suggested match.'**
+  String get previewIntro;
+
+  /// Card preview: label of the language switch. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the card in'**
+  String get previewShowIn;
+
+  /// Card preview (women who share): when the photo is shown. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Your photo stays hidden until you accept; then your main photo is shared.'**
+  String get previewPhotoAfterAccept;
+
+  /// Card preview (women who don't share). Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Your photos stay private: matches see only the silhouette.'**
+  String get previewPhotoPrivate;
+
+  /// Card preview: what is never shown. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Never on your card: your partner preferences, deal-breakers, your self-introduction and Khalty\'s impressions.'**
+  String get previewPrivate;
 }
 
 class _AppLocalizationsDelegate

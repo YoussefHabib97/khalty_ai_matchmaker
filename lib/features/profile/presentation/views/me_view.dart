@@ -16,6 +16,7 @@ class MeView extends StatelessWidget {
     super.key,
     required this.onOpenSettings,
     required this.onEditProfile,
+    required this.onPreview,
   });
 
   /// Called by the settings button (open Settings).
@@ -23,6 +24,9 @@ class MeView extends StatelessWidget {
 
   /// Called by "Edit my profile" and the "knows you" card.
   final VoidCallback onEditProfile;
+
+  /// Called by "See how Khalty presents you".
+  final VoidCallback onPreview;
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +109,6 @@ class MeView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              // Built in steps 12 and 13.
               ListTile(
                 key: const Key('editProfile'),
                 leading: const Icon(Icons.edit_outlined),
@@ -114,10 +117,11 @@ class MeView extends StatelessWidget {
                 onTap: onEditProfile,
               ),
               ListTile(
+                key: const Key('openPreview'),
                 leading: const Icon(Icons.visibility_outlined),
                 title: Text(l10n.mePreview),
-                subtitle: Text(l10n.comingSoon),
-                enabled: false,
+                trailing: const Icon(Icons.chevron_right),
+                onTap: onPreview,
               ),
             ],
           );

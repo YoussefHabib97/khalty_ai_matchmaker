@@ -6,6 +6,7 @@
     "Option \"id\"s are saved in users' answers: never change or reuse an id once it is live. Labels can be reworded at any time.",
     "\"if\" asks a question only when an earlier answer matches (by option id); otherwise \"else_value\" / \"else_from\" is used, or it is skipped.",
     "\"visibility\": \"card\" = matches may see it; \"khalty\" = private, never shown on the card.",
+    "\"label\": a short name for the answer on the profile card (e.g. \"Prayer\"). Required for \"card\" questions, not allowed for \"khalty\" ones.",
     "\"needs_review\": [\"ar\"] = the Arabic still needs review by a native speaker."
   ],
   "schema_version": 2,
@@ -68,6 +69,10 @@
       "chapter": 1,
       "input": "text",
       "visibility": "card",
+      "label": {
+        "en": "Name",
+        "ar": "الاسم"
+      },
       "question": {
         "en": "What is your name, dear? The name you would like me to call you.",
         "ar": {
@@ -85,6 +90,10 @@
       "chapter": 1,
       "input": "number",
       "visibility": "card",
+      "label": {
+        "en": "Age",
+        "ar": "العمر"
+      },
       "question": {
         "en": "How old are you, {name}? Please type your age in years.",
         "ar": {
@@ -108,6 +117,10 @@
       "chapter": 1,
       "input": "country",
       "visibility": "card",
+      "label": {
+        "en": "Lives in",
+        "ar": "مكان الإقامة"
+      },
       "question": {
         "en": "Are you living in {detected}?",
         "ar": {
@@ -132,6 +145,10 @@
       "chapter": 1,
       "input": "text",
       "visibility": "card",
+      "label": {
+        "en": "City",
+        "ar": "المدينة"
+      },
       "question": {
         "en": "Which city?",
         "ar": "وفي أي مدينة؟"
@@ -146,6 +163,10 @@
       "chapter": 1,
       "input": "country",
       "visibility": "card",
+      "label": {
+        "en": "Nationality",
+        "ar": "الجنسية"
+      },
       "question": {
         "en": "Is your nationality {residence}?",
         "ar": "هل جنسيتك {residence}؟"
@@ -164,6 +185,10 @@
       "chapter": 1,
       "input": "country_optional",
       "visibility": "card",
+      "label": {
+        "en": "Second nationality",
+        "ar": "الجنسية الثانية"
+      },
       "question": {
         "en": "Do you have a second nationality?",
         "ar": {
@@ -185,6 +210,10 @@
       "chapter": 1,
       "input": "multi",
       "visibility": "card",
+      "label": {
+        "en": "Languages",
+        "ar": "اللغات"
+      },
       "question": {
         "en": "Which languages do you speak?",
         "ar": {
@@ -292,6 +321,10 @@
       "chapter": 1,
       "input": "number",
       "visibility": "card",
+      "label": {
+        "en": "Height",
+        "ar": "الطول"
+      },
       "optional": true,
       "question": {
         "en": "How tall are you, in centimetres?",
@@ -322,6 +355,10 @@
       "chapter": 1,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Marital status",
+        "ar": "الحالة الاجتماعية"
+      },
       "question": {
         "en": "What is your marital status?",
         "ar": "ما حالتك الاجتماعية؟"
@@ -373,6 +410,10 @@
       "chapter": 1,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Children",
+        "ar": "الأطفال"
+      },
       "question": {
         "en": "Do you have children?",
         "ar": {
@@ -420,6 +461,10 @@
       "chapter": 1,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Education",
+        "ar": "التعليم"
+      },
       "question": {
         "en": "What is your highest education?",
         "ar": {
@@ -474,6 +519,10 @@
       "chapter": 1,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Work status",
+        "ar": "الوضع المهني"
+      },
       "question": {
         "en": "Are you working at the moment?",
         "ar": {
@@ -530,6 +579,10 @@
       "chapter": 1,
       "input": "text",
       "visibility": "card",
+      "label": {
+        "en": "Job",
+        "ar": "المهنة"
+      },
       "question": {
         "en": "What do you do for work?",
         "ar": {
@@ -555,6 +608,10 @@
       "chapter": 2,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Religious commitment",
+        "ar": "الالتزام الديني"
+      },
       "question": {
         "en": "How would you describe your religious commitment?",
         "ar": {
@@ -621,6 +678,10 @@
       "chapter": 2,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Prayer",
+        "ar": "الصلاة"
+      },
       "question": {
         "en": "How do you usually pray?",
         "ar": {
@@ -705,6 +766,10 @@
       "input": "choice",
       "gender": "female",
       "visibility": "card",
+      "label": {
+        "en": "Hijab",
+        "ar": "الحجاب"
+      },
       "question": {
         "en": "What do you wear?",
         "ar": "ماذا ترتدين؟"
@@ -756,6 +821,10 @@
       "input": "choice",
       "gender": "male",
       "visibility": "card",
+      "label": {
+        "en": "Beard",
+        "ar": "اللحية"
+      },
       "question": {
         "en": "And your beard?",
         "ar": "وماذا عن لحيتك؟"
@@ -800,6 +869,10 @@
       "chapter": 2,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Music and films",
+        "ar": "الموسيقى والأفلام"
+      },
       "question": {
         "en": "What is your view on music and films at home?",
         "ar": {
@@ -854,6 +927,10 @@
       "chapter": 2,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Smoking",
+        "ar": "التدخين"
+      },
       "question": {
         "en": "Do you smoke?",
         "ar": {
@@ -901,6 +978,10 @@
       "chapter": 2,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Tradition",
+        "ar": "المذهب"
+      },
       "question": {
         "en": "Which tradition do you follow?",
         "ar": {
@@ -963,6 +1044,10 @@
       "chapter": 3,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Hoping to marry",
+        "ar": "موعد الزواج"
+      },
       "question": {
         "en": "When would you like to get married?",
         "ar": {
@@ -1013,6 +1098,10 @@
       "chapter": 3,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Family",
+        "ar": "دور العائلة"
+      },
       "question": {
         "en": "How involved is your family in your search?",
         "ar": "ما مدى مشاركة عائلتك في بحثك؟"
@@ -1059,6 +1148,10 @@
       "chapter": 3,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Children in the future",
+        "ar": "الإنجاب"
+      },
       "question": {
         "en": "Would you like (more) children?",
         "ar": {
@@ -1109,6 +1202,10 @@
       "chapter": 3,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Moving after marriage",
+        "ar": "الانتقال بعد الزواج"
+      },
       "question": {
         "en": {
           "male": "After marriage, would your wife move to you, or are you open to moving too?",
@@ -1187,6 +1284,10 @@
       "chapter": 3,
       "input": "choice",
       "visibility": "card",
+      "label": {
+        "en": "Work after marriage",
+        "ar": "العمل بعد الزواج"
+      },
       "question": {
         "en": {
           "male": "What is your view on your wife working after marriage?",
