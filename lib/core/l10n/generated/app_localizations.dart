@@ -769,6 +769,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete my account'**
   String get deleteAccount;
+
+  /// Edit profile: an optional question that was skipped. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped'**
+  String get answerSkipped;
+
+  /// Edit profile: tooltip of the lock on private answers. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Only Khalty sees this'**
+  String get answerPrivate;
+
+  /// Edit profile: photos section title. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos'**
+  String get editPhotos;
+
+  /// Edit profile (men): who sees the photo. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Women Khalty suggests to you can see your main photo.'**
+  String get photosHintMan;
+
+  /// Edit profile (women): switch to share the main photo with a match she accepts. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Share my main photo after I accept'**
+  String get sharePhoto;
+
+  /// Edit profile (women): subtitle of the share switch. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Until then, only your silhouette is shown.'**
+  String get sharePhotoHint;
+
+  /// Edit profile: empty photo slot. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a photo'**
+  String get photoAdd;
+
+  /// Photo source option. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from gallery'**
+  String get photoFromGallery;
+
+  /// Photo source option. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo'**
+  String get photoFromCamera;
+
+  /// Photo action. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Make it the main photo'**
+  String get photoMakeMain;
+
+  /// Photo action. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete photo'**
+  String get photoDelete;
+
+  /// Badge on the first (main) photo. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Main'**
+  String get photoMain;
+
+  /// Error when picking or saving a photo failed. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add the photo. Please try again.'**
+  String get photoFailed;
+
+  /// Edit profile: hint in the about-me field. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'A few sentences about you. Phone numbers and links are removed.'**
+  String get aboutMeHint;
+
+  /// Edit profile: shown after contact details were stripped from the bio. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact details were removed: Khalty introduces you first.'**
+  String get aboutMeCleaned;
+
+  /// Save button. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// Dialog when leaving an edit with unsaved changes. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard your changes?'**
+  String get discardTitle;
+
+  /// Dialog: drop the unsaved changes. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get discard;
+
+  /// Dialog: stay and keep editing. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep editing'**
+  String get keepEditing;
+
+  /// Edit profile: the private traits section. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Khalty\'s impressions · private'**
+  String get traitsTitle;
+
+  /// Edit profile: explanation under the traits. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Only Khalty sees these. They help her choose for you.'**
+  String get traitsHint;
+
+  /// Edit profile: a changed answer made another question apply. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'This question now applies to you.'**
+  String get nowApplies;
+
+  /// Edit profile: refreshing the brief on leaving. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Khalty is updating your summary…'**
+  String get updatingSummary;
 }
 
 class _AppLocalizationsDelegate

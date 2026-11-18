@@ -6,8 +6,13 @@ import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Starts the whole app on a phone-sized screen with [prefs] as the stored
-/// data (English unless [prefs] says otherwise).
-Future<void> pumpApp(WidgetTester tester, Map<String, Object> prefs) async {
+/// data (English unless [prefs] says otherwise). [beforeStart] runs after
+/// the service locator is set up, e.g. to swap in a fake.
+Future<void> pumpApp(
+  WidgetTester tester,
+  Map<String, Object> prefs, {
+  void Function()? beforeStart,
+}) async {
   SharedPreferences.setMockInitialValues({
     LocalSettingsRepository.localeKey: 'en',
     ...prefs,
@@ -19,6 +24,7 @@ Future<void> pumpApp(WidgetTester tester, Map<String, Object> prefs) async {
   // Real async work (asset loading) must run outside the fake test clock.
   await tester.runAsync(setupServiceLocator);
   addTearDown(getIt.reset);
+  beforeStart?.call();
 
   await tester.pumpWidget(ApplicationRoot(router: getIt(), session: getIt()));
   await tester.pumpAndSettle();

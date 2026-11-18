@@ -6,16 +6,23 @@ import 'package:khalty_ai_matchmaker/core/utils/extensions.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/me_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/me_state.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/widgets/knows_you_card.dart';
-import 'package:khalty_ai_matchmaker/features/profile/presentation/widgets/silhouette.dart';
+import 'package:khalty_ai_matchmaker/features/profile/presentation/widgets/profile_avatar.dart';
 import 'package:material_ui/material_ui.dart';
 
 /// Me tab: the user's own profile at a glance and the way to Settings.
 /// Expects a [MeCubit] above it.
 class MeView extends StatelessWidget {
-  const MeView({super.key, required this.onOpenSettings});
+  const MeView({
+    super.key,
+    required this.onOpenSettings,
+    required this.onEditProfile,
+  });
 
   /// Called by the settings button (open Settings).
   final VoidCallback onOpenSettings;
+
+  /// Called by "Edit my profile" and the "knows you" card.
+  final VoidCallback onEditProfile;
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +62,10 @@ class MeView extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             children: [
               Center(
-                child: Silhouette(
+                child: ProfileAvatar(
                   gender: profile.gender,
-                  style: state.silhouette,
+                  silhouette: state.silhouette,
+                  photoPath: state.mainPhotoPath,
                   size: 112,
                 ),
               ),
@@ -75,7 +83,7 @@ class MeView extends StatelessWidget {
                 ),
               const SizedBox(height: 20),
               if (state.completeness case final completeness?)
-                KnowsYouCard(completeness: completeness),
+                KnowsYouCard(completeness: completeness, onTap: onEditProfile),
               const SizedBox(height: 12),
               Card.outlined(
                 margin: EdgeInsets.zero,
@@ -99,10 +107,11 @@ class MeView extends StatelessWidget {
               const SizedBox(height: 12),
               // Built in steps 12 and 13.
               ListTile(
+                key: const Key('editProfile'),
                 leading: const Icon(Icons.edit_outlined),
                 title: Text(l10n.meEditProfile),
-                subtitle: Text(l10n.comingSoon),
-                enabled: false,
+                trailing: const Icon(Icons.chevron_right),
+                onTap: onEditProfile,
               ),
               ListTile(
                 leading: const Icon(Icons.visibility_outlined),

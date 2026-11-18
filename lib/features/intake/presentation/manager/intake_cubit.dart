@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khalty_ai_matchmaker/core/constants/enums.dart';
-import 'package:khalty_ai_matchmaker/core/utils/digits.dart';
 import 'package:khalty_ai_matchmaker/features/intake/presentation/manager/intake_state.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/repos/profile_repository.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/answer_value.dart';
@@ -127,24 +126,16 @@ class IntakeCubit extends Cubit<IntakeState> {
     if (next != null) _go(QuestionStep(next));
   }
 
-  /// A typed answer to a text question.
-  Future<void> submitText(String text) => submit(TextAnswer(text));
-
-  /// A typed answer to a number question, in any digits (29, ٢٩, ۲۹).
-  Future<void> submitNumber(String text) async {
-    final number = parseLocalizedInt(text);
-    if (number == null) {
-      _emit(
-        state.copyWith(
-          invalid: text.trim().isEmpty
-              ? InvalidReason.empty
-              : InvalidReason.wrongType,
-          saveFailed: false,
-        ),
-      );
-      return;
+  /// A typed answer to a text or number question (numbers in any digits:
+  /// 29, ٢٩, ۲۹).
+  Future<void> submitTyped(String text) async {
+    if (state.step case QuestionStep(:final field)) {
+      try {
+        await submit(_engine.parseTyped(field, text));
+      } on InvalidAnswerException catch (e) {
+        _emit(state.copyWith(invalid: e.reason, saveFailed: false));
+      }
     }
-    await submit(NumberAnswer(number));
   }
 
   /// A tapped option of a choice question.

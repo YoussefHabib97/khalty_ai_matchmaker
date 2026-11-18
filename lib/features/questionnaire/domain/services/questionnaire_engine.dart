@@ -1,4 +1,5 @@
 import 'package:khalty_ai_matchmaker/core/constants/enums.dart';
+import 'package:khalty_ai_matchmaker/core/utils/digits.dart';
 import 'package:khalty_ai_matchmaker/core/utils/text_validators.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/answer_value.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/answers.dart';
@@ -146,6 +147,20 @@ class QuestionnaireEngine {
       _ => InvalidReason.wrongType,
     };
     return reason == null ? valid : AnswerValidation.invalid(reason);
+  }
+
+  /// Turns what was typed into a text or number question into an answer,
+  /// accepting any digits (29, ٢٩, ۲۹) for numbers. Throws
+  /// [InvalidAnswerException] (empty / wrongType) when a number can't be
+  /// read; other checks happen in [validate].
+  AnswerValue parseTyped(FieldDef field, String raw) {
+    if (field.input != InputType.number) return TextAnswer(raw);
+    final number = parseLocalizedInt(raw);
+    if (number != null) return NumberAnswer(number);
+    throw InvalidAnswerException(
+      field.key,
+      raw.trim().isEmpty ? InvalidReason.empty : InvalidReason.wrongType,
+    );
   }
 
   /// Validates [value] and returns a copy of [answers] with it set (free text

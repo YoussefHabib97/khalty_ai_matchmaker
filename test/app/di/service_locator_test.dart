@@ -14,6 +14,9 @@ import 'package:khalty_ai_matchmaker/features/khalty_ai/domain/repos/khalty_ai_r
 import 'package:khalty_ai_matchmaker/features/onboarding/domain/services/onboarding_stage_resolver.dart';
 import 'package:khalty_ai_matchmaker/features/profile/data/repos/local_profile_repository.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/repos/profile_repository.dart';
+import 'package:khalty_ai_matchmaker/features/profile/data/repos/local_photo_repository.dart';
+import 'package:khalty_ai_matchmaker/features/profile/domain/repos/photo_repository.dart';
+import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/edit_profile_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/me_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/settings/presentation/manager/account_cubit.dart';
 import 'package:khalty_ai_matchmaker/core/utils/shared_preferences.dart';
@@ -50,6 +53,10 @@ void main() {
     );
     expect(identical(getIt<ReviewCubit>(), getIt<ReviewCubit>()), isFalse);
     expect(identical(getIt<MeCubit>(), getIt<MeCubit>()), isFalse);
+    expect(
+      identical(getIt<EditProfileCubit>(), getIt<EditProfileCubit>()),
+      isFalse,
+    );
     expect(identical(getIt<AccountCubit>(), getIt<AccountCubit>()), isFalse);
   });
 
@@ -62,6 +69,7 @@ void main() {
     expect(getIt<AuthRepository>(), isA<FakeAuthRepository>());
     expect(getIt<ProfileRepository>(), isA<LocalProfileRepository>());
     expect(getIt<KhaltyAiRepository>(), isA<FakeKhaltyAiRepository>());
+    expect(getIt<PhotoRepository>(), isA<LocalPhotoRepository>());
   });
 
   test('the session, router and debug actions are app-wide singletons', () {

@@ -392,4 +392,77 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteAccount => 'Delete my account';
+
+  @override
+  String get answerSkipped => 'Skipped';
+
+  @override
+  String get answerPrivate => 'Only Khalty sees this';
+
+  @override
+  String get editPhotos => 'Photos';
+
+  @override
+  String get photosHintMan =>
+      'Women Khalty suggests to you can see your main photo.';
+
+  @override
+  String get sharePhoto => 'Share my main photo after I accept';
+
+  @override
+  String get sharePhotoHint => 'Until then, only your silhouette is shown.';
+
+  @override
+  String get photoAdd => 'Add a photo';
+
+  @override
+  String get photoFromGallery => 'Choose from gallery';
+
+  @override
+  String get photoFromCamera => 'Take a photo';
+
+  @override
+  String get photoMakeMain => 'Make it the main photo';
+
+  @override
+  String get photoDelete => 'Delete photo';
+
+  @override
+  String get photoMain => 'Main';
+
+  @override
+  String get photoFailed => 'Could not add the photo. Please try again.';
+
+  @override
+  String get aboutMeHint =>
+      'A few sentences about you. Phone numbers and links are removed.';
+
+  @override
+  String get aboutMeCleaned =>
+      'Contact details were removed: Khalty introduces you first.';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get discardTitle => 'Discard your changes?';
+
+  @override
+  String get discard => 'Discard';
+
+  @override
+  String get keepEditing => 'Keep editing';
+
+  @override
+  String get traitsTitle => 'Khalty\'s impressions · private';
+
+  @override
+  String get traitsHint =>
+      'Only Khalty sees these. They help her choose for you.';
+
+  @override
+  String get nowApplies => 'This question now applies to you.';
+
+  @override
+  String get updatingSummary => 'Khalty is updating your summary…';
 }

@@ -181,6 +181,31 @@ void main() {
     });
   });
 
+  group('typed answers', () {
+    test('text stays text; numbers are read in any digits', () {
+      expect(
+        man.parseTyped(field('city'), ' Riyadh '),
+        const TextAnswer(' Riyadh '),
+      );
+      expect(man.parseTyped(field('age'), '29'), const NumberAnswer(29));
+      expect(man.parseTyped(field('age'), '٢٩'), const NumberAnswer(29));
+    });
+
+    test('an unreadable number is empty or the wrong type', () {
+      InvalidReason? reasonFor(String raw) {
+        try {
+          man.parseTyped(field('age'), raw);
+          return null;
+        } on InvalidAnswerException catch (e) {
+          return e.reason;
+        }
+      }
+
+      expect(reasonFor('  '), InvalidReason.empty);
+      expect(reasonFor('2x'), InvalidReason.wrongType);
+    });
+  });
+
   group('validation', () {
     test('text: not blank, not too long, names are letters only', () {
       expect(reason(man, 'city', const TextAnswer('  ')), InvalidReason.empty);

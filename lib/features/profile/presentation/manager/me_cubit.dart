@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khalty_ai_matchmaker/core/constants/enums.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/entities/silhouette_style.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/entities/user_profile.dart';
+import 'package:khalty_ai_matchmaker/features/profile/domain/repos/photo_repository.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/repos/profile_repository.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/services/profile_completeness.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/me_state.dart';
@@ -17,20 +18,24 @@ import 'package:khalty_ai_matchmaker/features/questionnaire/domain/services/ques
 class MeCubit extends Cubit<MeState> {
   MeCubit({
     required ProfileRepository profiles,
+    required PhotoRepository photos,
     required QuestionnaireEngine Function(Gender gender) engineFor,
   }) : _engineFor = engineFor,
-       super(_stateFor(profiles.current, engineFor)) {
+       _photos = photos,
+       super(_stateFor(profiles.current, engineFor, photos)) {
     _subscription = profiles.watch().listen(
-      (profile) => emit(_stateFor(profile, _engineFor)),
+      (profile) => emit(_stateFor(profile, _engineFor, _photos)),
     );
   }
 
   final QuestionnaireEngine Function(Gender) _engineFor;
+  final PhotoRepository _photos;
   late final StreamSubscription<UserProfile?> _subscription;
 
   static MeState _stateFor(
     UserProfile? profile,
     QuestionnaireEngine Function(Gender) engineFor,
+    PhotoRepository photos,
   ) {
     if (profile == null) return const MeState();
     final engine = engineFor(profile.gender);
@@ -54,6 +59,10 @@ class MeCubit extends Cubit<MeState> {
       countryIso: switch (effective(FieldKeys.country)) {
         CountryAnswer(:final iso2) => iso2,
         _ => null,
+      },
+      mainPhotoPath: switch (profile.mainPhoto) {
+        final photo? => photos.pathOf(photo),
+        null => null,
       },
     );
   }

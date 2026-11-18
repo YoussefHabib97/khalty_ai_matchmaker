@@ -62,6 +62,13 @@ class FakeKhaltyAiRepository implements KhaltyAiRepository {
     );
   }
 
+  @override
+  Future<String> refreshBrief(IntakeAnalysisRequest request) async {
+    await Future<void>.delayed(delay);
+    if (fail) throw const KhaltyAiException('Fake failure');
+    return _Texts(request).brief(introduced: request.introduction != null);
+  }
+
   static final _letter = RegExp(r'\p{L}', unicode: true);
   static final _mentionsSmoking = RegExp(
     r'smok|cigar|shisha|hookah|vap(e|ing)|تدخين|ادخن|أدخن|سجائر|سيجار|شيشة|معسل',

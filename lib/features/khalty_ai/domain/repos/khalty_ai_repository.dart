@@ -10,4 +10,9 @@ abstract interface class KhaltyAiRepository {
   /// May ask once for a better introduction ([IntroNeedsMore]). Throws
   /// [KhaltyAiException] when the AI can't answer.
   Future<IntakeAnalysisResult> analyseIntake(IntakeAnalysisRequest request);
+
+  /// A new brief after the answers were edited (bio, impressions and
+  /// contradictions are kept). [IntakeAnalysisRequest.mustAccept] is
+  /// ignored. Throws [KhaltyAiException] when the AI can't answer.
+  Future<String> refreshBrief(IntakeAnalysisRequest request);
 }

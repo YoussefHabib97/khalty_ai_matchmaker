@@ -388,4 +388,75 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get deleteAccount => 'حذف حسابي';
+
+  @override
+  String get answerSkipped => 'بدون إجابة';
+
+  @override
+  String get answerPrivate => 'لا يراها إلا خالتي';
+
+  @override
+  String get editPhotos => 'الصور';
+
+  @override
+  String get photosHintMan =>
+      'ترى المرشحات اللواتي تقترحهن خالتي صورتك الرئيسية.';
+
+  @override
+  String get sharePhoto => 'مشاركة صورتي الرئيسية بعد قبولي';
+
+  @override
+  String get sharePhotoHint => 'حتى ذلك الحين تظهر صورتك الظلية فقط.';
+
+  @override
+  String get photoAdd => 'إضافة صورة';
+
+  @override
+  String get photoFromGallery => 'اختيار من المعرض';
+
+  @override
+  String get photoFromCamera => 'التقاط صورة';
+
+  @override
+  String get photoMakeMain => 'جعلها الصورة الرئيسية';
+
+  @override
+  String get photoDelete => 'حذف الصورة';
+
+  @override
+  String get photoMain => 'الرئيسية';
+
+  @override
+  String get photoFailed => 'تعذّرت إضافة الصورة، يُرجى المحاولة مرة أخرى.';
+
+  @override
+  String get aboutMeHint => 'بضع جمل عنك. تُحذف أرقام الهواتف والروابط.';
+
+  @override
+  String get aboutMeCleaned =>
+      'أُزيلت بيانات التواصل؛ خالتي هي من تعرّف بك أولًا.';
+
+  @override
+  String get save => 'حفظ';
+
+  @override
+  String get discardTitle => 'تجاهل التغييرات؟';
+
+  @override
+  String get discard => 'تجاهل';
+
+  @override
+  String get keepEditing => 'متابعة التعديل';
+
+  @override
+  String get traitsTitle => 'انطباعات خالتي · خاصة';
+
+  @override
+  String get traitsHint => 'لا يراها إلا خالتي، وتساعدها على الاختيار لك.';
+
+  @override
+  String get nowApplies => 'أصبح هذا السؤال ينطبق عليك.';
+
+  @override
+  String get updatingSummary => 'خالتي تحدّث ملخصك…';
 }

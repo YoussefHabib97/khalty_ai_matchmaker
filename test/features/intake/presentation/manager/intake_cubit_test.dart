@@ -121,7 +121,7 @@ void main() {
     test('every answer is saved straight away', () async {
       final cubit = await build()
         ..continueToQuestion();
-      await cubit.submitText('  Sara ');
+      await cubit.submitTyped('  Sara ');
       expect(saved('name'), const TextAnswer('Sara'));
       expect(questionKey(cubit), 'age');
       expect(cubit.state.name, 'Sara');
@@ -130,11 +130,11 @@ void main() {
 
     test('numbers: errors are shown and nothing is saved', () async {
       final cubit = await build(answers: answeredUntil('age'));
-      await cubit.submitNumber('15');
+      await cubit.submitTyped('15');
       expect(cubit.state.invalid, InvalidReason.outOfRange);
-      await cubit.submitNumber(' ');
+      await cubit.submitTyped(' ');
       expect(cubit.state.invalid, InvalidReason.empty);
-      await cubit.submitNumber('2x');
+      await cubit.submitTyped('2x');
       expect(cubit.state.invalid, InvalidReason.wrongType);
       expect(saved('age'), isNull);
       expect(questionKey(cubit), 'age');
@@ -145,14 +145,14 @@ void main() {
 
     test('numbers can be typed in Arabic digits', () async {
       final cubit = await build(answers: answeredUntil('age'));
-      await cubit.submitNumber('٢٩');
+      await cubit.submitTyped('٢٩');
       expect(saved('age'), const NumberAnswer(29));
     });
 
     test('an invalid name is rejected', () async {
       final cubit = await build()
         ..continueToQuestion();
-      await cubit.submitText('Sara123');
+      await cubit.submitTyped('Sara123');
       expect(cubit.state.invalid, InvalidReason.invalidName);
       expect(saved('name'), isNull);
     });
@@ -208,7 +208,7 @@ void main() {
         deviceCountryIso: 'SA',
       )..continueToQuestion();
       addTearDown(cubit.close);
-      await cubit.submitText('Sara');
+      await cubit.submitTyped('Sara');
       expect(cubit.state.saveFailed, isTrue);
       expect(cubit.state.isSaving, isFalse);
       expect(questionKey(cubit), 'name');
@@ -230,9 +230,9 @@ void main() {
     test('the name gets "nice to meet you", then replies take turns', () async {
       final cubit = await build()
         ..continueToQuestion();
-      await cubit.submitText('Sara');
+      await cubit.submitTyped('Sara');
       expect(cubit.state.reply, const NameReply());
-      await cubit.submitNumber('29');
+      await cubit.submitTyped('29');
       expect(cubit.state.reply, const GeneralReply(0));
       await cubit.submit(CountryAnswer('SA'));
       expect(cubit.state.reply, const GeneralReply(1));
@@ -266,7 +266,7 @@ void main() {
       final cubit = await build(answers: answeredUntil('country'));
       await cubit.submit(CountryAnswer('EG'));
       expect(questionKey(cubit), 'city');
-      await cubit.submitText('Cairo');
+      await cubit.submitTyped('Cairo');
       expect(questionKey(cubit), 'nationality');
       expect(cubit.state.suggestedCountry, 'EG');
     });
@@ -354,9 +354,9 @@ void main() {
         ..back()
         ..back();
       expect(questionKey(cubit), 'name');
-      await cubit.submitText('Sara');
+      await cubit.submitTyped('Sara');
       expect(questionKey(cubit), 'age');
-      await cubit.submitNumber('31');
+      await cubit.submitTyped('31');
       expect(questionKey(cubit), 'country');
       expect(saved('age'), const NumberAnswer(31));
     });

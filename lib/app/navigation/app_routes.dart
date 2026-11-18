@@ -10,6 +10,9 @@ abstract final class AppRoutes {
   static const selfIntro = '/intake/intro';
   static const review = '/intake/review';
 
+  /// Changing answers from the review, before onboarding is finished.
+  static const reviewEdit = '/intake/review/edit';
+
   // Main app (bottom navigation)
   static const homePrefix = '/home/';
   static const khalty = '/home/khalty';
@@ -19,4 +22,5 @@ abstract final class AppRoutes {
 
   /// Pushed over the tabs from Me.
   static const settings = '/home/me/settings';
+  static const editProfile = '/home/me/edit';
 }

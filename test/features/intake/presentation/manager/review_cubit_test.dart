@@ -37,6 +37,16 @@ void main() {
     expect(stage(), OnboardingStage.complete);
   });
 
+  test('follows edits made meanwhile (e.g. a refreshed brief)', () async {
+    final cubit = await build();
+    final analysis = profiles.current!.analysis!;
+    await profiles.save(
+      profiles.current!.copyWith(analysis: analysis.copyWith(brief: 'New')),
+    );
+    await Future<void>.delayed(Duration.zero);
+    expect(cubit.state.analysis?.brief, 'New');
+  });
+
   test('"Rewrite my introduction" goes back, keeping the text', () async {
     final cubit = await build();
     final text = profiles.current!.selfIntro!.text;

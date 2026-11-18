@@ -190,7 +190,7 @@ void main() {
       await tapAndSettle(tester, find.byKey(const Key('multiOwnAdd')));
       expect(find.widgetWithText(InputChip, 'Tigrinya'), findsOneWidget);
 
-      await tapAndSettle(tester, find.byKey(const Key('intakeContinue')));
+      await tapAndSettle(tester, find.byKey(const Key('answerSubmit')));
       expect(
         saved('languages'),
         MultiAnswer(['arabic', 'english', 'french'], custom: ['Tigrinya']),
@@ -199,7 +199,7 @@ void main() {
 
     testWidgets('nothing picked shows an error', (tester) async {
       await openIntake(tester, answers: answeredUntil('languages'));
-      await tapAndSettle(tester, find.byKey(const Key('intakeContinue')));
+      await tapAndSettle(tester, find.byKey(const Key('answerSubmit')));
       expect(find.text('Please pick at least one.'), findsOneWidget);
     });
 
@@ -228,7 +228,7 @@ void main() {
 
     expect(find.text('${start.min} to ${start.max} years'), findsOneWidget);
     expect(find.byType(RangeSlider), findsOneWidget);
-    await tapAndSettle(tester, find.byKey(const Key('intakeContinue')));
+    await tapAndSettle(tester, find.byKey(const Key('answerSubmit')));
     expect(saved('partner_age'), start);
   });
 
@@ -359,7 +359,7 @@ Future<void> answerThroughUi(WidgetTester tester) async {
       ),
       text,
     );
-    await tap(find.byKey(const Key('intakeContinue')));
+    await tap(find.byKey(const Key('answerSubmit')));
   }
 
   switch (state.step) {
@@ -376,9 +376,9 @@ Future<void> answerThroughUi(WidgetTester tester) async {
           await tap(find.byKey(Key('option-$firstOption')));
         case InputType.multi:
           await tap(find.byKey(Key('option-$firstOption')));
-          await tap(find.byKey(const Key('intakeContinue')));
+          await tap(find.byKey(const Key('answerSubmit')));
         case InputType.range:
-          await tap(find.byKey(const Key('intakeContinue')));
+          await tap(find.byKey(const Key('answerSubmit')));
         case InputType.country:
           await tap(find.byKey(const Key('countryYes')));
         case InputType.countryOptional:

@@ -10,6 +10,7 @@ class MeState {
     this.silhouette = SilhouetteStyle.plain,
     this.city,
     this.countryIso,
+    this.mainPhotoPath,
   });
 
   /// Null only when signed out meanwhile (the router is leaving).
@@ -22,4 +23,7 @@ class MeState {
   /// Where the user lives, as answered.
   final String? city;
   final String? countryIso;
+
+  /// Where to show the main photo from; null without photos.
+  final String? mainPhotoPath;
 }

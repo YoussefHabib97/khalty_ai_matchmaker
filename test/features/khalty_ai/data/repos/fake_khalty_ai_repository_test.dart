@@ -111,6 +111,19 @@ void main() {
     expect(man.brief, contains('يبحث عن زوجة'));
   });
 
+  test('a refreshed brief follows the edited answers', () async {
+    final brief = await ai.refreshBrief(
+      IntakeAnalysisRequest(
+        gender: Gender.female,
+        language: AppLanguage.en,
+        name: 'Sara',
+        answers: {...answers, 'age': 31},
+        introduction: goodIntro,
+      ),
+    );
+    expect(brief, contains('Sara, 31'));
+  });
+
   test('can be told to fail', () async {
     ai.fail = true;
     expect(

@@ -6,9 +6,12 @@ import 'package:material_ui/material_ui.dart';
 /// "Khalty knows you 72%" with a bar and a nudge towards the biggest
 /// missing piece.
 class KnowsYouCard extends StatelessWidget {
-  const KnowsYouCard({super.key, required this.completeness});
+  const KnowsYouCard({super.key, required this.completeness, this.onTap});
 
   final Completeness completeness;
+
+  /// Opens where the missing pieces can be added.
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,23 +26,27 @@ class KnowsYouCard extends StatelessWidget {
     };
     return Card.filled(
       margin: EdgeInsets.zero,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 8,
-          children: [
-            Text(
-              l10n.knowsYou(completeness.percent),
-              style: context.titleLarge,
-            ),
-            LinearProgressIndicator(
-              value: completeness.percent / 100,
-              minHeight: 8,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            Text(hint, style: context.bodyMedium),
-          ],
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
+            children: [
+              Text(
+                l10n.knowsYou(completeness.percent),
+                style: context.titleLarge,
+              ),
+              LinearProgressIndicator(
+                value: completeness.percent / 100,
+                minHeight: 8,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              Text(hint, style: context.bodyMedium),
+            ],
+          ),
         ),
       ),
     );

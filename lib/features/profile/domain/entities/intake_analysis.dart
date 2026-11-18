@@ -56,6 +56,17 @@ class IntakeAnalysis {
   /// next). Shown on the review screen.
   final String? reply;
 
+  /// A copy with a new [brief] (e.g. after the answers were edited).
+  IntakeAnalysis copyWith({String? brief}) => IntakeAnalysis(
+    aboutMe: aboutMe,
+    traits: traits,
+    brief: brief ?? this.brief,
+    mismatches: mismatches,
+    language: language,
+    generatedAt: generatedAt,
+    reply: reply,
+  );
+
   @override
   bool operator ==(Object other) =>
       other is IntakeAnalysis &&

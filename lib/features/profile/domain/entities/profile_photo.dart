@@ -1,5 +1,9 @@
 /// One of the user's photos. Local-only for now; a storage path/URL is
 /// added when uploads arrive with Firebase.
+///
+/// [localPath] is **relative** to the app's documents folder (e.g.
+/// `photos/<id>.jpg`), because that folder's absolute path can change
+/// between app updates on iOS. `PhotoRepository.pathOf` resolves it.
 class ProfilePhoto {
   const ProfilePhoto({
     required this.id,

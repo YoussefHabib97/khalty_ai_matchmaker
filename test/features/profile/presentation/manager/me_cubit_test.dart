@@ -5,9 +5,11 @@ import 'package:khalty_ai_matchmaker/features/onboarding/domain/services/onboard
 import 'package:khalty_ai_matchmaker/features/profile/data/repos/local_profile_repository.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/entities/silhouette_style.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/entities/user_profile.dart';
+import 'package:khalty_ai_matchmaker/features/profile/domain/repos/photo_repository.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/me_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/answer_value.dart';
 
+import '../../../../helpers/fake_photo_repository.dart';
 import '../../../../helpers/prefs.dart';
 import '../../../../helpers/questionnaire.dart';
 import '../../../../helpers/session.dart';
@@ -20,7 +22,11 @@ void main() {
     profiles = LocalProfileRepository(await mockPrefs());
     addTearDown(profiles.dispose);
     await profiles.save(profile);
-    final cubit = MeCubit(profiles: profiles, engineFor: resolver.engineFor);
+    final cubit = MeCubit(
+      profiles: profiles,
+      photos: FakePhotoRepository(),
+      engineFor: resolver.engineFor,
+    );
     addTearDown(cubit.close);
     return cubit;
   }
@@ -67,6 +73,15 @@ void main() {
       ),
     );
     expect(cubit.state.silhouette, SilhouetteStyle.plain);
+  });
+
+  test('shows the main photo when there is one', () async {
+    final cubit = await build(profileAt(OnboardingStage.complete));
+    expect(cubit.state.mainPhotoPath, isNull);
+    final photo = await FakePhotoRepository().add(PhotoSource.gallery);
+    await profiles.save(profiles.current!.copyWith(photos: [photo!]));
+    await Future<void>.delayed(Duration.zero);
+    expect(cubit.state.mainPhotoPath, '/fake/photos/photo1.jpg');
   });
 
   test('follows later changes to the profile', () async {

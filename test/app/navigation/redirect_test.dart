@@ -11,10 +11,13 @@ void main() {
     AppRoutes.intake,
     AppRoutes.selfIntro,
     AppRoutes.review,
+    AppRoutes.reviewEdit,
     AppRoutes.khalty,
     AppRoutes.matches,
     AppRoutes.chats,
     AppRoutes.me,
+    AppRoutes.settings,
+    AppRoutes.editProfile,
     '/',
     '/unknown',
   ];
@@ -27,12 +30,14 @@ void main() {
     },
     OnboardingStage.needsIntake: {AppRoutes.intake},
     OnboardingStage.needsSelfIntro: {AppRoutes.selfIntro},
-    OnboardingStage.needsReview: {AppRoutes.review},
+    OnboardingStage.needsReview: {AppRoutes.review, AppRoutes.reviewEdit},
     OnboardingStage.complete: {
       AppRoutes.khalty,
       AppRoutes.matches,
       AppRoutes.chats,
       AppRoutes.me,
+      AppRoutes.settings,
+      AppRoutes.editProfile,
     },
   };
 

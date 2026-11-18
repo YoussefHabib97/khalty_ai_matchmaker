@@ -15,7 +15,10 @@ import 'package:material_ui/material_ui.dart';
 /// **That's me ✓**. Expects a [ReviewCubit] above it. Both actions change
 /// the profile and the session moves on, so no navigation callback.
 class ReviewView extends StatelessWidget {
-  const ReviewView({super.key});
+  const ReviewView({super.key, required this.onChangeAnswers});
+
+  /// Edit → "Change an answer" (open answer editing).
+  final VoidCallback onChangeAnswers;
 
   @override
   Widget build(BuildContext context) {
@@ -148,10 +151,10 @@ class ReviewView extends StatelessWidget {
                       onPressed: cubit.rewriteIntroduction,
                       child: Text(l10n.reviewRewriteIntro),
                     ),
-                    // Wired up with profile editing (step 12).
                     MenuItemButton(
+                      key: const Key('reviewChangeAnswers'),
                       leadingIcon: const Icon(Icons.checklist),
-                      onPressed: null,
+                      onPressed: onChangeAnswers,
                       child: Text(l10n.reviewChangeAnswer),
                     ),
                   ],

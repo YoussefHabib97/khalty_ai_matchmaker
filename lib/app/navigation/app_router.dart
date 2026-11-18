@@ -20,7 +20,9 @@ import 'package:khalty_ai_matchmaker/features/intake/presentation/views/self_int
 import 'package:khalty_ai_matchmaker/features/khalty_chat/presentation/views/khalty_tab_view.dart';
 import 'package:khalty_ai_matchmaker/features/matches/presentation/views/matches_tab_view.dart';
 import 'package:khalty_ai_matchmaker/features/onboarding/presentation/views/welcome_view.dart';
+import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/edit_profile_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/me_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/profile/presentation/views/edit_profile_view.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/views/me_view.dart';
 import 'package:khalty_ai_matchmaker/features/settings/presentation/manager/account_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/settings/presentation/views/settings_view.dart';
@@ -38,6 +40,7 @@ GoRouter createAppRouter(
   required SelfIntroCubit Function() selfIntroCubit,
   required ReviewCubit Function() reviewCubit,
   required MeCubit Function() meCubit,
+  required EditProfileCubit Function() editProfileCubit,
   required AccountCubit Function() accountCubit,
   DebugStageActions? debug,
 }) {
@@ -46,6 +49,11 @@ GoRouter createAppRouter(
 
   Widget page(Widget child) =>
       debug == null ? child : DebugStagePanel(actions: debug, child: child);
+
+  Widget editProfile(BuildContext context) => BlocProvider(
+    create: (_) => editProfileCubit(),
+    child: EditProfileView(onDone: () => context.pop()),
+  );
 
   GoRoute route(
     String path,
@@ -106,10 +114,13 @@ GoRouter createAppRouter(
       ),
       route(
         AppRoutes.review,
-        (_) => BlocProvider(
+        (context) => BlocProvider(
           create: (_) => reviewCubit(),
-          child: const ReviewView(),
+          child: ReviewView(
+            onChangeAnswers: () => context.push(AppRoutes.reviewEdit),
+          ),
         ),
+        routes: [route('edit', editProfile)],
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) =>
@@ -133,9 +144,15 @@ GoRouter createAppRouter(
                   create: (_) => meCubit(),
                   child: MeView(
                     onOpenSettings: () => context.push(AppRoutes.settings),
+                    onEditProfile: () => context.push(AppRoutes.editProfile),
                   ),
                 ),
                 routes: [
+                  GoRoute(
+                    path: 'edit',
+                    parentNavigatorKey: rootNavigator,
+                    builder: (context, state) => page(editProfile(context)),
+                  ),
                   GoRoute(
                     path: 'settings',
                     parentNavigatorKey: rootNavigator,

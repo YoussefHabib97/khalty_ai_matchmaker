@@ -20,7 +20,8 @@ String? resolveRedirect(OnboardingStage stage, String location) {
           location == AppRoutes.verifyCode,
     OnboardingStage.needsIntake => location == AppRoutes.intake,
     OnboardingStage.needsSelfIntro => location == AppRoutes.selfIntro,
-    OnboardingStage.needsReview => location == AppRoutes.review,
+    OnboardingStage.needsReview =>
+      location == AppRoutes.review || location == AppRoutes.reviewEdit,
     OnboardingStage.complete => location.startsWith(AppRoutes.homePrefix),
   };
   return allowed ? null : homeForStage(stage);

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khalty_ai_matchmaker/core/constants/enums.dart';
 import 'package:khalty_ai_matchmaker/features/intake/presentation/manager/review_state.dart';
@@ -11,16 +13,30 @@ class ReviewCubit extends Cubit<ReviewState> {
   ReviewCubit({required ProfileRepository profiles, DateTime Function()? now})
     : _profiles = profiles,
       _now = now ?? DateTime.now,
-      super(
-        ReviewState(
-          gender: profiles.current?.gender ?? Gender.female,
-          analysis: profiles.current?.analysis,
-          name: profiles.current?.name,
-        ),
-      );
+      super(_stateFor(profiles.current)) {
+    // Edits made from here (answers, refreshed brief) show straight away.
+    _subscription = profiles.watch().listen((profile) {
+      if (profile?.analysis != null) {
+        _emit(_stateFor(profile).copyWith(isSaving: state.isSaving));
+      }
+    });
+  }
 
   final ProfileRepository _profiles;
   final DateTime Function() _now;
+  late final StreamSubscription<UserProfile?> _subscription;
+
+  static ReviewState _stateFor(UserProfile? profile) => ReviewState(
+    gender: profile?.gender ?? Gender.female,
+    analysis: profile?.analysis,
+    name: profile?.name,
+  );
+
+  @override
+  Future<void> close() async {
+    await _subscription.cancel();
+    return super.close();
+  }
 
   /// "That's me".
   Future<void> confirm() => _save(

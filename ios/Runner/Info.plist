@@ -66,5 +66,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Choose photos for your Khalty profile.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Take a photo for your Khalty profile.</string>
 </dict>
 </plist>

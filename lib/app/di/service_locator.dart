@@ -17,6 +17,9 @@ import 'package:khalty_ai_matchmaker/features/khalty_ai/domain/repos/khalty_ai_r
 import 'package:khalty_ai_matchmaker/features/onboarding/domain/services/onboarding_stage_resolver.dart';
 import 'package:khalty_ai_matchmaker/features/profile/data/repos/local_profile_repository.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/repos/profile_repository.dart';
+import 'package:khalty_ai_matchmaker/features/profile/data/repos/local_photo_repository.dart';
+import 'package:khalty_ai_matchmaker/features/profile/domain/repos/photo_repository.dart';
+import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/edit_profile_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/me_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/settings/presentation/manager/account_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/data/repos/asset_questionnaire_repository.dart';
@@ -66,6 +69,7 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerLazySingleton<KhaltyAiRepository>(FakeKhaltyAiRepository.new);
+  getIt.registerSingleton<PhotoRepository>(await LocalPhotoRepository.open());
 
   // Data loaded once at startup. An invalid questionnaire stops the app here
   // with a ConfigException naming the problem (tests catch this first).
@@ -100,6 +104,7 @@ Future<void> setupServiceLocator() async {
       selfIntroCubit: () => getIt<SelfIntroCubit>(),
       reviewCubit: () => getIt<ReviewCubit>(),
       meCubit: () => getIt<MeCubit>(),
+      editProfileCubit: () => getIt<EditProfileCubit>(),
       accountCubit: () => getIt<AccountCubit>(),
       debug: kDebugMode ? getIt<DebugStageActions>() : null,
     ),
@@ -135,6 +140,15 @@ Future<void> setupServiceLocator() async {
   getIt.registerFactory<MeCubit>(
     () => MeCubit(
       profiles: getIt(),
+      photos: getIt(),
+      engineFor: getIt<OnboardingStageResolver>().engineFor,
+    ),
+  );
+  getIt.registerFactory<EditProfileCubit>(
+    () => EditProfileCubit(
+      profiles: getIt(),
+      photos: getIt(),
+      ai: getIt(),
       engineFor: getIt<OnboardingStageResolver>().engineFor,
     ),
   );
