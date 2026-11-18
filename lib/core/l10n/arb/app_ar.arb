@@ -81,5 +81,23 @@
   "multiPickUpTo": "يمكن اختيار {max} كحد أقصى (المتبقي: {left})",
   "multiAddOwn": "إضافة إجابة أخرى",
   "answerPickOne": "يُرجى اختيار إجابة واحدة على الأقل.",
-  "rangeYears": "من {min} إلى {max} سنة"
+  "rangeYears": "من {min} إلى {max} سنة",
+
+  "selfIntroHint": "تعريفك بنفسك…",
+  "selfIntroSend": "إرسال",
+  "selfIntroSkip": "ليس الآن",
+  "selfIntroFailed": "تعذّر على خالتي الإكمال الآن.",
+  "tryAgain": "إعادة المحاولة",
+
+  "reviewFallbackReply": "هذا ما فهمته عنك يا {name} 🌸",
+  "reviewSummary": "ملخصك",
+  "reviewAboutMe": "نبذة عني · تظهر في بطاقتك",
+  "reviewNoAboutMe": "يمكن إضافة نبذة عنك لاحقًا من ملفك الشخصي.",
+  "reviewPleaseCheck": "يُرجى المراجعة",
+  "reviewEdit": "تعديل",
+  "reviewRewriteIntro": "إعادة كتابة تعريفي",
+  "reviewChangeAnswer": "تغيير إجابة (قريبًا)",
+  "reviewConfirm": "هذا أنا ✓",
+  "writtenInEnglish": "مكتوب بالإنجليزية",
+  "writtenInArabic": "مكتوب بالعربية"
 }

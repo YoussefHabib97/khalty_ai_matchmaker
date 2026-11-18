@@ -1701,15 +1701,18 @@
       "ar": "تشرفت بمعرفتك يا {name}! 🌸"
     },
     "self_intro": {
-      "en": "Last step, {name}, about 1 minute ✨ Tell me about yourself in your own words: who you are, your life, and what you'd like your future spouse to know. You can record or type.",
+      "en": "Last step, {name}, about 1 minute ✨ Tell me about yourself in your own words: who you are, your life, and what you'd like your future spouse to know.",
       "ar": {
-        "male": "آخر خطوة يا {name}، دقيقة واحدة تقريبًا ✨ حدّثني عن نفسك بكلماتك: من أنت، وحياتك، وما تحب أن تعرفه زوجتك المستقبلية. يمكنك التسجيل أو الكتابة.",
-        "female": "آخر خطوة يا {name}، دقيقة واحدة تقريبًا ✨ حدّثيني عن نفسك بكلماتك: من أنتِ، وحياتك، وما تحبين أن يعرفه زوجك المستقبلي. يمكنكِ التسجيل أو الكتابة."
+        "male": "آخر خطوة يا {name}، دقيقة واحدة تقريبًا ✨ حدّثني عن نفسك بكلماتك: من أنت، وحياتك، وما تحب أن تعرفه زوجتك المستقبلية.",
+        "female": "آخر خطوة يا {name}، دقيقة واحدة تقريبًا ✨ حدّثيني عن نفسك بكلماتك: من أنتِ، وحياتك، وما تحبين أن يعرفه زوجك المستقبلي."
       }
     },
     "analysing": {
       "en": "Thank you, {name} 🌸 Let me put everything together…",
-      "ar": "شكرًا يا {name} 🌸 دعني أجمع كل شيء…"
+      "ar": {
+        "male": "شكرًا يا {name} 🌸 دعني أجمع كل شيء…",
+        "female": "شكرًا يا {name} 🌸 دعيني أجمع كل شيء…"
+      }
     }
   }
 }

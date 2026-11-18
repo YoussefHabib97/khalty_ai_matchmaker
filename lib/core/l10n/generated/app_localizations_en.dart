@@ -249,4 +249,55 @@ class AppLocalizationsEn extends AppLocalizations {
   String rangeYears(int min, int max) {
     return '$min to $max years';
   }
+
+  @override
+  String get selfIntroHint => 'Your introduction…';
+
+  @override
+  String get selfIntroSend => 'Send';
+
+  @override
+  String get selfIntroSkip => 'Not now';
+
+  @override
+  String get selfIntroFailed => 'Khalty couldn\'t finish just now.';
+
+  @override
+  String get tryAgain => 'Try again';
+
+  @override
+  String reviewFallbackReply(String name) {
+    return 'Here is what I understood about you, $name 🌸';
+  }
+
+  @override
+  String get reviewSummary => 'Your summary';
+
+  @override
+  String get reviewAboutMe => 'About me · shown on your card';
+
+  @override
+  String get reviewNoAboutMe =>
+      'You can add an \"About me\" later from your profile.';
+
+  @override
+  String get reviewPleaseCheck => 'Please check';
+
+  @override
+  String get reviewEdit => 'Edit';
+
+  @override
+  String get reviewRewriteIntro => 'Rewrite my introduction';
+
+  @override
+  String get reviewChangeAnswer => 'Change an answer (coming soon)';
+
+  @override
+  String get reviewConfirm => 'That\'s me ✓';
+
+  @override
+  String get writtenInEnglish => 'Written in English';
+
+  @override
+  String get writtenInArabic => 'Written in Arabic';
 }

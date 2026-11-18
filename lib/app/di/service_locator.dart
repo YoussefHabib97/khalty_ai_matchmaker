@@ -10,6 +10,10 @@ import 'package:khalty_ai_matchmaker/features/auth/presentation/manager/sign_up_
 import 'package:khalty_ai_matchmaker/features/auth/data/repos/fake_auth_repository.dart';
 import 'package:khalty_ai_matchmaker/features/auth/domain/repos/auth_repository.dart';
 import 'package:khalty_ai_matchmaker/features/intake/presentation/manager/intake_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/intake/presentation/manager/review_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/intake/presentation/manager/self_intro_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/khalty_ai/data/repos/fake_khalty_ai_repository.dart';
+import 'package:khalty_ai_matchmaker/features/khalty_ai/domain/repos/khalty_ai_repository.dart';
 import 'package:khalty_ai_matchmaker/features/onboarding/domain/services/onboarding_stage_resolver.dart';
 import 'package:khalty_ai_matchmaker/features/profile/data/repos/local_profile_repository.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/repos/profile_repository.dart';
@@ -59,6 +63,8 @@ Future<void> setupServiceLocator() async {
     dispose: (repo) => (repo as LocalProfileRepository).dispose(),
   );
 
+  getIt.registerLazySingleton<KhaltyAiRepository>(FakeKhaltyAiRepository.new);
+
   // Data loaded once at startup. An invalid questionnaire stops the app here
   // with a ConfigException naming the problem (tests catch this first).
   getIt.registerSingleton<QuestionnaireConfig>(
@@ -89,6 +95,8 @@ Future<void> setupServiceLocator() async {
       getIt(),
       signUpCubit: () => getIt<SignUpCubit>(),
       intakeCubit: () => getIt<IntakeCubit>(),
+      selfIntroCubit: () => getIt<SelfIntroCubit>(),
+      reviewCubit: () => getIt<ReviewCubit>(),
       debug: kDebugMode ? getIt<DebugStageActions>() : null,
     ),
     dispose: (router) => router.dispose(),
@@ -112,4 +120,12 @@ Future<void> setupServiceLocator() async {
       deviceCountryIso: deviceCountry().iso2,
     ),
   );
+  getIt.registerFactory<SelfIntroCubit>(
+    () => SelfIntroCubit(
+      profiles: getIt(),
+      ai: getIt(),
+      engineFor: getIt<OnboardingStageResolver>().engineFor,
+    ),
+  );
+  getIt.registerFactory<ReviewCubit>(() => ReviewCubit(profiles: getIt()));
 }

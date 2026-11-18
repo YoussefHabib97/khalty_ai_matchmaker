@@ -202,5 +202,42 @@
   "@rangeYears": {
     "description": "Questionnaire: the chosen partner age range. Arabic needs review.",
     "placeholders": { "min": { "type": "int" }, "max": { "type": "int" } }
-  }
+  },
+
+  "selfIntroHint": "Your introduction…",
+  "@selfIntroHint": { "description": "Self-introduction: hint in the text field. Arabic needs review." },
+  "selfIntroSend": "Send",
+  "@selfIntroSend": { "description": "Self-introduction: send the text to Khalty. Arabic needs review." },
+  "selfIntroSkip": "Not now",
+  "@selfIntroSkip": { "description": "Self-introduction: skip it (the user can add a bio later). Arabic needs review." },
+  "selfIntroFailed": "Khalty couldn't finish just now.",
+  "@selfIntroFailed": { "description": "Self-introduction: the AI or saving failed; nothing was saved. Arabic needs review." },
+  "tryAgain": "Try again",
+  "@tryAgain": { "description": "Button to repeat a failed action. Arabic needs review." },
+
+  "reviewFallbackReply": "Here is what I understood about you, {name} 🌸",
+  "@reviewFallbackReply": {
+    "description": "Review: Khalty's line when no message was saved with the analysis. Arabic needs review.",
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "reviewSummary": "Your summary",
+  "@reviewSummary": { "description": "Review: title of Khalty's summary of the user. Arabic needs review." },
+  "reviewAboutMe": "About me · shown on your card",
+  "@reviewAboutMe": { "description": "Review: title of the bio matches will see. Arabic needs review." },
+  "reviewNoAboutMe": "You can add an \"About me\" later from your profile.",
+  "@reviewNoAboutMe": { "description": "Review: shown when the introduction was skipped. Arabic needs review." },
+  "reviewPleaseCheck": "Please check",
+  "@reviewPleaseCheck": { "description": "Review: title of contradictions between the introduction and the answers. Arabic needs review." },
+  "reviewEdit": "Edit",
+  "@reviewEdit": { "description": "Review: opens the edit menu. Arabic needs review." },
+  "reviewRewriteIntro": "Rewrite my introduction",
+  "@reviewRewriteIntro": { "description": "Review edit menu: back to the self-introduction. Arabic needs review." },
+  "reviewChangeAnswer": "Change an answer (coming soon)",
+  "@reviewChangeAnswer": { "description": "Review edit menu: disabled until profile editing exists. Arabic needs review." },
+  "reviewConfirm": "That's me ✓",
+  "@reviewConfirm": { "description": "Review: finishes onboarding (from the old app). Arabic needs review." },
+  "writtenInEnglish": "Written in English",
+  "@writtenInEnglish": { "description": "Review: Khalty's texts were written in English but the app is in another language. Arabic needs review." },
+  "writtenInArabic": "Written in Arabic",
+  "@writtenInArabic": { "description": "Review: Khalty's texts were written in Arabic but the app is in another language. Arabic needs review." }
 }

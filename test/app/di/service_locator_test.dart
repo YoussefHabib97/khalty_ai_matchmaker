@@ -7,6 +7,10 @@ import 'package:khalty_ai_matchmaker/features/auth/data/repos/fake_auth_reposito
 import 'package:khalty_ai_matchmaker/features/auth/domain/repos/auth_repository.dart';
 import 'package:khalty_ai_matchmaker/features/auth/presentation/manager/sign_up_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/intake/presentation/manager/intake_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/intake/presentation/manager/review_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/intake/presentation/manager/self_intro_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/khalty_ai/data/repos/fake_khalty_ai_repository.dart';
+import 'package:khalty_ai_matchmaker/features/khalty_ai/domain/repos/khalty_ai_repository.dart';
 import 'package:khalty_ai_matchmaker/features/onboarding/domain/services/onboarding_stage_resolver.dart';
 import 'package:khalty_ai_matchmaker/features/profile/data/repos/local_profile_repository.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/repos/profile_repository.dart';
@@ -38,6 +42,11 @@ void main() {
     expect(getIt<LocaleCubit>(), isNotNull);
     expect(identical(getIt<SignUpCubit>(), getIt<SignUpCubit>()), isFalse);
     expect(identical(getIt<IntakeCubit>(), getIt<IntakeCubit>()), isFalse);
+    expect(
+      identical(getIt<SelfIntroCubit>(), getIt<SelfIntroCubit>()),
+      isFalse,
+    );
+    expect(identical(getIt<ReviewCubit>(), getIt<ReviewCubit>()), isFalse);
   });
 
   test('repositories are registered by interface', () {
@@ -48,6 +57,7 @@ void main() {
     );
     expect(getIt<AuthRepository>(), isA<FakeAuthRepository>());
     expect(getIt<ProfileRepository>(), isA<LocalProfileRepository>());
+    expect(getIt<KhaltyAiRepository>(), isA<FakeKhaltyAiRepository>());
   });
 
   test('the session, router and debug actions are app-wide singletons', () {

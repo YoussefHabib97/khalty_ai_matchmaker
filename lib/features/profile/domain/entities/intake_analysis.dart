@@ -18,12 +18,13 @@ class Trait {
 /// What Khalty produced from the answers and self-introduction.
 class IntakeAnalysis {
   IntakeAnalysis({
-    required this.aboutMe,
+    this.aboutMe,
     required List<Trait> traits,
     required this.brief,
     List<String> mismatches = const [],
     required this.language,
     required this.generatedAt,
+    this.reply,
   }) : traits = List.unmodifiable(traits),
        mismatches = List.unmodifiable(mismatches) {
     if (traits.length > maxTraits) {
@@ -33,8 +34,9 @@ class IntakeAnalysis {
 
   static const maxTraits = 4;
 
-  /// First-person bio (3–5 sentences) suggested for the profile card.
-  final String aboutMe;
+  /// First-person bio (3–5 sentences) suggested for the profile card, from
+  /// the self-introduction. Null when the introduction was skipped.
+  final String? aboutMe;
 
   /// Private impressions, at most [maxTraits]. Never shown to others.
   final List<Trait> traits;
@@ -50,6 +52,10 @@ class IntakeAnalysis {
   final AppLanguage language;
   final DateTime generatedAt;
 
+  /// Khalty's message to the user after the analysis (thanks, what happens
+  /// next). Shown on the review screen.
+  final String? reply;
+
   @override
   bool operator ==(Object other) =>
       other is IntakeAnalysis &&
@@ -58,7 +64,8 @@ class IntakeAnalysis {
       other.brief == brief &&
       listEquals(other.mismatches, mismatches) &&
       other.language == language &&
-      other.generatedAt == generatedAt;
+      other.generatedAt == generatedAt &&
+      other.reply == reply;
   @override
   int get hashCode => Object.hash(
     aboutMe,
@@ -67,5 +74,6 @@ class IntakeAnalysis {
     Object.hashAll(mismatches),
     language,
     generatedAt,
+    reply,
   );
 }

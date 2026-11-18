@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:khalty_ai_matchmaker/core/constants/enums.dart';
 import 'package:khalty_ai_matchmaker/features/profile/data/models/user_profile_mapper.dart';
+import 'package:khalty_ai_matchmaker/features/profile/domain/entities/intake_analysis.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/entities/self_intro.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/entities/user_profile.dart';
 
@@ -29,6 +31,29 @@ void main() {
     );
     expect(roundTrip(skipped), skipped);
     expect(roundTrip(voice), voice);
+  });
+
+  test("round-trips Khalty's message and a missing bio", () {
+    final full = fullProfile();
+    final withReply = full.copyWith(
+      analysis: IntakeAnalysis(
+        traits: const [],
+        brief: 'Brief',
+        language: AppLanguage.en,
+        generatedAt: fixtureTime,
+        reply: 'Thank you, Sara',
+      ),
+    );
+    expect(roundTrip(withReply), withReply);
+    expect(roundTrip(withReply).analysis!.aboutMe, isNull);
+  });
+
+  test('reads an analysis saved before the message existed', () {
+    final json = UserProfileMapper.toJson(fullProfile());
+    (json['analysis'] as Map).remove('reply');
+    final profile = UserProfileMapper.fromJson(json);
+    expect(profile.analysis!.reply, isNull);
+    expect(profile.analysis!.aboutMe, 'I am Sara.');
   });
 
   test('stores enums by name and includes the schema version', () {

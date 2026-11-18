@@ -3,12 +3,23 @@ import 'package:khalty_ai_matchmaker/core/utils/extensions.dart';
 import 'package:material_ui/material_ui.dart';
 
 /// Khalty speaking: her avatar and a speech bubble with an optional short
-/// [reply] to the previous answer above the main [text].
+/// [reply] to the previous answer above the main [text], and an optional
+/// [footer] below it (e.g. a typing indicator).
 class KhaltyBubble extends StatelessWidget {
-  const KhaltyBubble({super.key, required this.text, this.reply});
+  const KhaltyBubble({
+    super.key,
+    required this.text,
+    this.reply,
+    this.footer,
+    this.emphasised = true,
+  });
 
   final String text;
   final String? reply;
+  final Widget? footer;
+
+  /// Questions are bold; chat messages are regular text.
+  final bool emphasised;
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +54,11 @@ class KhaltyBubble extends StatelessWidget {
                   ),
                 Text(
                   text,
-                  style: context.bodyLarge.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: emphasised
+                      ? context.bodyLarge.copyWith(fontWeight: FontWeight.w600)
+                      : context.bodyLarge,
                 ),
+                ?footer,
               ],
             ),
           ),

@@ -247,4 +247,54 @@ class AppLocalizationsAr extends AppLocalizations {
   String rangeYears(int min, int max) {
     return 'من $min إلى $max سنة';
   }
+
+  @override
+  String get selfIntroHint => 'تعريفك بنفسك…';
+
+  @override
+  String get selfIntroSend => 'إرسال';
+
+  @override
+  String get selfIntroSkip => 'ليس الآن';
+
+  @override
+  String get selfIntroFailed => 'تعذّر على خالتي الإكمال الآن.';
+
+  @override
+  String get tryAgain => 'إعادة المحاولة';
+
+  @override
+  String reviewFallbackReply(String name) {
+    return 'هذا ما فهمته عنك يا $name 🌸';
+  }
+
+  @override
+  String get reviewSummary => 'ملخصك';
+
+  @override
+  String get reviewAboutMe => 'نبذة عني · تظهر في بطاقتك';
+
+  @override
+  String get reviewNoAboutMe => 'يمكن إضافة نبذة عنك لاحقًا من ملفك الشخصي.';
+
+  @override
+  String get reviewPleaseCheck => 'يُرجى المراجعة';
+
+  @override
+  String get reviewEdit => 'تعديل';
+
+  @override
+  String get reviewRewriteIntro => 'إعادة كتابة تعريفي';
+
+  @override
+  String get reviewChangeAnswer => 'تغيير إجابة (قريبًا)';
+
+  @override
+  String get reviewConfirm => 'هذا أنا ✓';
+
+  @override
+  String get writtenInEnglish => 'مكتوب بالإنجليزية';
+
+  @override
+  String get writtenInArabic => 'مكتوب بالعربية';
 }

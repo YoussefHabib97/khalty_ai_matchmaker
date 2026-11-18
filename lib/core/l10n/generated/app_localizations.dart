@@ -511,6 +511,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{min} to {max} years'**
   String rangeYears(int min, int max);
+
+  /// Self-introduction: hint in the text field. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Your introduction…'**
+  String get selfIntroHint;
+
+  /// Self-introduction: send the text to Khalty. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get selfIntroSend;
+
+  /// Self-introduction: skip it (the user can add a bio later). Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get selfIntroSkip;
+
+  /// Self-introduction: the AI or saving failed; nothing was saved. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Khalty couldn\'t finish just now.'**
+  String get selfIntroFailed;
+
+  /// Button to repeat a failed action. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get tryAgain;
+
+  /// Review: Khalty's line when no message was saved with the analysis. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Here is what I understood about you, {name} 🌸'**
+  String reviewFallbackReply(String name);
+
+  /// Review: title of Khalty's summary of the user. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Your summary'**
+  String get reviewSummary;
+
+  /// Review: title of the bio matches will see. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'About me · shown on your card'**
+  String get reviewAboutMe;
+
+  /// Review: shown when the introduction was skipped. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'You can add an \"About me\" later from your profile.'**
+  String get reviewNoAboutMe;
+
+  /// Review: title of contradictions between the introduction and the answers. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check'**
+  String get reviewPleaseCheck;
+
+  /// Review: opens the edit menu. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get reviewEdit;
+
+  /// Review edit menu: back to the self-introduction. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Rewrite my introduction'**
+  String get reviewRewriteIntro;
+
+  /// Review edit menu: disabled until profile editing exists. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Change an answer (coming soon)'**
+  String get reviewChangeAnswer;
+
+  /// Review: finishes onboarding (from the old app). Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'That\'s me ✓'**
+  String get reviewConfirm;
+
+  /// Review: Khalty's texts were written in English but the app is in another language. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Written in English'**
+  String get writtenInEnglish;
+
+  /// Review: Khalty's texts were written in Arabic but the app is in another language. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Written in Arabic'**
+  String get writtenInArabic;
 }
 
 class _AppLocalizationsDelegate

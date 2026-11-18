@@ -116,11 +116,12 @@ abstract final class UserProfileMapper {
     'mismatches': a.mismatches,
     'language': a.language.code,
     'generatedAt': dateToJson(a.generatedAt),
+    'reply': a.reply,
   };
 
   static IntakeAnalysis _analysisFromJson(Map<String, Object?> json) =>
       IntakeAnalysis(
-        aboutMe: json['aboutMe'] as String,
+        aboutMe: json['aboutMe'] as String?,
         traits: [
           for (final t in (json['traits'] as List? ?? const []).take(
             IntakeAnalysis.maxTraits,
@@ -134,6 +135,7 @@ abstract final class UserProfileMapper {
         mismatches: List<String>.from(json['mismatches'] as List? ?? const []),
         language: AppLanguage.fromCode(json['language']),
         generatedAt: dateFromJson(json['generatedAt']),
+        reply: json['reply'] as String?,
       );
 
   static Map<String, Object?> _photoToJson(ProfilePhoto p) => {
