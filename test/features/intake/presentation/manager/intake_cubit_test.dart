@@ -25,6 +25,7 @@ void main() {
   Future<IntakeCubit> build({
     Answers? answers,
     Gender gender = Gender.female,
+    String deviceCountry = 'AE',
   }) async {
     final repo = LocalProfileRepository(await mockPrefs());
     addTearDown(repo.dispose);
@@ -34,6 +35,7 @@ void main() {
     final cubit = IntakeCubit(
       profiles: profiles,
       engineFor: engineFor,
+      deviceCountryIso: deviceCountry,
       now: () => now,
     );
     addTearDown(cubit.close);
@@ -63,6 +65,15 @@ void main() {
     _ => null,
   };
   AnswerValue? saved(String key) => profiles.current!.answers[key];
+
+  /// Answers the current question with a simple valid answer.
+  Future<void> answerSample(IntakeCubit c) {
+    final field = (c.state.step as QuestionStep).field;
+    final engine = engineFor(c.state.gender);
+    return c.submit(
+      QuestionnaireAutofill.defaultAnswer(engine, field, c.state.answers),
+    );
+  }
 
   group('starting', () {
     test('a new user is greeted, then gets the first question', () async {
@@ -96,7 +107,11 @@ void main() {
     test('without a profile there is nothing to ask', () async {
       final repo = LocalProfileRepository(await mockPrefs());
       addTearDown(repo.dispose);
-      final cubit = IntakeCubit(profiles: repo, engineFor: engineFor);
+      final cubit = IntakeCubit(
+        profiles: repo,
+        engineFor: engineFor,
+        deviceCountryIso: 'SA',
+      );
       addTearDown(cubit.close);
       expect(cubit.state.step, isA<DoneStep>());
     });
@@ -159,16 +174,39 @@ void main() {
       expect(saved('marital_status'), isNull);
     });
 
-    test('a sample answer fills inputs that are not built yet', () async {
-      final cubit = await build(answers: answeredUntil('country'));
-      await cubit.useSampleAnswer();
-      expect(saved('country'), CountryAnswer('SA'));
+    test('multi-select: saved as ids plus own entries', () async {
+      final cubit = await build(answers: answeredUntil('languages'));
+      await cubit.submit(
+        MultiAnswer(['arabic', 'english'], custom: ['Tigrinya']),
+      );
+      expect(
+        saved('languages'),
+        MultiAnswer(['arabic', 'english'], custom: ['Tigrinya']),
+      );
+    });
+
+    test('multi-select: nothing picked is rejected', () async {
+      final cubit = await build(answers: answeredUntil('languages'));
+      await cubit.submit(MultiAnswer([]));
+      expect(cubit.state.invalid, InvalidReason.empty);
+    });
+
+    test('a second nationality can be "No" or a country', () async {
+      final cubit = await build(answers: answeredUntil('second_nationality'));
+      await cubit.submit(const NoneAnswer());
+      expect(saved('second_nationality'), const NoneAnswer());
+      cubit.back();
+      await cubit.submit(CountryAnswer('EG'));
+      expect(saved('second_nationality'), CountryAnswer('EG'));
     });
 
     test('a failed save is reported and the question stays', () async {
       final repo = _FailingProfiles(profileAt(OnboardingStage.needsIntake));
-      final cubit = IntakeCubit(profiles: repo, engineFor: engineFor)
-        ..continueToQuestion();
+      final cubit = IntakeCubit(
+        profiles: repo,
+        engineFor: engineFor,
+        deviceCountryIso: 'SA',
+      )..continueToQuestion();
       addTearDown(cubit.close);
       await cubit.submitText('Sara');
       expect(cubit.state.saveFailed, isTrue);
@@ -182,7 +220,7 @@ void main() {
       final cubit = await build(answers: all.remove(last.key));
       expect(questionKey(cubit), last.key);
 
-      await cubit.useSampleAnswer();
+      await answerSample(cubit);
       expect(cubit.state.step, isA<DoneStep>());
       expect(profiles.current!.progress.intakeDoneAt, now);
     });
@@ -196,7 +234,7 @@ void main() {
       expect(cubit.state.reply, const NameReply());
       await cubit.submitNumber('29');
       expect(cubit.state.reply, const GeneralReply(0));
-      await cubit.useSampleAnswer(); // country
+      await cubit.submit(CountryAnswer('SA'));
       expect(cubit.state.reply, const GeneralReply(1));
     });
 
@@ -210,11 +248,59 @@ void main() {
       final cubit = await build(answers: before.remove(lastOfChapter1.key));
       expect(questionKey(cubit), lastOfChapter1.key);
 
-      await cubit.useSampleAnswer();
+      await answerSample(cubit);
       expect(cubit.state.step, isA<ChapterIntroStep>());
       cubit.continueToQuestion();
       expect(questionKey(cubit), 'religious_commitment');
       expect(cubit.state.reply, isNull);
+    });
+  });
+
+  group('suggestions', () {
+    test('"Where do you live?" suggests the phone country', () async {
+      final cubit = await build(answers: answeredUntil('country'));
+      expect(cubit.state.suggestedCountry, 'AE');
+    });
+
+    test('nationality suggests the country of residence', () async {
+      final cubit = await build(answers: answeredUntil('country'));
+      await cubit.submit(CountryAnswer('EG'));
+      expect(questionKey(cubit), 'city');
+      await cubit.submitText('Cairo');
+      expect(questionKey(cubit), 'nationality');
+      expect(cubit.state.suggestedCountry, 'EG');
+    });
+
+    test('coming back suggests the earlier answer', () async {
+      final cubit = await build(answers: answeredUntil('city'));
+      // The sample answer for "Where do you live?" is Saudi Arabia.
+      cubit.back();
+      expect(cubit.state.suggestedCountry, 'SA');
+    });
+
+    test('a second nationality has no suggestion until answered', () async {
+      final cubit = await build(answers: answeredUntil('second_nationality'));
+      expect(cubit.state.suggestedCountry, isNull);
+    });
+
+    test('partner age starts around the user age', () async {
+      final answers = answeredUntil('partner_age'); // age 30, woman
+      final cubit = await build(answers: answers)
+        ..continueToQuestion(); // past chapter 4's intro
+      expect(questionKey(cubit), 'partner_age');
+      expect(
+        cubit.state.suggestedRange,
+        engineFor(Gender.female).suggestedRange('partner_age', answers),
+      );
+      await cubit.submit(RangeAnswer(28, 36));
+      cubit.back();
+      expect(cubit.state.suggestedRange, RangeAnswer(28, 36));
+    });
+
+    test('other questions have no suggestions', () async {
+      final cubit = await build(answers: answeredUntil('age'));
+      expect(cubit.state.suggestedCountry, isNull);
+      expect(cubit.state.suggestedRange, isNull);
     });
   });
 

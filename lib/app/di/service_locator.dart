@@ -109,6 +109,7 @@ Future<void> setupServiceLocator() async {
     () => IntakeCubit(
       profiles: getIt(),
       engineFor: getIt<OnboardingStageResolver>().engineFor,
+      deviceCountryIso: deviceCountry().iso2,
     ),
   );
 }

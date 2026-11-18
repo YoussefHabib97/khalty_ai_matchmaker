@@ -416,18 +416,6 @@ abstract class AppLocalizations {
   /// **'{count} left'**
   String intakeQuestionsLeft(int count);
 
-  /// TEMPORARY until step 9: shown on questions whose input is not built yet.
-  ///
-  /// In en, this message translates to:
-  /// **'This kind of answer is coming in the next update.'**
-  String get intakeComingSoon;
-
-  /// TEMPORARY until step 9: answers the question with a sample answer.
-  ///
-  /// In en, this message translates to:
-  /// **'Use a sample answer'**
-  String get intakeUseSample;
-
   /// Answer error: nothing typed. Arabic needs review.
   ///
   /// In en, this message translates to:
@@ -469,6 +457,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t save your answer. Please try again.'**
   String get answerSaveFailed;
+
+  /// Questionnaire: confirm the suggested country. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get answerYes;
+
+  /// Questionnaire: no second nationality. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get answerNo;
+
+  /// Questionnaire: the suggested country is wrong, open the country list. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'No, another country'**
+  String get countryNoOther;
+
+  /// Questionnaire: has a second nationality, open the country list. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, choose the country'**
+  String get countryYesChoose;
+
+  /// Questionnaire: the chosen second nationality. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes: {country}'**
+  String countryYesChosen(String country);
+
+  /// Questionnaire: limit on a multi-select question. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'You can pick up to {max} ({left} left)'**
+  String multiPickUpTo(int max, int left);
+
+  /// Questionnaire: field to type an answer that is not in the list. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your own'**
+  String get multiAddOwn;
+
+  /// Answer error: nothing picked on a multi-select. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Please pick at least one.'**
+  String get answerPickOne;
+
+  /// Questionnaire: the chosen partner age range. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'{min} to {max} years'**
+  String rangeYears(int min, int max);
 }
 
 class _AppLocalizationsDelegate

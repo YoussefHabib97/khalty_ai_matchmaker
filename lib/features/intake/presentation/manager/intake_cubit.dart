@@ -8,7 +8,6 @@ import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/answ
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/engine_results.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/field_keys.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/questionnaire_config.dart';
-import 'package:khalty_ai_matchmaker/features/questionnaire/domain/services/questionnaire_autofill.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/services/questionnaire_engine.dart';
 
 /// ViewModel for the questionnaire: one question at a time, with Khalty's
@@ -23,28 +22,37 @@ class IntakeCubit extends Cubit<IntakeState> {
   IntakeCubit({
     required ProfileRepository profiles,
     required QuestionnaireEngine Function(Gender gender) engineFor,
+    required String deviceCountryIso,
     DateTime Function()? now,
   }) : this._(
          profiles,
          // Without a profile (signed out meanwhile) any engine will do: the
          // screen shows DoneStep and the router is about to leave it.
          engineFor(profiles.current?.gender ?? Gender.female),
+         deviceCountryIso,
          now ?? DateTime.now,
        );
 
-  IntakeCubit._(this._profiles, this._engine, this._now)
-    : super(_initialState(_engine, _profiles.current?.answers));
+  IntakeCubit._(this._profiles, this._engine, this._deviceCountry, this._now)
+    : super(_initialState(_engine, _profiles.current?.answers, _deviceCountry));
 
   final ProfileRepository _profiles;
 
   /// The rules for this user's gender.
   final QuestionnaireEngine _engine;
+
+  /// The phone's country (ISO code), suggested for "Where do you live?".
+  final String _deviceCountry;
   final DateTime Function() _now;
 
   /// How many general replies were shown, so they cycle in order.
   int _replies = 0;
 
-  static IntakeState _initialState(QuestionnaireEngine engine, Answers? saved) {
+  static IntakeState _initialState(
+    QuestionnaireEngine engine,
+    Answers? saved,
+    String deviceCountry,
+  ) {
     final answers = saved ?? Answers();
     final next = saved == null ? null : engine.nextField(answers);
     final IntakeStep step;
@@ -55,13 +63,57 @@ class IntakeCubit extends Cubit<IntakeState> {
     } else {
       step = _arrive(engine, next, answers);
     }
+    return _stateFor(engine, step, answers, deviceCountry);
+  }
+
+  /// A fresh state showing [step] (no error, no reply unless given).
+  static IntakeState _stateFor(
+    QuestionnaireEngine engine,
+    IntakeStep step,
+    Answers answers,
+    String deviceCountry, {
+    IntakeReply? reply,
+  }) {
+    final field = switch (step) {
+      QuestionStep(:final field) => field,
+      _ => null,
+    };
     return IntakeState(
       step: step,
       answers: answers,
       progress: engine.progress(answers),
       gender: engine.gender,
       config: engine.config,
+      reply: reply,
+      suggestedCountry: field != null && field.input.isCountry
+          ? _suggestCountry(engine, field, answers, deviceCountry)
+          : null,
+      suggestedRange: field != null && field.input == InputType.range
+          ? switch (answers[field.key]) {
+              final RangeAnswer earlier => earlier,
+              _ =>
+                engine.suggestedRange(field.key, answers) ??
+                    RangeAnswer(field.min!, field.max!),
+            }
+          : null,
     );
+  }
+
+  static String? _suggestCountry(
+    QuestionnaireEngine engine,
+    FieldDef field,
+    Answers answers,
+    String deviceCountry,
+  ) {
+    if (answers[field.key] case CountryAnswer(:final iso2)) return iso2;
+    if (field.input == InputType.countryOptional) return null;
+    if (field.key == FieldKeys.nationality) {
+      if (engine.effective(FieldKeys.country, answers)?.value
+          case CountryAnswer(:final iso2)) {
+        return iso2;
+      }
+    }
+    return deviceCountry;
   }
 
   // --- events from the view ---------------------------------------------------
@@ -76,7 +128,7 @@ class IntakeCubit extends Cubit<IntakeState> {
   }
 
   /// A typed answer to a text question.
-  Future<void> submitText(String text) => _answer(TextAnswer(text));
+  Future<void> submitText(String text) => submit(TextAnswer(text));
 
   /// A typed answer to a number question, in any digits (29, ٢٩, ۲۹).
   Future<void> submitNumber(String text) async {
@@ -92,24 +144,14 @@ class IntakeCubit extends Cubit<IntakeState> {
       );
       return;
     }
-    await _answer(NumberAnswer(number));
+    await submit(NumberAnswer(number));
   }
 
   /// A tapped option of a choice question.
-  Future<void> choose(String optionId) => _answer(ChoiceAnswer(optionId));
+  Future<void> choose(String optionId) => submit(ChoiceAnswer(optionId));
 
   /// Skip, on optional questions only.
-  Future<void> skip() => _answer(const SkippedAnswer());
-
-  /// TEMPORARY (until step 9 builds these inputs): answers a country,
-  /// multi-select or range question with a simple valid answer.
-  Future<void> useSampleAnswer() async {
-    if (state.step case QuestionStep(:final field)) {
-      await _answer(
-        QuestionnaireAutofill.defaultAnswer(_engine, field, state.answers),
-      );
-    }
-  }
+  Future<void> skip() => submit(const SkippedAnswer());
 
   /// The user edited their typed answer: hide the error.
   void draftChanged() {
@@ -131,9 +173,9 @@ class IntakeCubit extends Cubit<IntakeState> {
     _go(previous == null ? GreetingStep(current) : QuestionStep(previous));
   }
 
-  // --- internals --------------------------------------------------------------
-
-  Future<void> _answer(AnswerValue value) async {
+  /// Answers the current question with [value] (multi-select, range,
+  /// country...): validated by the engine, saved, then on to the next step.
+  Future<void> submit(AnswerValue value) async {
     final field = switch (state.step) {
       QuestionStep(:final field) => field,
       _ => null,
@@ -173,6 +215,8 @@ class IntakeCubit extends Cubit<IntakeState> {
     _go(step, answers: answers, reply: reply);
   }
 
+  // --- internals --------------------------------------------------------------
+
   /// The step for arriving at [next]: its chapter's intro first, when it
   /// starts a new chapter that has one.
   static IntakeStep _arrive(
@@ -207,19 +251,15 @@ class IntakeCubit extends Cubit<IntakeState> {
     }
   }
 
-  void _go(IntakeStep step, {Answers? answers, IntakeReply? reply}) {
-    final all = answers ?? state.answers;
-    _emit(
-      IntakeState(
-        step: step,
-        answers: all,
-        progress: _engine.progress(all),
-        gender: state.gender,
-        config: state.config,
-        reply: reply,
-      ),
-    );
-  }
+  void _go(IntakeStep step, {Answers? answers, IntakeReply? reply}) => _emit(
+    _stateFor(
+      _engine,
+      step,
+      answers ?? state.answers,
+      _deviceCountry,
+      reply: reply,
+    ),
+  );
 
   void _emit(IntakeState next) {
     if (!isClosed) emit(next);

@@ -23,7 +23,13 @@ String invalidAnswerText(
     return text.resolve(language, gender);
   }
   return switch (reason) {
+    InvalidReason.empty when field.input == InputType.multi =>
+      l10n.answerPickOne,
     InvalidReason.empty => l10n.answerRequired,
+    InvalidReason.tooManyPicks when field.maxPick != null => l10n.multiPickUpTo(
+      field.maxPick!,
+      0,
+    ),
     InvalidReason.tooLong => l10n.answerTooLong(
       QuestionnaireEngine.maxTextLength,
     ),

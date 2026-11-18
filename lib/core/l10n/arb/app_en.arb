@@ -154,10 +154,6 @@
     "description": "Questionnaire progress: questions still to answer. Arabic needs review.",
     "placeholders": { "count": { "type": "int" } }
   },
-  "intakeComingSoon": "This kind of answer is coming in the next update.",
-  "@intakeComingSoon": { "description": "TEMPORARY until step 9: shown on questions whose input is not built yet." },
-  "intakeUseSample": "Use a sample answer",
-  "@intakeUseSample": { "description": "TEMPORARY until step 9: answers the question with a sample answer." },
 
   "answerRequired": "Please answer to continue.",
   "@answerRequired": { "description": "Answer error: nothing typed. Arabic needs review." },
@@ -178,5 +174,33 @@
   "answerInvalid": "This answer can't be accepted. Please try again.",
   "@answerInvalid": { "description": "Answer error: any other problem. Arabic needs review." },
   "answerSaveFailed": "Couldn't save your answer. Please try again.",
-  "@answerSaveFailed": { "description": "Questionnaire: saving the answer failed. Arabic needs review." }
+  "@answerSaveFailed": { "description": "Questionnaire: saving the answer failed. Arabic needs review." },
+
+  "answerYes": "Yes",
+  "@answerYes": { "description": "Questionnaire: confirm the suggested country. Arabic needs review." },
+  "answerNo": "No",
+  "@answerNo": { "description": "Questionnaire: no second nationality. Arabic needs review." },
+  "countryNoOther": "No, another country",
+  "@countryNoOther": { "description": "Questionnaire: the suggested country is wrong, open the country list. Arabic needs review." },
+  "countryYesChoose": "Yes, choose the country",
+  "@countryYesChoose": { "description": "Questionnaire: has a second nationality, open the country list. Arabic needs review." },
+  "countryYesChosen": "Yes: {country}",
+  "@countryYesChosen": {
+    "description": "Questionnaire: the chosen second nationality. Arabic needs review.",
+    "placeholders": { "country": { "type": "String" } }
+  },
+  "multiPickUpTo": "You can pick up to {max} ({left} left)",
+  "@multiPickUpTo": {
+    "description": "Questionnaire: limit on a multi-select question. Arabic needs review.",
+    "placeholders": { "max": { "type": "int" }, "left": { "type": "int" } }
+  },
+  "multiAddOwn": "Add your own",
+  "@multiAddOwn": { "description": "Questionnaire: field to type an answer that is not in the list. Arabic needs review." },
+  "answerPickOne": "Please pick at least one.",
+  "@answerPickOne": { "description": "Answer error: nothing picked on a multi-select. Arabic needs review." },
+  "rangeYears": "{min} to {max} years",
+  "@rangeYears": {
+    "description": "Questionnaire: the chosen partner age range. Arabic needs review.",
+    "placeholders": { "min": { "type": "int" }, "max": { "type": "int" } }
+  }
 }

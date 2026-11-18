@@ -103,6 +103,8 @@ class IntakeState {
     required this.progress,
     required this.gender,
     required this.config,
+    this.suggestedCountry,
+    this.suggestedRange,
     this.reply,
     this.invalid,
     this.saveFailed = false,
@@ -120,6 +122,15 @@ class IntakeState {
 
   /// The questionnaire: chapters and Khalty's lines (greeting, replies).
   final QuestionnaireConfig config;
+
+  /// Country questions: the country to confirm (ISO code): the earlier
+  /// answer, else the country of residence (nationality) or the phone's
+  /// country. Fills `{detected}` / `{residence}` in the question.
+  final String? suggestedCountry;
+
+  /// Range questions: where the slider starts: the earlier answer, else
+  /// around the user's age.
+  final RangeAnswer? suggestedRange;
 
   /// Shown on a question reached by answering the previous one.
   final IntakeReply? reply;
@@ -150,6 +161,8 @@ class IntakeState {
     progress: progress,
     gender: gender,
     config: config,
+    suggestedCountry: suggestedCountry,
+    suggestedRange: suggestedRange,
     reply: reply,
     invalid: identical(invalid, _unset)
         ? this.invalid

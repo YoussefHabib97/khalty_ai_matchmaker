@@ -41,6 +41,7 @@ class IntakeIntroCard extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
+                  key: const Key('intakeIntroContinue'),
                   onPressed: onPressed,
                   child: Text(buttonLabel),
                 ),

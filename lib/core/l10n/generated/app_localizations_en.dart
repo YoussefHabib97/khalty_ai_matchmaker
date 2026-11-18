@@ -191,13 +191,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get intakeComingSoon =>
-      'This kind of answer is coming in the next update.';
-
-  @override
-  String get intakeUseSample => 'Use a sample answer';
-
-  @override
   String get answerRequired => 'Please answer to continue.';
 
   @override
@@ -223,4 +216,37 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get answerSaveFailed =>
       'Couldn\'t save your answer. Please try again.';
+
+  @override
+  String get answerYes => 'Yes';
+
+  @override
+  String get answerNo => 'No';
+
+  @override
+  String get countryNoOther => 'No, another country';
+
+  @override
+  String get countryYesChoose => 'Yes, choose the country';
+
+  @override
+  String countryYesChosen(String country) {
+    return 'Yes: $country';
+  }
+
+  @override
+  String multiPickUpTo(int max, int left) {
+    return 'You can pick up to $max ($left left)';
+  }
+
+  @override
+  String get multiAddOwn => 'Add your own';
+
+  @override
+  String get answerPickOne => 'Please pick at least one.';
+
+  @override
+  String rangeYears(int min, int max) {
+    return '$min to $max years';
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:khalty_ai_matchmaker/core/constants/countries.dart';
 import 'package:khalty_ai_matchmaker/core/l10n/l10n_extensions.dart';
 import 'package:khalty_ai_matchmaker/core/shared/layout/app_default_padding.dart';
 import 'package:khalty_ai_matchmaker/core/utils/extensions.dart';
@@ -9,14 +10,17 @@ import 'package:khalty_ai_matchmaker/features/intake/presentation/widgets/why_qu
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/answer_value.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/questionnaire_config.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/presentation/widgets/choice_answer_input.dart';
+import 'package:khalty_ai_matchmaker/features/questionnaire/presentation/widgets/country_answer_input.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/presentation/widgets/invalid_answer_text.dart';
-import 'package:khalty_ai_matchmaker/features/questionnaire/presentation/widgets/pending_answer_input.dart';
+import 'package:khalty_ai_matchmaker/features/questionnaire/presentation/widgets/multi_answer_input.dart';
+import 'package:khalty_ai_matchmaker/features/questionnaire/presentation/widgets/range_answer_input.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/presentation/widgets/typed_answer_input.dart';
 import 'package:material_ui/material_ui.dart';
 
 /// One question: Khalty's bubble, "Why this question?", the answer input and
-/// the Skip / Continue buttons. Give it a key per question so a typed draft
-/// starts fresh on each one.
+/// the Skip / Continue buttons. Give it a key per question so drafts (typed
+/// text, picked chips, slider) start fresh on each one; coming back to an
+/// answered question starts from the earlier answer.
 class QuestionStepBody extends StatefulWidget {
   const QuestionStepBody({super.key, required this.field, required this.state});
 
@@ -28,37 +32,55 @@ class QuestionStepBody extends StatefulWidget {
 }
 
 class _QuestionStepBodyState extends State<QuestionStepBody> {
-  late final TextEditingController _draft;
+  late final TextEditingController _text;
+  late List<String> _ids;
+  late List<String> _custom;
+  RangeAnswer? _range;
 
   FieldDef get _field => widget.field;
-  bool get _isTyped =>
-      _field.input == InputType.text || _field.input == InputType.number;
+  InputType get _input => _field.input;
+  bool get _isTyped => _input == InputType.text || _input == InputType.number;
+
+  /// Inputs answered with Continue (choices and countries answer on tap).
+  bool get _hasContinue =>
+      _isTyped || _input == InputType.multi || _input == InputType.range;
 
   @override
   void initState() {
     super.initState();
-    // Coming back to an answered question shows the earlier answer.
-    _draft = TextEditingController(
-      text: switch (widget.state.answers[_field.key]) {
+    final earlier = widget.state.answers[_field.key];
+    _text = TextEditingController(
+      text: switch (earlier) {
         TextAnswer(:final text) => text,
         NumberAnswer(:final value) => '$value',
         _ => '',
       },
     );
+    final multi = earlier is MultiAnswer ? earlier : null;
+    _ids = [...?multi?.optionIds];
+    _custom = [...?multi?.custom];
+    _range = widget.state.suggestedRange;
   }
 
   @override
   void dispose() {
-    _draft.dispose();
+    _text.dispose();
     super.dispose();
   }
 
   void _submit() {
     final cubit = context.read<IntakeCubit>();
-    if (_field.input == InputType.number) {
-      cubit.submitNumber(_draft.text);
-    } else {
-      cubit.submitText(_draft.text);
+    switch (_input) {
+      case InputType.number:
+        cubit.submitNumber(_text.text);
+      case InputType.text:
+        cubit.submitText(_text.text);
+      case InputType.multi:
+        cubit.submit(MultiAnswer(_ids, custom: _custom));
+      case InputType.range:
+        if (_range case final range?) cubit.submit(range);
+      case InputType.choice || InputType.country || InputType.countryOptional:
+        break; // answered on tap
     }
   }
 
@@ -69,8 +91,20 @@ class _QuestionStepBodyState extends State<QuestionStepBody> {
     final l10n = context.l10n;
     final language = context.appLanguage;
     final colors = Theme.of(context).colorScheme;
-    final vars = {'name': ?state.name};
     final script = state.config.script;
+    final suggested = switch (state.suggestedCountry) {
+      final iso? => countryByIso(iso),
+      null => null,
+    };
+    final vars = {
+      'name': ?state.name,
+      // The country being confirmed: "Are you living in {detected}?",
+      // "Is your nationality {residence}?".
+      if (suggested != null) ...{
+        'detected': suggested.name(language),
+        'residence': suggested.name(language),
+      },
+    };
 
     final reply = switch (state.reply) {
       NameReply() => script.nameAck.resolve(language, state.gender, vars: vars),
@@ -94,11 +128,24 @@ class _QuestionStepBodyState extends State<QuestionStepBody> {
             null => null,
           };
     final enabled = !state.isSaving;
+    // A confirm-style country question with nothing to confirm asks
+    // "Which country…?" straight away.
+    final question =
+        _input == InputType.country &&
+            suggested == null &&
+            _field.questionPick != null
+        ? _field.questionPick!
+        : _field.question;
+    final pickTitle = (_field.questionPick ?? _field.question).resolve(
+      language,
+      state.gender,
+      vars: vars,
+    );
 
-    final Widget input = switch (_field.input) {
+    final Widget input = switch (_input) {
       InputType.text || InputType.number => TypedAnswerInput(
-        controller: _draft,
-        numeric: _field.input == InputType.number,
+        controller: _text,
+        numeric: _input == InputType.number,
         enabled: enabled,
         errorText: error,
         onChanged: (_) => cubit.draftChanged(),
@@ -115,9 +162,38 @@ class _QuestionStepBodyState extends State<QuestionStepBody> {
         },
         onSelected: cubit.choose,
       ),
-      // TEMPORARY until step 9.
-      _ => PendingAnswerInput(
-        onUseSample: enabled ? cubit.useSampleAnswer : null,
+      InputType.multi => MultiAnswerInput(
+        options: _field.optionsFor(state.gender),
+        language: language,
+        gender: state.gender,
+        selectedIds: _ids,
+        custom: _custom,
+        maxPick: _field.maxPick,
+        allowText: _field.allowText,
+        enabled: enabled,
+        onChanged: (ids, custom) {
+          setState(() {
+            _ids = ids;
+            _custom = custom;
+          });
+          cubit.draftChanged();
+        },
+      ),
+      InputType.range => RangeAnswerInput(
+        value: _range!,
+        min: _field.min!,
+        max: _field.max!,
+        enabled: enabled,
+        onChanged: (range) => setState(() => _range = range),
+      ),
+      InputType.country || InputType.countryOptional => CountryAnswerInput(
+        suggested: suggested,
+        optional: _input == InputType.countryOptional,
+        noneSelected: state.answers[_field.key] is NoneAnswer,
+        pickTitle: pickTitle,
+        enabled: enabled,
+        onCountry: (iso) => cubit.submit(CountryAnswer(iso)),
+        onNone: () => cubit.submit(const NoneAnswer()),
       ),
     };
 
@@ -131,11 +207,7 @@ class _QuestionStepBodyState extends State<QuestionStepBody> {
                 children: [
                   KhaltyBubble(
                     reply: reply,
-                    text: _field.question.resolve(
-                      language,
-                      state.gender,
-                      vars: vars,
-                    ),
+                    text: question.resolve(language, state.gender, vars: vars),
                   ),
                   Align(
                     alignment: AlignmentDirectional.centerEnd,
@@ -164,18 +236,20 @@ class _QuestionStepBodyState extends State<QuestionStepBody> {
             ),
           ),
         ),
-        if (_isTyped || _field.optional)
+        if (_hasContinue || _field.optional)
           DefaultPadding(
             child: Row(
               children: [
                 if (_field.optional)
                   TextButton(
+                    key: const Key('intakeSkip'),
                     onPressed: enabled ? cubit.skip : null,
                     child: Text(l10n.intakeSkip),
                   ),
                 const Spacer(),
-                if (_isTyped)
+                if (_hasContinue)
                   FilledButton(
+                    key: const Key('intakeContinue'),
                     onPressed: enabled ? _submit : null,
                     child: Text(l10n.intakeContinue),
                   ),

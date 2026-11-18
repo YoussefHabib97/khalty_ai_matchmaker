@@ -190,13 +190,6 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get intakeComingSoon =>
-      'هذا النوع من الإجابات قادم في التحديث القادم.';
-
-  @override
-  String get intakeUseSample => 'استخدام إجابة تجريبية';
-
-  @override
   String get answerRequired => 'الإجابة مطلوبة للمتابعة.';
 
   @override
@@ -221,4 +214,37 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get answerSaveFailed => 'تعذّر حفظ الإجابة، يُرجى المحاولة مرة أخرى.';
+
+  @override
+  String get answerYes => 'نعم';
+
+  @override
+  String get answerNo => 'لا';
+
+  @override
+  String get countryNoOther => 'لا، دولة أخرى';
+
+  @override
+  String get countryYesChoose => 'نعم، اختيار الدولة';
+
+  @override
+  String countryYesChosen(String country) {
+    return 'نعم: $country';
+  }
+
+  @override
+  String multiPickUpTo(int max, int left) {
+    return 'يمكن اختيار $max كحد أقصى (المتبقي: $left)';
+  }
+
+  @override
+  String get multiAddOwn => 'إضافة إجابة أخرى';
+
+  @override
+  String get answerPickOne => 'يُرجى اختيار إجابة واحدة على الأقل.';
+
+  @override
+  String rangeYears(int min, int max) {
+    return 'من $min إلى $max سنة';
+  }
 }

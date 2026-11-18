@@ -64,8 +64,6 @@
   "intakeWhyThisQuestion": "لماذا هذا السؤال؟",
   "intakeChapterOf": "الجزء {current} من {total}",
   "intakeQuestionsLeft": "المتبقي: {count}",
-  "intakeComingSoon": "هذا النوع من الإجابات قادم في التحديث القادم.",
-  "intakeUseSample": "استخدام إجابة تجريبية",
 
   "answerRequired": "الإجابة مطلوبة للمتابعة.",
   "answerTooLong": "يجب ألا تزيد الإجابة على {max} حرفًا.",
@@ -73,5 +71,15 @@
   "answerNumberBetween": "يجب أن يكون الرقم بين {min} و{max}.",
   "answerNumberRequired": "يجب أن تكون الإجابة رقمًا.",
   "answerInvalid": "تعذّر قبول هذه الإجابة، يُرجى المحاولة مرة أخرى.",
-  "answerSaveFailed": "تعذّر حفظ الإجابة، يُرجى المحاولة مرة أخرى."
+  "answerSaveFailed": "تعذّر حفظ الإجابة، يُرجى المحاولة مرة أخرى.",
+
+  "answerYes": "نعم",
+  "answerNo": "لا",
+  "countryNoOther": "لا، دولة أخرى",
+  "countryYesChoose": "نعم، اختيار الدولة",
+  "countryYesChosen": "نعم: {country}",
+  "multiPickUpTo": "يمكن اختيار {max} كحد أقصى (المتبقي: {left})",
+  "multiAddOwn": "إضافة إجابة أخرى",
+  "answerPickOne": "يُرجى اختيار إجابة واحدة على الأقل.",
+  "rangeYears": "من {min} إلى {max} سنة"
 }
