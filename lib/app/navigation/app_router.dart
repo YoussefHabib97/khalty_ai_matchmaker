@@ -20,7 +20,10 @@ import 'package:khalty_ai_matchmaker/features/intake/presentation/views/self_int
 import 'package:khalty_ai_matchmaker/features/khalty_chat/presentation/views/khalty_tab_view.dart';
 import 'package:khalty_ai_matchmaker/features/matches/presentation/views/matches_tab_view.dart';
 import 'package:khalty_ai_matchmaker/features/onboarding/presentation/views/welcome_view.dart';
+import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/me_cubit.dart';
 import 'package:khalty_ai_matchmaker/features/profile/presentation/views/me_view.dart';
+import 'package:khalty_ai_matchmaker/features/settings/presentation/manager/account_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/settings/presentation/views/settings_view.dart';
 import 'package:material_ui/material_ui.dart';
 
 /// Builds the app's router. Created once by the service locator. Each
@@ -34,8 +37,13 @@ GoRouter createAppRouter(
   required IntakeCubit Function() intakeCubit,
   required SelfIntroCubit Function() selfIntroCubit,
   required ReviewCubit Function() reviewCubit,
+  required MeCubit Function() meCubit,
+  required AccountCubit Function() accountCubit,
   DebugStageActions? debug,
 }) {
+  // Screens pushed over the bottom navigation use the root navigator.
+  final rootNavigator = GlobalKey<NavigatorState>();
+
   Widget page(Widget child) =>
       debug == null ? child : DebugStagePanel(actions: debug, child: child);
 
@@ -50,6 +58,7 @@ GoRouter createAppRouter(
   );
 
   return GoRouter(
+    navigatorKey: rootNavigator,
     initialLocation: homeForStage(session.state.stage),
     refreshListenable: StreamListenable(session.stream),
     redirect: (context, state) =>
@@ -110,13 +119,37 @@ GoRouter createAppRouter(
             (AppRoutes.khalty, const KhaltyTabView()),
             (AppRoutes.matches, const MatchesTabView()),
             (AppRoutes.chats, const ChatsTabView()),
-            (AppRoutes.me, const MeView()),
           ])
             StatefulShellBranch(
               routes: [
                 GoRoute(path: path, builder: (context, state) => screen),
               ],
             ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.me,
+                builder: (context, state) => BlocProvider(
+                  create: (_) => meCubit(),
+                  child: MeView(
+                    onOpenSettings: () => context.push(AppRoutes.settings),
+                  ),
+                ),
+                routes: [
+                  GoRoute(
+                    path: 'settings',
+                    parentNavigatorKey: rootNavigator,
+                    builder: (context, state) => page(
+                      BlocProvider(
+                        create: (_) => accountCubit(),
+                        child: const SettingsView(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ],
       ),
     ],

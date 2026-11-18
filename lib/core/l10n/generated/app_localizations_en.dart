@@ -300,4 +300,96 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get writtenInArabic => 'Written in Arabic';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String knowsYou(int percent) {
+    return 'Khalty knows you $percent%';
+  }
+
+  @override
+  String get hintQuestions =>
+      'Answer the new questions so I can find better matches.';
+
+  @override
+  String get hintIntroduction =>
+      'Tell me about yourself in your own words and I can introduce you better.';
+
+  @override
+  String get hintAboutMe => 'A short \"About me\" makes your card clearer.';
+
+  @override
+  String get hintPhoto => 'You can add a photo whenever you are ready.';
+
+  @override
+  String get hintOptional =>
+      'Answering the optional questions helps me know you better.';
+
+  @override
+  String get hintComplete => 'I know you well 🌸';
+
+  @override
+  String ageYears(int age) {
+    return '$age years';
+  }
+
+  @override
+  String get comingSoon => 'Coming soon';
+
+  @override
+  String get meEditProfile => 'Edit my profile';
+
+  @override
+  String get mePreview => 'See how Khalty presents you';
+
+  @override
+  String get meAboutMe => 'About me';
+
+  @override
+  String get meNoAboutMe => 'Not added yet.';
+
+  @override
+  String get settingsAppearance => 'Appearance';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeSystem => 'System';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
+  String get settingsAccount => 'Account';
+
+  @override
+  String signedInAs(String phone) {
+    return 'Signed in as $phone';
+  }
+
+  @override
+  String get pauseProfile => 'Pause my profile';
+
+  @override
+  String get pauseProfileHint =>
+      'Hide your profile from new matches. Coming soon.';
+
+  @override
+  String get signOut => 'Sign out';
+
+  @override
+  String get signOutConfirmTitle => 'Sign out?';
+
+  @override
+  String get signOutConfirmBody =>
+      'For now your answers are saved only on this phone, so signing out deletes them.';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get deleteAccount => 'Delete my account';
 }

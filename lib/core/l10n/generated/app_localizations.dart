@@ -607,6 +607,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Written in Arabic'**
   String get writtenInArabic;
+
+  /// Settings screen title and the Me tab button that opens it. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// Me tab: how complete the profile is. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Khalty knows you {percent}%'**
+  String knowsYou(int percent);
+
+  /// Me tab hint: questions without an answer. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer the new questions so I can find better matches.'**
+  String get hintQuestions;
+
+  /// Me tab hint: the self-introduction was skipped. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell me about yourself in your own words and I can introduce you better.'**
+  String get hintIntroduction;
+
+  /// Me tab hint: no bio. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'A short \"About me\" makes your card clearer.'**
+  String get hintAboutMe;
+
+  /// Me tab hint: no photo. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'You can add a photo whenever you are ready.'**
+  String get hintPhoto;
+
+  /// Me tab hint: optional questions were skipped. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Answering the optional questions helps me know you better.'**
+  String get hintOptional;
+
+  /// Me tab: profile is 100% complete. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'I know you well 🌸'**
+  String get hintComplete;
+
+  /// Me tab: the user's age. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'{age} years'**
+  String ageYears(int age);
+
+  /// Subtitle of features not built yet. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get comingSoon;
+
+  /// Me tab: opens profile editing. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit my profile'**
+  String get meEditProfile;
+
+  /// Me tab: opens the card preview. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'See how Khalty presents you'**
+  String get mePreview;
+
+  /// Me tab: the bio card title. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'About me'**
+  String get meAboutMe;
+
+  /// Me tab: no bio yet. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Not added yet.'**
+  String get meNoAboutMe;
+
+  /// Settings section: theme. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get settingsAppearance;
+
+  /// Theme option. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get themeLight;
+
+  /// Theme option: follow the phone. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get themeSystem;
+
+  /// Theme option. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get themeDark;
+
+  /// Settings section: account. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get settingsAccount;
+
+  /// Settings: the signed-in phone number. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed in as {phone}'**
+  String signedInAs(String phone);
+
+  /// Settings: hide the profile from new matches (not built yet). Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause my profile'**
+  String get pauseProfile;
+
+  /// Settings: subtitle of the pause switch. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide your profile from new matches. Coming soon.'**
+  String get pauseProfileHint;
+
+  /// Settings: sign out button and dialog action. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out'**
+  String get signOut;
+
+  /// Sign-out confirmation title. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out?'**
+  String get signOutConfirmTitle;
+
+  /// Sign-out confirmation: local data is deleted (no backend yet). Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'For now your answers are saved only on this phone, so signing out deletes them.'**
+  String get signOutConfirmBody;
+
+  /// Dialog cancel button. Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// Settings: delete the account (not built yet). Arabic needs review.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete my account'**
+  String get deleteAccount;
 }
 
 class _AppLocalizationsDelegate

@@ -14,6 +14,8 @@ import 'package:khalty_ai_matchmaker/features/khalty_ai/domain/repos/khalty_ai_r
 import 'package:khalty_ai_matchmaker/features/onboarding/domain/services/onboarding_stage_resolver.dart';
 import 'package:khalty_ai_matchmaker/features/profile/data/repos/local_profile_repository.dart';
 import 'package:khalty_ai_matchmaker/features/profile/domain/repos/profile_repository.dart';
+import 'package:khalty_ai_matchmaker/features/profile/presentation/manager/me_cubit.dart';
+import 'package:khalty_ai_matchmaker/features/settings/presentation/manager/account_cubit.dart';
 import 'package:khalty_ai_matchmaker/core/utils/shared_preferences.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/data/repos/asset_questionnaire_repository.dart';
 import 'package:khalty_ai_matchmaker/features/questionnaire/domain/entities/questionnaire_config.dart';
@@ -47,6 +49,8 @@ void main() {
       isFalse,
     );
     expect(identical(getIt<ReviewCubit>(), getIt<ReviewCubit>()), isFalse);
+    expect(identical(getIt<MeCubit>(), getIt<MeCubit>()), isFalse);
+    expect(identical(getIt<AccountCubit>(), getIt<AccountCubit>()), isFalse);
   });
 
   test('repositories are registered by interface', () {

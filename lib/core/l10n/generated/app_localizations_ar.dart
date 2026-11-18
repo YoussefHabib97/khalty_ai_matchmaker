@@ -297,4 +297,95 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get writtenInArabic => 'مكتوب بالعربية';
+
+  @override
+  String get settingsTitle => 'الإعدادات';
+
+  @override
+  String knowsYou(int percent) {
+    return 'خالتي تعرفك بنسبة $percent%';
+  }
+
+  @override
+  String get hintQuestions =>
+      'الإجابة عن الأسئلة الجديدة تساعدني على إيجاد ترشيحات أفضل.';
+
+  @override
+  String get hintIntroduction =>
+      'تعريفك بنفسك بكلماتك يساعدني على تقديمك بشكل أفضل.';
+
+  @override
+  String get hintAboutMe => 'نبذة قصيرة عنك تجعل بطاقتك أوضح.';
+
+  @override
+  String get hintPhoto => 'يمكن إضافة صورة متى شئت.';
+
+  @override
+  String get hintOptional =>
+      'الإجابة عن الأسئلة الاختيارية تساعدني على معرفتك أكثر.';
+
+  @override
+  String get hintComplete => 'أعرفك جيدًا 🌸';
+
+  @override
+  String ageYears(int age) {
+    return '$age سنة';
+  }
+
+  @override
+  String get comingSoon => 'قريبًا';
+
+  @override
+  String get meEditProfile => 'تعديل ملفي';
+
+  @override
+  String get mePreview => 'كيف تقدّمك خالتي';
+
+  @override
+  String get meAboutMe => 'نبذة عني';
+
+  @override
+  String get meNoAboutMe => 'لم تُضف بعد.';
+
+  @override
+  String get settingsAppearance => 'المظهر';
+
+  @override
+  String get themeLight => 'فاتح';
+
+  @override
+  String get themeSystem => 'حسب الجهاز';
+
+  @override
+  String get themeDark => 'داكن';
+
+  @override
+  String get settingsAccount => 'الحساب';
+
+  @override
+  String signedInAs(String phone) {
+    return 'مسجّل الدخول برقم $phone';
+  }
+
+  @override
+  String get pauseProfile => 'إيقاف ملفي مؤقتًا';
+
+  @override
+  String get pauseProfileHint => 'إخفاء ملفك عن الترشيحات الجديدة. قريبًا.';
+
+  @override
+  String get signOut => 'تسجيل الخروج';
+
+  @override
+  String get signOutConfirmTitle => 'تسجيل الخروج؟';
+
+  @override
+  String get signOutConfirmBody =>
+      'إجاباتك محفوظة على هذا الجهاز فقط حاليًا، لذا سيؤدي تسجيل الخروج إلى حذفها.';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get deleteAccount => 'حذف حسابي';
 }

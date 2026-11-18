@@ -16,4 +16,7 @@ abstract final class AppRoutes {
   static const matches = '/home/matches';
   static const chats = '/home/chats';
   static const me = '/home/me';
+
+  /// Pushed over the tabs from Me.
+  static const settings = '/home/me/settings';
 }
